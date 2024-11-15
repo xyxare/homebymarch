@@ -40,6 +40,8 @@ namespace HomeByMarch
         [SerializeField] public int attackDamage = 10;
         [SerializeField] public int attackDelay = 10;
         [SerializeField] public int attackSpeed = 2;
+
+        [SerializeField] SpellStrategy[] spells;
         public LayerMask attackLayer;
 
         bool attacking = false;
@@ -147,11 +149,21 @@ namespace HomeByMarch
         void OnEnable()
         {
             input.Attack += OnAttack;
+            HeadsUpDisplay.OnButtonPressed += CastSpell;
         }
 
         void OnDisable()
         {
             input.Attack -= OnAttack;
+            HeadsUpDisplay.OnButtonPressed -= CastSpell;
+        }
+
+        void CastSpell(int index)
+        {
+            
+            spells[index].CastSpell(transform);
+            Debug.Log("spellcasted");
+       
         }
 
         void OnAttack()
