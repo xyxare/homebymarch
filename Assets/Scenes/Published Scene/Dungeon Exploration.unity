@@ -2700,6 +2700,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 4442469347137264330, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
+      propertyPath: m_ShowDebugText
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4442469347137264330, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
+      propertyPath: m_ShowCameraFrustum
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7474475973207613294, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalPosition.x
       value: 266.1155
@@ -5488,7 +5496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3097302667390794643, guid: 48dffe8e9b53298499762369d56b84cf, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 93.63002
+      value: 175
       objectReference: {fileID: 0}
     - target: {fileID: 3311113489830567329, guid: 48dffe8e9b53298499762369d56b84cf, type: 3}
       propertyPath: m_IsActive
@@ -19844,19 +19852,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1751990682}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 522983123}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1751990682
 MonoBehaviour:
   m_ObjectHideFlags: 0
