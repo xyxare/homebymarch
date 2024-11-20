@@ -21,7 +21,10 @@ EditorBuildSettings:
     path: Assets/Scenes/start-screen.unity
     guid: 09a453fd573c570459fab883ae3fe975
   - enabled: 1
-    path: Assets/Scenes/Main Menu 1.unity
+    path: Assets/Scenes/Published Scene/Exploration 5.unity
+    guid: 4843bc0b1e6e1d44495471f49b2b9bbf
+  - enabled: 0
+    path: Assets/Scenes/Published Scene/Main Menu 1.unity
     guid: 29ca59976eaa35b458cb70513f33a0e3
   - enabled: 0
     path: Assets/Scenes/Exploration(soundFix).unity
@@ -33,13 +36,13 @@ EditorBuildSettings:
     path: Assets/StepCounter/Demo/Demo2.unity
     guid: 8d6953350fbe0e74a9ec19275d0177c9
   - enabled: 1
-    path: Assets/Scenes/Exploration 4.unity
+    path: Assets/Scenes/Published Scene/Exploration 4.unity
     guid: fb04ab8a891bb0d41bf4361a49857a7b
   - enabled: 0
     path: Assets/Scenes/Gameplay.unity
     guid: 0d8512446d6aba047982bdc76fee7e14
   - enabled: 1
-    path: Assets/Scenes/Dungeon Exploration.unity
+    path: Assets/Scenes/Published Scene/Dungeon Exploration.unity
     guid: e37db4b74d542c5419064e809abb4685
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: a360dc757f746b4498c662f2210d31e7, type: 2}
