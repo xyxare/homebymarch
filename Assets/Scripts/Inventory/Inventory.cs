@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-[System.Serializable]
-public class Inventory : MonoBehaviour
+[CreateAssetMenu(menuName = "Inventory/New Inventory")]
+public class Inventory : ScriptableObject
 {
-   public ItemData[] itemlist;
+    // Changed the class to a Scriptable Object
+    public ItemData[] itemlist;
 }

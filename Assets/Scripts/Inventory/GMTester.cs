@@ -5,7 +5,6 @@ using UnityEngine.UI; // Required for Button
 
 public class GMTester : MonoBehaviour
 {
-    public DynamicInventoryDisplay display;
     public GameObject prefab; // Reference to the prefab or GameObject to toggle
     private bool isOpen;
 
@@ -23,25 +22,16 @@ public class GMTester : MonoBehaviour
     {
         isOpen = !isOpen;
 
-        // Toggle the inventory display
-        display.onDisplay(isOpen);
+        // Use GameManagers to display/hide inventory windows
+        GameManagers.instance.DisplayInventoryWindows(isOpen);
 
-        // Toggle the prefab's active state
+        // Toggle the prefab's active state (if any additional UI is tied to this toggle)
         if (prefab != null)
         {
             prefab.SetActive(isOpen);
         }
 
-        // Open/Close the inventory based on the state
-        if (isOpen)
-        {
-            // Set the game state to UI_Only when opening the inventory
-            GameManagers.instance.SetGameState(GameState.UI_Only);
-        }
-        else
-        {
-            // Set the game state to Game_Only when closing the inventory
-            GameManagers.instance.SetGameState(GameState.Game_Only);
-        }
+        // Debug log to confirm the toggle state
+        Debug.Log($"Inventory toggled: {(isOpen ? "Opened" : "Closed")}");
     }
 }

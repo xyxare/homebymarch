@@ -54,7 +54,6 @@ public class GameManagers : MonoBehaviour
 
             case GameState.UI_Only:
                 // Enable tooltip and unlock cursor for UI-only state
-                
                 cursorTooltip.followMouse = true;
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
@@ -65,44 +64,97 @@ public class GameManagers : MonoBehaviour
 
     private void Update()
     {
-        if (gameState == GameState.UI_Only && Input.touchCount > 0)
+        if (gameState != GameState.Game_Only) return; // Skip tooltip logic if not in Game_Only
+
+        if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
 
             switch (touch.phase)
             {
                 case TouchPhase.Began:
-                    // Start the touch timer when the touch begins
                     cursorTooltip.touchStartTime = Time.time;
                     break;
 
                 case TouchPhase.Moved:
-                    // If the touch is moving, don't show the tooltip (we treat it as a hold)
                     if (Time.time - cursorTooltip.touchStartTime > holdThreshold)
                     {
-                        cursorTooltip.HideTooltip(); // Hide the tooltip if the touch is a hold
+                        cursorTooltip.HideTooltip();
                     }
                     break;
 
                 case TouchPhase.Ended:
-                    // Check if the touch duration was short (a tap)
                     if (Time.time - cursorTooltip.touchStartTime <= holdThreshold)
                     {
                         if (!cursorTooltip.IsTouchInsideTooltip(touch.position))
                         {
-                            // Hide the tooltip if the touch is outside the tooltip area
                             cursorTooltip.HideTooltip();
                         }
                         else
                         {
-                            // Show the tooltip on tap (inside tooltip area)
-                            cursorTooltip.DisplayTooltip("Sample Item", "Sample Description", 100); // Replace with actual item data
+                            cursorTooltip.DisplayTooltip("Sample Item", "Sample Description", 100);
                         }
                     }
                     break;
             }
         }
     }
+
+
+    [Tooltip("For the Player's Backpack ~ Inventory Window(UI)")]
+    public DynamicInventoryDisplay playerInvDisplay;
+
+    [Tooltip("For any other inventory ~ Inventory Window(UI)")]
+    public DynamicInventoryDisplay publicAccessInvDisplay;
+
+    [Tooltip("For Equipment ~ Inventory Window(UI)")]
+    public EquipmentDisplay playerEquipDisplay;
+
+    public void DisplayInventoryWindows(bool display)
+    {
+        // Disable tooltip when opening inventory or switching to UI_Only
+        cursorTooltip.HideTooltip();
+        cursorTooltip.followMouse = false;
+
+        if (playerInvDisplay.inventoryHolder != null)
+        {
+            playerInvDisplay.onDisplay(display);
+            Debug.Log($"Player Inventory Display {(display ? "enabled" : "disabled")}");
+        }
+
+        if (publicAccessInvDisplay.inventoryHolder != null)
+        {
+            publicAccessInvDisplay.onDisplay(display);
+            Debug.Log($"Public Access Inventory Display {(display ? "enabled" : "disabled")}");
+        }
+
+        if (playerEquipDisplay.owner.data.equipment != null)
+        {
+            playerEquipDisplay.onDisplay(display);
+            Debug.Log($"Equipment Display {(display ? "enabled" : "disabled")}");
+        }
+        else
+        {
+            Debug.LogWarning("No equipment data found, Equipment Display will not be shown.");
+        }
+
+        // Reset the Public Display and return to game mode if display == false
+        if (!display)
+        {
+            publicAccessInvDisplay.inventoryHolder = null;
+            SetGameState(GameState.Game_Only);
+        }
+        else
+        {
+            SetGameState(GameState.UI_Only);
+        }
+    }
+
 }
 
-public enum GameState { UI_Only, Game_Only }
+[System.Serializable]
+public enum GameState
+{
+    UI_Only,
+    Game_Only
+}
