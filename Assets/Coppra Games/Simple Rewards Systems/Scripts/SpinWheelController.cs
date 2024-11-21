@@ -13,6 +13,8 @@ namespace CoppraGames
         {
             public Sprite icon;
             public int count;
+            public ItemSO itemSO;
+            
         }
 
         public RewardItem[] rewards;
@@ -138,7 +140,7 @@ namespace CoppraGames
                     ResultIcon.sprite = rewards[actualRewardIndex].icon;
                     ResultCount.text = "x" + rewards[actualRewardIndex].count.ToString();
 
-                    playerInventory.AddItem(items[actualRewardIndex], rewards[actualRewardIndex].count);
+                    playerInventory.AddItem(rewards[actualRewardIndex].itemSO, rewards[actualRewardIndex].count);
                     Debug.Log("Added item");
                 }
 

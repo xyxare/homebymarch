@@ -10,6 +10,8 @@ namespace CoppraGames
     {
         public Image Icon;
         public TextMeshProUGUI CountText;
+        [SerializeField]
+        public ItemSO itemSO;
 
         public void SetData(SpinWheelController.RewardItem reward)
         {

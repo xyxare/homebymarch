@@ -15,6 +15,7 @@ namespace CoppraGames
             public Sprite icon;
             public int count;
             public int day;
+            public ItemSO itemSO;
         }
 
         public GameObject ResultPanel;
@@ -22,6 +23,7 @@ namespace CoppraGames
         public TextMeshProUGUI ResultCount;
 
         public Button ClaimButton;
+        public InventoryObject playerInventory;
 
         public RewardData[] rewards;
         public DailyRewardItem[] rewardItemComponents;
@@ -116,8 +118,12 @@ namespace CoppraGames
 
                 if (rewards.Length > resultIndex)
                 {
-                    ResultIcon.sprite = rewards[resultIndex].icon;
-                    ResultCount.text = "x" + rewards[resultIndex].count.ToString();
+
+                    RewardData reward = rewards[resultIndex];
+                    ResultIcon.sprite = reward.icon;
+                    ResultCount.text = "x" + reward.count.ToString();
+                    playerInventory.AddItem(reward.itemSO, reward.count);
+
                 }
 
                 ResultPanel.GetComponent<Animator>().Play("clip");

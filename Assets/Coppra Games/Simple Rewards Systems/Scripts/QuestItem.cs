@@ -22,6 +22,7 @@ namespace CoppraGames
 
         public Image RewardIcon;
         public TextMeshProUGUI RewardCountText;
+        public ItemSO rewardItemSO;
 
         public GameObject GoButton;
         public GameObject ClaimButton;
@@ -79,6 +80,8 @@ namespace CoppraGames
                 {
                     RewardIcon.sprite = _quest.rewards.icon;
                     RewardCountText.text = _quest.rewards.count.ToString();
+                    rewardItemSO = _quest.rewards.itemSO;
+
                 }
 
                 int progress = QuestManager.instance.GetQuestValue(_quest.index);
