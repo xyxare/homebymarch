@@ -15,5 +15,6 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 2a5115d97b989f74da0995ffbcae33f5, type: 3}
   maxStackSize: 1
   description: 
-  value: 100
+  value: 102
   _type: 1
+  model: {fileID: -5789534161808622139, guid: 467d3b88786209c44b39da99a7a535de, type: 3}

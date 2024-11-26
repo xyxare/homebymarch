@@ -7,6 +7,8 @@ public class Equipment : Items
 {
     public EquipmentType _type;
 
+    public Mesh model;
+
     
 }
 [System.Serializable]
