@@ -8,16 +8,16 @@ public class SceneLoader : MonoBehaviour
 {
   public GameObject loaderUI;
   public Slider progressSlider;
-  public void LoadScene(int index){
-    StartCoroutine(LoadScene_Coroutine(index));
+  public void LoadScene(string scene){
+    StartCoroutine(LoadScene_Coroutine(scene));
   }
 
-  public IEnumerator LoadScene_Coroutine(int index)
+  public IEnumerator LoadScene_Coroutine(string scene)
   {
     progressSlider.value = 0;
     loaderUI.SetActive(true);
 
-    AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(index);
+    AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("Exploration 4");
     asyncOperation.allowSceneActivation = false;
     float progress = 0;
 
