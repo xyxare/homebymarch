@@ -5,23 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Main Menu.unity
-    guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
-    path: Assets/Scenes/Exploration.unity
-    guid: da8b1087b0431c34ab289bd48d6150a3
+  - enabled: 1
+    path: Assets/Scenes/Main Screen.unity
+    guid: 4824f72b98f4bbc4587c1cc4db26ed3a
+  - enabled: 1
+    path: Assets/Scenes/Story Screen.unity
+    guid: 4e75040bc43b9e3498115dbd636cf341
   - enabled: 0
     path: Assets/Scenes/LoadingScene.unity
     guid: 6a7cd42e9064ba44ab73c401b115f7d4
-  - enabled: 0
-    path: Assets/Scenes/tracker-test.unity
-    guid: 451104eee129a3b459042df4dd68d8d0
-  - enabled: 0
-    path: Assets/Scenes/start-screen.unity
-    guid: 09a453fd573c570459fab883ae3fe975
   - enabled: 1
-    path: Assets/Scenes/Main Menu 1.unity
+    path: Assets/Scenes/Published Scene/Main Menu 1.unity
     guid: 29ca59976eaa35b458cb70513f33a0e3
   - enabled: 0
     path: Assets/Scenes/Exploration(soundFix).unity
@@ -33,13 +27,13 @@ EditorBuildSettings:
     path: Assets/StepCounter/Demo/Demo2.unity
     guid: 8d6953350fbe0e74a9ec19275d0177c9
   - enabled: 1
-    path: Assets/Scenes/Exploration 4.unity
+    path: Assets/Scenes/Published Scene/Exploration 4.unity
     guid: fb04ab8a891bb0d41bf4361a49857a7b
   - enabled: 0
     path: Assets/Scenes/Gameplay.unity
     guid: 0d8512446d6aba047982bdc76fee7e14
-  - enabled: 1
-    path: Assets/Scenes/Dungeon Exploration.unity
+  - enabled: 0
+    path: Assets/Scenes/Published Scene/Dungeon Exploration.unity
     guid: e37db4b74d542c5419064e809abb4685
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: a360dc757f746b4498c662f2210d31e7, type: 2}
