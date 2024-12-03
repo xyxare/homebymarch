@@ -88,9 +88,10 @@ namespace CoppraGames
 
         public void OnClickNextButton()
         {
-            int currentDay = DailyRewardsWindow.GetDaysSinceSignUp();
+            int currentDay = DailyRewardsWindow.GetDaysSinceLastReset();
+            Debug.Log("present day:" + currentDay);
             var signTime = DateTime.Now - new TimeSpan((currentDay + 1) * 24, 0, 0);
-            PlayerPrefs.SetString("sign_up_time", signTime.ToString());
+            PlayerPrefs.SetString("last_reset_time", signTime.ToString());
             DailyRewardsWindow.Init();
         }
 

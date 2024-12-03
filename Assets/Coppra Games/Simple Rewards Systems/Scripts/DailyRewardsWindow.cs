@@ -15,7 +15,7 @@ namespace CoppraGames
             public Sprite icon;
             public int count;
             public int day;
-            public ItemSO itemSO;
+            // public ItemSO itemSO; add item here
         }
 
         public GameObject ResultPanel;
@@ -23,7 +23,7 @@ namespace CoppraGames
         public TextMeshProUGUI ResultCount;
 
         public Button ClaimButton;
-        public InventoryObject playerInventory;
+        // public InventoryObject playerInventory; add inventory here
 
         public RewardData[] rewards;
         public DailyRewardItem[] rewardItemComponents;
@@ -32,11 +32,17 @@ namespace CoppraGames
         {
             HideResult();
             //Init();
+
+
         }
 
         public void Init()
         {
+            if(!IsYesterdayRewardCollected() | GetDaysSinceLastReset() == 7){
+                ResetDailyRewards();
+            }
             ApplyValues();
+
         }
 
         public void Close()
@@ -60,33 +66,58 @@ namespace CoppraGames
             RefreshClaimButton();
         }
 
-        public int GetDaysSinceSignUp()
+        public void ResetDailyRewards(){        
+
+            DateTime resetTime;
+
+            resetTime = DateTime.Now;
+            PlayerPrefs.SetString("last_reset_time", resetTime.ToString());
+
+            for (int i = 0; i < rewards.Length; i++){
+                string key = "reward_claimed_" + (i + 1);
+                PlayerPrefs.SetInt(key, 0);
+                Debug.Log("skibidi reward reset" + i);
+            }
+
+        }
+
+        public int GetDaysSinceLastReset()
         {
             DateTime current = DateTime.Now;
-            DateTime signTime;
+            DateTime resetTime;
 
-            string signTimeString = PlayerPrefs.GetString("sign_up_time");
-            if (string.IsNullOrEmpty(signTimeString))
+            string resetTimeString = PlayerPrefs.GetString("last_reset_time");
+            if (string.IsNullOrEmpty(resetTimeString))
             {
-                signTime = DateTime.Now;
-                PlayerPrefs.SetString("sign_up_time", signTime.ToString());
+                resetTime = DateTime.Now;
+                PlayerPrefs.SetString("last_reset_time", resetTime.ToString());
             }
             else
             {
-                if (!DateTime.TryParse(signTimeString, out signTime))
+                if (!DateTime.TryParse(resetTimeString, out resetTime))
                 {
-                    signTime = DateTime.Now;
+                    resetTime = DateTime.Now;
                 }
             }
 
-            TimeSpan timeSpan = current - signTime;
+            TimeSpan timeSpan = current - resetTime;
             return timeSpan.Days;
         }
 
+        public bool IsYesterdayRewardCollected(){
+            int lastReset = GetDaysSinceLastReset();
+            string key = "reward_claimed_" + (lastReset); // key for yesterday's claim
+
+            return(PlayerPrefs.GetInt(key, 0) == 1 | lastReset == 0);
+
+
+        }
+
+
         public bool IsDailyRewardReadyToCollect(int day)
         {
-            int loginDay = GetDaysSinceSignUp();
-            return (loginDay >= day);
+            int loginDay = GetDaysSinceLastReset();
+            return (loginDay >= day - 1);
         }
 
         public bool IsDailyRewardClaimed(int day)
@@ -99,6 +130,7 @@ namespace CoppraGames
         {
             string key = "reward_claimed_" + day;
             PlayerPrefs.SetInt(key, 1);
+            
 
             QuestManager.instance.OnAchieveQuestGoal(QuestManager.QuestGoals.COLLECT_DAILY_REWARDS);
         }
@@ -122,7 +154,7 @@ namespace CoppraGames
                     RewardData reward = rewards[resultIndex];
                     ResultIcon.sprite = reward.icon;
                     ResultCount.text = "x" + reward.count.ToString();
-                    playerInventory.AddItem(reward.itemSO, reward.count);
+                    // playerInventory.AddItem(reward.itemSO, reward.count); inventory code goes here
 
                 }
 

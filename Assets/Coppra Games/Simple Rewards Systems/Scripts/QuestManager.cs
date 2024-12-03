@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -94,13 +95,19 @@ namespace CoppraGames
 
        
         public void ResetAllDailyQuests()
-        {
+        {            
+
             //int index = 0;
             foreach (Quest quest in this.quests)
             {
+
                 SetQuestValue(quest.index, 0);
                 ClaimQuest(quest.index, false);
+
             }
+
+
+
 
 
         }
