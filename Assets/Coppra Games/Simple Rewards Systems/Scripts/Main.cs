@@ -91,7 +91,9 @@ namespace CoppraGames
             int currentDay = DailyRewardsWindow.GetDaysSinceLastReset();
             Debug.Log("present day:" + currentDay);
             var signTime = DateTime.Now - new TimeSpan((currentDay + 1) * 24, 0, 0);
-            PlayerPrefs.SetString("last_reset_time", signTime.ToString());
+            DailyRewardsWindow.dailyQuestProgress.lastResetDate = signTime.ToString();
+            DailyRewardsWindow.SaveDailyQuestData();
+            // PlayerPrefs.SetString("last_reset_time", signTime.ToString());
             DailyRewardsWindow.Init();
         }
 

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.IO;
 
 namespace CoppraGames
 {
@@ -27,6 +28,10 @@ namespace CoppraGames
 
         public RewardData[] rewards;
         public DailyRewardItem[] rewardItemComponents;
+        public DailyQuestProgress dailyQuestProgress;
+        public string dailyQuestJsonFilePath;
+
+
 
         void Awake()
         {
@@ -37,10 +42,27 @@ namespace CoppraGames
         }
 
         public void Init()
-        {
+        { 
+            dailyQuestJsonFilePath = Application.persistentDataPath + "/playerDailyQuestData.json";
+
+
+
+
+            if (System.IO.File.Exists(dailyQuestJsonFilePath)){
+                LoadDailyQuestData();
+            } 
+
+            else {
+                dailyQuestProgress = new DailyQuestProgress(rewards.Length);
+            }
             if(!IsYesterdayRewardCollected() | GetDaysSinceLastReset() == 7){
                 ResetDailyRewards();
             }
+
+            Debug.Log("file path: " + dailyQuestJsonFilePath);
+            Debug.Log("quests claimed array: " + dailyQuestProgress.areDailyQuestsClaimed);
+            Debug.Log("last reset date: " + dailyQuestProgress.lastResetDate);
+            Debug.Log("days since last: " + GetDaysSinceLastReset());
             ApplyValues();
 
         }
@@ -48,6 +70,7 @@ namespace CoppraGames
         public void Close()
         {
             Main.instance.ShowDailyRewardsWindow(false);
+            SaveDailyQuestData();
         }
 
         public void ApplyValues()
@@ -71,12 +94,13 @@ namespace CoppraGames
             DateTime resetTime;
 
             resetTime = DateTime.Now;
-            PlayerPrefs.SetString("last_reset_time", resetTime.ToString());
+            dailyQuestProgress.lastResetDate = resetTime.ToString();
+            // PlayerPrefs.SetString("last_reset_time", resetTime.ToString());
 
             for (int i = 0; i < rewards.Length; i++){
                 string key = "reward_claimed_" + (i + 1);
-                PlayerPrefs.SetInt(key, 0);
-                Debug.Log("skibidi reward reset" + i);
+                // PlayerPrefs.SetInt(key, 0);
+                dailyQuestProgress.areDailyQuestsClaimed[i] = false;
             }
 
         }
@@ -86,11 +110,12 @@ namespace CoppraGames
             DateTime current = DateTime.Now;
             DateTime resetTime;
 
-            string resetTimeString = PlayerPrefs.GetString("last_reset_time");
+            string resetTimeString = dailyQuestProgress.lastResetDate;
             if (string.IsNullOrEmpty(resetTimeString))
             {
                 resetTime = DateTime.Now;
-                PlayerPrefs.SetString("last_reset_time", resetTime.ToString());
+                dailyQuestProgress.lastResetDate = resetTime.ToString();
+                // PlayerPrefs.SetString("last_reset_time", resetTime.ToString());
             }
             else
             {
@@ -106,9 +131,16 @@ namespace CoppraGames
 
         public bool IsYesterdayRewardCollected(){
             int lastReset = GetDaysSinceLastReset();
-            string key = "reward_claimed_" + (lastReset); // key for yesterday's claim
+            // string key = "reward_claimed_" + (lastReset); // key for yesterday's claim
+            Debug.Log("days since last reset:" + lastReset);
 
-            return(PlayerPrefs.GetInt(key, 0) == 1 | lastReset == 0);
+            if (lastReset == 0){
+                return true;
+            } else {
+            return(dailyQuestProgress.areDailyQuestsClaimed[lastReset - 1]);
+            }
+
+            // return(PlayerPrefs.GetInt(key, 0) == 1 | lastReset == 0);
 
 
         }
@@ -122,14 +154,18 @@ namespace CoppraGames
 
         public bool IsDailyRewardClaimed(int day)
         {
-            string key = "reward_claimed_" + day;
-            return (PlayerPrefs.GetInt(key, 0) == 1);
+            // string key = "reward_claimed_" + day;
+            // return (PlayerPrefs.GetInt(key, 0) == 1);
+            return dailyQuestProgress.areDailyQuestsClaimed[day - 1];
         }
 
         public void ClaimDailyReward(int day)
         {
-            string key = "reward_claimed_" + day;
-            PlayerPrefs.SetInt(key, 1);
+            // string key = "reward_claimed_" + day;
+            dailyQuestProgress.areDailyQuestsClaimed[day - 1] = true;
+            Debug.Log("claimed. new array:" + dailyQuestProgress.areDailyQuestsClaimed[day - 1]);
+            SaveDailyQuestData();
+            // PlayerPrefs.SetInt(key, 1);
             
 
             QuestManager.instance.OnAchieveQuestGoal(QuestManager.QuestGoals.COLLECT_DAILY_REWARDS);
@@ -204,6 +240,37 @@ namespace CoppraGames
         public void OnClickCloseButton()
         {
             this.Close();
+        }
+
+        public void SaveDailyQuestData(){
+
+            string dailyQuestJson = JsonUtility.ToJson(dailyQuestProgress);
+            
+            System.IO.File.WriteAllText(dailyQuestJsonFilePath, dailyQuestJson);
+            Debug.Log("daily quest data saved");
+
+        }
+
+        public void LoadDailyQuestData(){
+
+        string dailyQuestJson = System.IO.File.ReadAllText(dailyQuestJsonFilePath);
+        dailyQuestProgress = new DailyQuestProgress(rewards.Length);
+
+        Debug.Log(dailyQuestJson);
+
+        if(dailyQuestJson != ""){
+
+        Debug.Log("json utilty stuff: " + JsonUtility.FromJson<DailyQuestProgress>(dailyQuestJson).areDailyQuestsClaimed[0]);
+
+        dailyQuestProgress.areDailyQuestsClaimed = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestJson).areDailyQuestsClaimed;
+        dailyQuestProgress.lastResetDate = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestJson).lastResetDate;
+        } else {
+            dailyQuestProgress = new DailyQuestProgress(rewards.Length);
+        }
+
+        Debug.Log("daily quest data loaded");
+
+            
         }
     }
 }

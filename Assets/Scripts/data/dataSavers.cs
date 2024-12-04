@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -19,4 +20,19 @@ public class PlayerPositionData{
   public float playerYPosition;
   public float playerZPosition;
   
+}
+
+public class DailyQuestProgress {
+  public bool[] areDailyQuestsClaimed;
+  public string lastResetDate;
+
+  public DailyQuestProgress(int numberOfRewards){
+
+    DateTime currentDate;
+    currentDate = DateTime.Now;
+
+    this.areDailyQuestsClaimed = new bool[numberOfRewards];
+    this.lastResetDate = currentDate.ToString();
+    
+  }
 }
