@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using Repforge.StepCounterPro;
 
 namespace CoppraGames
 {
@@ -30,7 +31,8 @@ namespace CoppraGames
         public DailyRewardItem[] rewardItemComponents;
         public DailyQuestProgress dailyQuestProgress;
         public string dailyQuestJsonFilePath;
-
+        public int currentDailySteps;
+        public int requiredDailySteps = 200000;
 
 
         void Awake()
@@ -50,19 +52,22 @@ namespace CoppraGames
 
             if (System.IO.File.Exists(dailyQuestJsonFilePath)){
                 LoadDailyQuestData();
-            } 
-
-            else {
+            } else {
                 dailyQuestProgress = new DailyQuestProgress(rewards.Length);
             }
             if(!IsYesterdayRewardCollected() | GetDaysSinceLastReset() == 7){
                 ResetDailyRewards();
             }
 
+            LoadDailyStepCount();
+
             Debug.Log("file path: " + dailyQuestJsonFilePath);
             Debug.Log("quests claimed array: " + dailyQuestProgress.areDailyQuestsClaimed);
             Debug.Log("last reset date: " + dailyQuestProgress.lastResetDate);
             Debug.Log("days since last: " + GetDaysSinceLastReset());
+            Debug.Log("current steps: " + currentDailySteps);
+            Debug.Log("current > required: " + (currentDailySteps > requiredDailySteps));
+            Debug.Log("difference:" + (currentDailySteps - requiredDailySteps));
             ApplyValues();
 
         }
@@ -103,6 +108,11 @@ namespace CoppraGames
                 dailyQuestProgress.areDailyQuestsClaimed[i] = false;
             }
 
+        }
+
+        public void LoadDailyStepCount(){
+            StepCounterRequest request = new StepCounterRequest();
+            request.Since(DateTime.Today).OnQuerySuccess((stepCount) => currentDailySteps = stepCount).Execute();
         }
 
         public int GetDaysSinceLastReset()
@@ -149,7 +159,7 @@ namespace CoppraGames
         public bool IsDailyRewardReadyToCollect(int day)
         {
             int loginDay = GetDaysSinceLastReset();
-            return (loginDay >= day - 1);
+            return (loginDay >= day - 1 && currentDailySteps > requiredDailySteps);
         }
 
         public bool IsDailyRewardClaimed(int day)
@@ -230,6 +240,8 @@ namespace CoppraGames
                 int day = DailyRewardItem.selectedItem.GetDay();
                 bool isClaimed = IsDailyRewardClaimed(day);
                 bool isReadyToCollect = IsDailyRewardReadyToCollect(day);
+
+                
 
                 this.ClaimButton.interactable = !isClaimed && isReadyToCollect;
             }
