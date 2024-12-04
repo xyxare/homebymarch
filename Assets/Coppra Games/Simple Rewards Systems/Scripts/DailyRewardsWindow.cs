@@ -17,7 +17,7 @@ namespace CoppraGames
             public Sprite icon;
             public int count;
             public int day;
-            // public ItemSO itemSO; add item here
+            public ItemSO itemSO; // add item here
         }
 
         public GameObject ResultPanel;
@@ -25,14 +25,14 @@ namespace CoppraGames
         public TextMeshProUGUI ResultCount;
 
         public Button ClaimButton;
-        // public InventoryObject playerInventory; add inventory here
+        public InventoryObject playerInventory;
 
         public RewardData[] rewards;
         public DailyRewardItem[] rewardItemComponents;
         public DailyQuestProgress dailyQuestProgress;
         public string dailyQuestJsonFilePath;
         public int currentDailySteps;
-        public int requiredDailySteps = 200000;
+        public int requiredDailySteps;
 
 
         void Awake()
@@ -46,6 +46,7 @@ namespace CoppraGames
         public void Init()
         { 
             dailyQuestJsonFilePath = Application.persistentDataPath + "/playerDailyQuestData.json";
+            requiredDailySteps = 30;
 
 
 
@@ -67,7 +68,7 @@ namespace CoppraGames
             Debug.Log("days since last: " + GetDaysSinceLastReset());
             Debug.Log("current steps: " + currentDailySteps);
             Debug.Log("current > required: " + (currentDailySteps > requiredDailySteps));
-            Debug.Log("difference:" + (currentDailySteps - requiredDailySteps));
+            Debug.Log("required steps: " + (requiredDailySteps));
             ApplyValues();
 
         }
@@ -171,9 +172,11 @@ namespace CoppraGames
 
         public void ClaimDailyReward(int day)
         {
+            RewardData reward = rewards[day - 1];
             // string key = "reward_claimed_" + day;
             dailyQuestProgress.areDailyQuestsClaimed[day - 1] = true;
             Debug.Log("claimed. new array:" + dailyQuestProgress.areDailyQuestsClaimed[day - 1]);
+            playerInventory.AddItem(reward.itemSO, reward.count);
             SaveDailyQuestData();
             // PlayerPrefs.SetInt(key, 1);
             
