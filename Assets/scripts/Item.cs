@@ -1,12 +1,12 @@
 [System.Serializable]
 
-public enum ItemType {Consumable, Weapon, Armor}
+public enum ItemTypes {Consumable, Weapon, Armor}
 
 public class Item
 {
     public string itemName;
     public int price;
-    public ItemType itemType;
+    public ItemTypes itemType;
 
     
 
@@ -17,13 +17,13 @@ public class Item
         
         switch(type){
             case "consumable":
-            itemType = ItemType.Consumable;
+            itemType = ItemTypes.Consumable;
             break;
             case "weapon":
-            itemType = ItemType.Weapon;
+            itemType = ItemTypes.Weapon;
             break;
             case "armor":
-            itemType = ItemType.Armor;
+            itemType = ItemTypes.Armor;
             break;
         }
     }
