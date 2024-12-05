@@ -32,9 +32,13 @@ namespace CoppraGames
 
             GreenPanel.SetActive(isReadyToCollect);
             Glow.SetActive(!isClaimed && selectedItem == this);
+            Glow.GetComponent<Image>().fillAmount = Main.instance.DailyRewardsWindow.currentDailySteps / Main.instance.DailyRewardsWindow.requiredDailySteps;
 
             DayPanel.color = isReadyToCollect && !isClaimed ? Color.green : Color.white;
             TickMark.SetActive(isClaimed);
+
+            //
+            // if ((isReadyToCollect | Main.instance.DailyRewardsWindow.GetDaysSinceLastReset() + 1 == this.day) && !isClaimed)
 
             if (isReadyToCollect && !isClaimed)
                 SetSelected(true);

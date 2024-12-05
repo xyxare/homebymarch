@@ -23,6 +23,7 @@ namespace CoppraGames
         public GameObject ResultPanel;
         public Image ResultIcon;
         public TextMeshProUGUI ResultCount;
+        public TextMeshProUGUI progressText;
 
         public Button ClaimButton;
         public InventoryObject playerInventory;
@@ -46,7 +47,7 @@ namespace CoppraGames
         public void Init()
         { 
             dailyQuestJsonFilePath = Application.persistentDataPath + "/playerDailyQuestData.json";
-            requiredDailySteps = 30;
+            requiredDailySteps = 20000;
 
 
 
@@ -114,6 +115,11 @@ namespace CoppraGames
         public void LoadDailyStepCount(){
             StepCounterRequest request = new StepCounterRequest();
             request.Since(DateTime.Today).OnQuerySuccess((stepCount) => currentDailySteps = stepCount).Execute();
+            UpdateDailyQuestProgress();
+        }
+
+        public void UpdateDailyQuestProgress(){
+            progressText.text = $"{currentDailySteps} / {requiredDailySteps} steps";
         }
 
         public int GetDaysSinceLastReset()
