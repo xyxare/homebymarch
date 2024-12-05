@@ -4489,7 +4489,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: c1b934f224313b043b252064b182f454, type: 2}
     - target: {fileID: 9047047773504933314, guid: 897643d85179743e7a8fb75a72d3cb23, type: 3}
       propertyPath: requiredDailySteps
-      value: 300
+      value: 20000
       objectReference: {fileID: 0}
     - target: {fileID: 9047047773504933314, guid: 897643d85179743e7a8fb75a72d3cb23, type: 3}
       propertyPath: rewards.Array.data[0].icon
