@@ -24,19 +24,20 @@ public abstract class UserInterface : MonoBehaviour
     }
 
 
-    private void OnSlotUpdate(InventorySlot _slot){
-         if (_slot.item.Id >= 0)
-            {
-                _slot.slotDisplay.transform.GetChild(0).GetComponentInChildren<Image>().sprite = _slot.ItemObject.uiDisplay;
-                _slot.slotDisplay.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
-                _slot.slotDisplay.GetComponentInChildren<TextMeshProUGUI>().text = _slot.amount == 1 ? "" : _slot.amount.ToString("n0");
-            }
-            else
-            {
-                _slot.slotDisplay.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
-                _slot.slotDisplay.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
-                _slot.slotDisplay.GetComponentInChildren<TextMeshProUGUI>().text = "";
-            }
+    private void OnSlotUpdate(InventorySlot _slot)
+    {
+        if (_slot.item.Id >= 0)
+        {
+            _slot.slotDisplay.transform.GetChild(0).GetComponentInChildren<Image>().sprite = _slot.ItemObject.uiDisplay;
+            _slot.slotDisplay.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 1);
+            _slot.slotDisplay.GetComponentInChildren<TextMeshProUGUI>().text = _slot.amount == 1 ? "" : _slot.amount.ToString("n0");
+        }
+        else
+        {
+            _slot.slotDisplay.transform.GetChild(0).GetComponentInChildren<Image>().sprite = null;
+            _slot.slotDisplay.transform.GetChild(0).GetComponentInChildren<Image>().color = new Color(1, 1, 1, 0);
+            _slot.slotDisplay.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        }
     }
 
     // Update is called once per frame
@@ -62,7 +63,21 @@ public abstract class UserInterface : MonoBehaviour
     public void OnEnter(GameObject obj)
     {
         MouseData.slotHoveredOver = obj;
+        if (slotsOnInterface.ContainsKey(obj) && slotsOnInterface[obj].ItemObject != null)
+        {
+            var itemObject = slotsOnInterface[obj].ItemObject;
+            Debug.Log($"ItemObject Entered: Description = {itemObject.description}, Type = {itemObject.type}, Stackable = {itemObject.stackable}");
+
+            var itemData = itemObject.data;
+            Debug.Log($"Item Data: Name = {itemData.Name}, Id = {itemData.Id}");
+
+            foreach (var buff in itemData.buffs)
+            {
+                Debug.Log($"Buff: Attribute = {buff.attribute}, Value = {buff.value}, Min = {buff.min}, Max = {buff.max}");
+            }
+        }
     }
+
     public void OnExit(GameObject obj)
     {
         MouseData.slotHoveredOver = null;
@@ -70,6 +85,7 @@ public abstract class UserInterface : MonoBehaviour
     public void OnEnterInterface(GameObject obj)
     {
         MouseData.interfaceMouseIsOver = obj.GetComponent<UserInterface>();
+
     }
     public void OnExitInterface(GameObject obj)
     {
@@ -100,6 +116,7 @@ public abstract class UserInterface : MonoBehaviour
         if (MouseData.interfaceMouseIsOver == null)
         {
             slotsOnInterface[obj].RemoveItem();
+
             return;
         }
         if (MouseData.slotHoveredOver)

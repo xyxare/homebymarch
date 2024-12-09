@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Boots
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 21300000, guid: 4a59607811bc1f9459591856511467a5, type: 3}
+  characterDisplay: {fileID: 0}
   stackable: 0
   type: 4
   description: 
@@ -24,3 +25,4 @@ MonoBehaviour:
       value: 0
       min: 10
       max: 40
+  boneNames: []

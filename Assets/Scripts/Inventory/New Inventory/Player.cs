@@ -1,7 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Required for UI elements
 
 public class Player : MonoBehaviour
 {
@@ -10,42 +10,48 @@ public class Player : MonoBehaviour
 
     public Attribute[] attributes;
 
-    // Buttons for saving and loading
-    public Button saveButton;
-    public Button loadButton;
+    private Transform boots;
+    private Transform chest;
+    private Transform helmet;
+    private Transform offhand;
+    private Transform sword;
+
+    public Transform weaponTransform;
+    public Transform offhandWristTransform;
+    public Transform offhandHandTransform;
+
+
+    private BoneCombiner boneCombiner;
 
     private void Start()
     {
-        // Initialize attributes
+        boneCombiner = new BoneCombiner(gameObject);
+
         for (int i = 0; i < attributes.Length; i++)
         {
             attributes[i].SetParent(this);
         }
 
-        // Subscribe to equipment slot update events
         for (int i = 0; i < equipment.GetSlots.Length; i++)
         {
-            equipment.GetSlots[i].OnBeforeUpdate += OnBeforeUpdate;
-            equipment.GetSlots[i].OnAfterUpdate += OnAfterUpdate;
+            equipment.GetSlots[i].OnBeforeUpdate += OnRemoveItem;
+            equipment.GetSlots[i].OnAfterUpdate += OnAddItem;
         }
-
-        // Add listeners to buttons
-        if (saveButton != null)
-            saveButton.onClick.AddListener(SaveGame);
-
-        if (loadButton != null)
-            loadButton.onClick.AddListener(LoadGame);
     }
 
-    public void OnBeforeUpdate(InventorySlot _slot)
+
+    public void OnRemoveItem(InventorySlot _slot)
     {
-        if (_slot.ItemObject == null) return;
+        if (_slot.ItemObject == null)
+            return;
         switch (_slot.parent.inventory.type)
         {
             case InterfaceType.Inventory:
                 break;
             case InterfaceType.Equipment:
-                print(string.Concat("Removed", _slot.ItemObject, "on", _slot.parent.inventory.type, ", Allowed items:,", string.Join(", ", _slot.AllowedItems)));
+                print(string.Concat("Removed ", _slot.ItemObject, " on ", _slot.parent.inventory.type,
+                    ", Allowed Items: ", string.Join(", ", _slot.AllowedItems)));
+
                 for (int i = 0; i < _slot.item.buffs.Length; i++)
                 {
                     for (int j = 0; j < attributes.Length; j++)
@@ -54,6 +60,29 @@ public class Player : MonoBehaviour
                             attributes[j].value.RemoveModifier(_slot.item.buffs[i]);
                     }
                 }
+
+                if (_slot.ItemObject.characterDisplay != null)
+                {
+                    switch (_slot.AllowedItems[0])
+                    {
+                        case ItemType.Helmet:
+                            Destroy(helmet.gameObject);
+                            break;
+                        case ItemType.Weapon:
+                            Destroy(sword.gameObject);
+                            break;
+                        case ItemType.Shield:
+                            Destroy(offhand.gameObject);
+                            break;
+                        case ItemType.Boots:
+                            Destroy(boots.gameObject);
+                            break;
+                        case ItemType.Chest:
+                            Destroy(chest.gameObject);
+                            break;
+                    }
+                }
+
                 break;
             case InterfaceType.Chest:
                 break;
@@ -62,15 +91,18 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnAfterUpdate(InventorySlot _slot)
+    public void OnAddItem(InventorySlot _slot)
     {
-        if (_slot.ItemObject == null) return;
+        if (_slot.ItemObject == null)
+            return;
         switch (_slot.parent.inventory.type)
         {
             case InterfaceType.Inventory:
                 break;
             case InterfaceType.Equipment:
-                print(string.Concat("Placed", _slot.ItemObject, "on", _slot.parent.inventory.type, ", Allowed items:,", string.Join(", ", _slot.AllowedItems)));
+                print(
+                    $"Placed {_slot.ItemObject}  on {_slot.parent.inventory.type}, Allowed Items: {string.Join(", ", _slot.AllowedItems)}");
+
                 for (int i = 0; i < _slot.item.buffs.Length; i++)
                 {
                     for (int j = 0; j < attributes.Length; j++)
@@ -79,6 +111,42 @@ public class Player : MonoBehaviour
                             attributes[j].value.AddModifier(_slot.item.buffs[i]);
                     }
                 }
+
+                if (_slot.ItemObject.characterDisplay != null)
+                {
+                    switch (_slot.AllowedItems[0])
+                    {
+                        case ItemType.Helmet:
+                            helmet = boneCombiner.AddLimb(_slot.ItemObject.characterDisplay,
+                                _slot.ItemObject.boneNames);
+                            break;
+                        case ItemType.Weapon:
+                            sword = Instantiate(_slot.ItemObject.characterDisplay, weaponTransform).transform;
+                            break;
+                        case ItemType.Shield:
+                            switch (_slot.ItemObject.type)
+                            {
+                                case ItemType.Weapon:
+                                    offhand = Instantiate(_slot.ItemObject.characterDisplay, offhandHandTransform)
+                                        .transform;
+                                    break;
+                                case ItemType.Shield:
+                                    offhand = Instantiate(_slot.ItemObject.characterDisplay, offhandWristTransform)
+                                        .transform;
+                                    break;
+                            }
+
+                            break;
+                        case ItemType.Boots:
+                            boots = boneCombiner.AddLimb(_slot.ItemObject.characterDisplay, _slot.ItemObject.boneNames);
+                            break;
+                        case ItemType.Chest:
+                            chest = boneCombiner.AddLimb(_slot.ItemObject.characterDisplay, _slot.ItemObject.boneNames);
+                            break;
+                    }
+                }
+
+
                 break;
             case InterfaceType.Chest:
                 break;
@@ -86,6 +154,7 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+
 
     public void OnTriggerEnter(Collider other)
     {
@@ -100,24 +169,26 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SaveGame()
+    private void Update()
     {
-        inventory.Save();
-        equipment.Save();
-        Debug.Log("Game Saved!");
-    }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            inventory.Save();
+            equipment.Save();
+        }
 
-    public void LoadGame()
-    {
-        inventory.Load();
-        equipment.Load();
-        Debug.Log("Game Loaded!");
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            inventory.Load();
+            equipment.Load();
+        }
     }
 
     public void AttributeModified(Attribute attribute)
     {
         Debug.Log(string.Concat(attribute.type, " was updated! Value is now ", attribute.value.ModifiedValue));
     }
+
 
     private void OnApplicationQuit()
     {
@@ -129,8 +200,7 @@ public class Player : MonoBehaviour
 [System.Serializable]
 public class Attribute
 {
-    [System.NonSerialized]
-    public Player parent;
+    [System.NonSerialized] public Player parent;
     public Attributes type;
     public ModifiableInt value;
 

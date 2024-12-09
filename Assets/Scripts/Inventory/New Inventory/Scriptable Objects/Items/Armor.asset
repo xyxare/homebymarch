@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Armor
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 21300000, guid: 5105fe1d825990746b9a92407ea447ca, type: 3}
+  characterDisplay: {fileID: 0}
   stackable: 0
   type: 5
-  description: 
+  description: This is the Armor
   data:
     Name: 
     Id: 1
@@ -24,3 +25,4 @@ MonoBehaviour:
       value: 0
       min: 10
       max: 20
+  boneNames: []
