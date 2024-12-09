@@ -29,12 +29,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Published Scene/Exploration 4.unity
     guid: fb04ab8a891bb0d41bf4361a49857a7b
-  - enabled: 1
-    path: Assets/Scenes/Exploration 5.unity
-    guid: 375ac90f71764fd489c844487e705232
-  - enabled: 1
-    path: Assets/Scenes/Exploration 2.unity
-    guid: d99ffdda2cc5c2346a75d7888b17aa58
   - enabled: 0
     path: Assets/Scenes/Gameplay.unity
     guid: 0d8512446d6aba047982bdc76fee7e14
