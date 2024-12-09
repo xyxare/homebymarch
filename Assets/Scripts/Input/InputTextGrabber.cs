@@ -30,11 +30,10 @@ public class InputFieldGrabber : MonoBehaviour
 
         Debug.Log("Player name saved as JSON: " + json);  // Log the saved data
 
-        // Load the next scene (assuming the next scene is already added to the build settings)
-        SceneManager.LoadScene("Exploration 4");  // Replace "NextScene" with the actual name of the scene you want to load
+        // Load the next scene 
+        SceneManager.LoadScene("Exploration 4"); 
     }
-
-    // Data structure to store player information
+    
     [System.Serializable]
     public class PlayerData
     {

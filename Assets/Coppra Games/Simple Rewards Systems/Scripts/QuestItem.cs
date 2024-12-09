@@ -22,7 +22,7 @@ namespace CoppraGames
 
         public Image RewardIcon;
         public TextMeshProUGUI RewardCountText;
-        public ItemSO rewardItemSO;
+        public Item rewardItemSO;
 
         public GameObject GoButton;
         public GameObject ClaimButton;

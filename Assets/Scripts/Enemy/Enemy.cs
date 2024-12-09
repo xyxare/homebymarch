@@ -17,7 +17,7 @@ namespace HomeByMarch
         [SerializeField] private NavMeshAgent agent;
         [SerializeField] private Animator animator;
         [SerializeField] float timeBetweenAttack = 1f;
-        [SerializeField] float attackDelay = 0.8f; 
+        [SerializeField] float attackDelay = 0.8f;
         [SerializeField] float OnHitDelay = 0.5f; // Delay before the damage is applied
         bool isHit;
         [SerializeField] float wanderRadius = 10f;
@@ -26,15 +26,17 @@ namespace HomeByMarch
         private StateMachine stateMachine;
         public Transform Player { get; private set; }
         public Health PlayerHealth { get; private set; }
-
+        public MaterialChanger materialChanger;
         CountdownTimer attackTimer;
         CountdownTimer onHitTimer;
 
         void Awake()
         {
             Player = GameObject.FindGameObjectWithTag("Player").transform;
-            PlayerHealth = Player.GetComponent<Health>(); // Correctly reference the player's health
+            PlayerHealth = Player.GetComponent<Health>(); // Correctly reference the player's health\
+            materialChanger = GetComponent<MaterialChanger>();
             currentHealth = maxHealth;
+
         }
 
         void Start()
@@ -94,6 +96,12 @@ namespace HomeByMarch
 
         public void OnHit()
         {
+
+            if (materialChanger != null)
+            {
+                // Change material when hit
+                materialChanger.ChangeMaterial();
+            }
             if (onHitTimer.IsRunning) return;
 
             isHit = true; // Set isHit to true when the enemy is hit

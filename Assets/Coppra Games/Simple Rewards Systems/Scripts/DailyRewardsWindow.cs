@@ -17,7 +17,7 @@ namespace CoppraGames
             public Sprite icon;
             public int count;
             public int day;
-            public ItemSO itemSO; // add item here
+            public Item itemSO; // add item here
         }
 
         public GameObject ResultPanel;
@@ -47,7 +47,7 @@ namespace CoppraGames
         public void Init()
         { 
             dailyQuestJsonFilePath = Application.persistentDataPath + "/playerDailyQuestData.json";
-            requiredDailySteps = 20000;
+
 
 
 

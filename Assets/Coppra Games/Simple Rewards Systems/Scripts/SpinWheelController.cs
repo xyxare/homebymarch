@@ -13,13 +13,13 @@ namespace CoppraGames
         {
             public Sprite icon;
             public int count;
-            public ItemSO itemSO;
+            public Item itemSO;
             
         }
 
         public RewardItem[] rewards;
         public RewardItemComponent[] rewardItemComponents;
-        public ItemSO[] items;
+        public Item[] items;
         public InventoryObject playerInventory;
 
         public Transform Wheel;
