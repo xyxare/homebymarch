@@ -44,10 +44,12 @@ public class Player : MonoBehaviour
     {
         if (_slot.ItemObject == null)
             return;
+
         switch (_slot.parent.inventory.type)
         {
             case InterfaceType.Inventory:
                 break;
+
             case InterfaceType.Equipment:
                 print(string.Concat("Removed ", _slot.ItemObject, " on ", _slot.parent.inventory.type,
                     ", Allowed Items: ", string.Join(", ", _slot.AllowedItems)));
@@ -66,30 +68,52 @@ public class Player : MonoBehaviour
                     switch (_slot.AllowedItems[0])
                     {
                         case ItemType.Helmet:
-                            Destroy(helmet.gameObject);
+                            if (helmet != null)
+                            {
+                                Destroy(helmet.gameObject);
+                                helmet = null;
+                            }
                             break;
                         case ItemType.Weapon:
-                            Destroy(sword.gameObject);
+                            if (sword != null)
+                            {
+                                Destroy(sword.gameObject);
+                                sword = null;
+                            }
                             break;
                         case ItemType.Shield:
-                            Destroy(offhand.gameObject);
+                            if (offhand != null)
+                            {
+                                Destroy(offhand.gameObject);
+                                offhand = null;
+                            }
                             break;
                         case ItemType.Boots:
-                            Destroy(boots.gameObject);
+                            if (boots != null)
+                            {
+                                Destroy(boots.gameObject);
+                                boots = null;
+                            }
                             break;
                         case ItemType.Chest:
-                            Destroy(chest.gameObject);
+                            if (chest != null)
+                            {
+                                Destroy(chest.gameObject);
+                                chest = null;
+                            }
                             break;
                     }
                 }
-
                 break;
+
             case InterfaceType.Chest:
                 break;
+
             default:
                 break;
         }
     }
+
 
     public void OnAddItem(InventorySlot _slot)
     {
@@ -165,6 +189,7 @@ public class Player : MonoBehaviour
             if (inventory.AddItem(_item, 1))
             {
                 Destroy(other.gameObject);
+                inventory.Save();
             }
         }
     }

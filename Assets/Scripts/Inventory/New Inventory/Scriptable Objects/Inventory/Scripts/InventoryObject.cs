@@ -7,7 +7,8 @@ using UnityEditor;
 using System.Runtime.Serialization;
 
 
-public enum InterfaceType{
+public enum InterfaceType
+{
     Inventory,
     Equipment,
     Chest
@@ -21,7 +22,7 @@ public class InventoryObject : ScriptableObject
     public InterfaceType type;
     public Inventory Container;
 
-    public InventorySlot[] GetSlots {get {return Container.Slots;}}
+    public InventorySlot[] GetSlots { get { return Container.Slots; } }
 
 
     public bool AddItem(Item _item, int _amount)
@@ -29,7 +30,7 @@ public class InventoryObject : ScriptableObject
         if (EmptySlotCount <= 0)
             return false;
         InventorySlot slot = FindItemOnInventory(_item);
-        if(!database.ItemObjects[_item.Id].stackable || slot == null)
+        if (!database.ItemObjects[_item.Id].stackable || slot == null)
         {
             SetEmptySlot(_item, _amount);
             return true;
@@ -56,7 +57,7 @@ public class InventoryObject : ScriptableObject
     {
         for (int i = 0; i < GetSlots.Length; i++)
         {
-            if(GetSlots[i].item.Id == _item.Id)
+            if (GetSlots[i].item.Id == _item.Id)
             {
                 return GetSlots[i];
             }
@@ -79,14 +80,14 @@ public class InventoryObject : ScriptableObject
 
     public void SwapItems(InventorySlot item1, InventorySlot item2)
     {
-        if(item2.CanPlaceInSlot(item1.ItemObject) && item1.CanPlaceInSlot(item2.ItemObject))
+        if (item2.CanPlaceInSlot(item1.ItemObject) && item1.CanPlaceInSlot(item2.ItemObject))
         {
-            InventorySlot temp = new InventorySlot( item2.item, item2.amount);
+            InventorySlot temp = new InventorySlot(item2.item, item2.amount);
             item2.UpdateSlot(item1.item, item1.amount);
             item1.UpdateSlot(temp.item, temp.amount);
         }
     }
-    
+
 
     [ContextMenu("Save")]
     public void Save()
@@ -163,39 +164,45 @@ public class InventorySlot
     {
         get
         {
-            if(item.Id >= 0)
+            if (item.Id >= 0 && parent != null && parent.inventory != null && parent.inventory.database != null)
             {
-                return parent.inventory.database.ItemObjects[item.Id];
+                var itemObject = parent.inventory.database.ItemObjects[item.Id];
+                if (itemObject != null)
+                {
+                    return itemObject;
+                }
             }
-            return null;
+            return null; // Or return a default ItemObject or handle the error as needed
         }
     }
 
     public InventorySlot()
     {
         UpdateSlot(new Item(), 0);
-       
+
     }
     public InventorySlot(Item _item, int _amount)
     {
         UpdateSlot(_item, _amount);
-    
+
     }
     public void UpdateSlot(Item _item, int _amount)
     {
-        if(OnBeforeUpdate != null){
+        if (OnBeforeUpdate != null)
+        {
             OnBeforeUpdate.Invoke(this);
         }
         item = _item;
         amount = _amount;
-        if(OnAfterUpdate != null){
+        if (OnAfterUpdate != null)
+        {
             OnAfterUpdate.Invoke(this);
         }
     }
     public void RemoveItem()
     {
         UpdateSlot(new Item(), 0);
-       
+
     }
     public void AddAmount(int value)
     {
