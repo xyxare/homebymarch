@@ -193,13 +193,13 @@ namespace CoppraGames
             // PlayerPrefs.SetInt(key, 1);
             
 
-            QuestManager.instance.OnAchieveQuestGoal(QuestManager.QuestGoals.COLLECT_DAILY_REWARDS);
+            // QuestManager.instance.OnAchieveQuestGoal(QuestManager.QuestGoals.COLLECT_DAILY_REWARDS);
         }
 
         public void ShowResult(int resultIndex)
         {
             StartCoroutine(_ShowResult(resultIndex));
-            SoundController.instance.PlaySoundEffect("collection", false, 1);
+            // SoundController.instance.PlaySoundEffect("collection", false, 1);
         }
 
 

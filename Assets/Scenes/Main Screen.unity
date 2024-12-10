@@ -520,7 +520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2032701924175493906, guid: d335f04f3e60c514e9762220e4d1085e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -3.8061218
+      value: -3.8061523
       objectReference: {fileID: 0}
     - target: {fileID: 2200491822178526532, guid: d335f04f3e60c514e9762220e4d1085e, type: 3}
       propertyPath: m_LocalScale.x
@@ -2260,6 +2260,7 @@ GameObject:
   m_Component:
   - component: {fileID: 514910614}
   - component: {fileID: 514910613}
+  - component: {fileID: 514910615}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2319,6 +2320,19 @@ Transform:
   - {fileID: 1786673147}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &514910615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514910612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113cf47b1effbbc4899ed7495e273318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: New Player
 --- !u!1 &549081864
 GameObject:
   m_ObjectHideFlags: 0
@@ -4310,6 +4324,7 @@ GameObject:
   - component: {fileID: 1088589299}
   - component: {fileID: 1088589300}
   - component: {fileID: 1088589301}
+  - component: {fileID: 1088589302}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4478,6 +4493,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b4fd652f7b2404a9041dc66dc27282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1088589302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088589290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bd49f253367b459c999d227cfdc06b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MainMenu: {fileID: 0}
+  DailyRewardsWindow: {fileID: 0}
+  QuestWindow: {fileID: 0}
+  SpinWheelWindow: {fileID: 0}
 --- !u!1 &1166432795
 GameObject:
   m_ObjectHideFlags: 0
