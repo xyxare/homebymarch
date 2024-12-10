@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 21300000, guid: 5778bf927fff2a14986e144304d0833a, type: 3}
+  characterDisplay: {fileID: 0}
   stackable: 1
   type: 0
-  description: 
+  description: this is an apple
   data:
     Name: 
     Id: 0
     buffs: []
+  boneNames: []
