@@ -17,7 +17,7 @@ namespace CoppraGames
             public Sprite icon;
             public int count;
             public int day;
-            public Item itemSO; // add item here
+            public ItemObject itemSO; // add item here
         }
 
         public GameObject ResultPanel;
@@ -184,8 +184,13 @@ namespace CoppraGames
             dailyQuestProgress.areDailyQuestsClaimed[day - 1] = true;
             Debug.Log("claimed. new array:" + dailyQuestProgress.areDailyQuestsClaimed[day - 1]);
 
-            if(reward.itemSO.Name != ""){
-                playerInventory.AddItem(reward.itemSO, reward.count);
+
+
+            if(reward.itemSO != null){
+                Debug.Log(reward.itemSO.data.Name);
+
+                playerInventory.AddItem(reward.itemSO.data, reward.count);
+                playerInventory.Save();
             } else {
                 playerData.AddGold(reward.count);
             }
