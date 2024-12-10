@@ -1732,10 +1732,6 @@ PrefabInstance:
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1088589298}
-    - target: {fileID: 655564170860974580, guid: e893207ca5da72246be1ba47d8375926, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SFXVolume
-      objectReference: {fileID: 0}
     - target: {fileID: 747387059206900365, guid: e893207ca5da72246be1ba47d8375926, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1762,22 +1758,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4372153289005587241, guid: e893207ca5da72246be1ba47d8375926, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5371742118180900408, guid: e893207ca5da72246be1ba47d8375926, type: 3}
-      propertyPath: m_Color.a
-      value: 0.78431374
-      objectReference: {fileID: 0}
-    - target: {fileID: 5371742118180900408, guid: e893207ca5da72246be1ba47d8375926, type: 3}
-      propertyPath: m_Color.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5371742118180900408, guid: e893207ca5da72246be1ba47d8375926, type: 3}
-      propertyPath: m_Color.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5371742118180900408, guid: e893207ca5da72246be1ba47d8375926, type: 3}
-      propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6453234334591391122, guid: e893207ca5da72246be1ba47d8375926, type: 3}
@@ -1868,22 +1848,42 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7245495292168744555, guid: e893207ca5da72246be1ba47d8375926, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1088589303}
+    - target: {fileID: 7245495292168744555, guid: e893207ca5da72246be1ba47d8375926, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetQuality
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074430150270621063, guid: e893207ca5da72246be1ba47d8375926, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074430150270621063, guid: e893207ca5da72246be1ba47d8375926, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915973123090457641, guid: e893207ca5da72246be1ba47d8375926, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915973123090457641, guid: e893207ca5da72246be1ba47d8375926, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8915973123090457641, guid: e893207ca5da72246be1ba47d8375926, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -17
+      objectReference: {fileID: 0}
     - target: {fileID: 8942885812029979616, guid: e893207ca5da72246be1ba47d8375926, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1088589298}
-    - target: {fileID: 8942885812029979616, guid: e893207ca5da72246be1ba47d8375926, type: 3}
-      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MusicVolume
-      objectReference: {fileID: 0}
     - target: {fileID: 8952615763056932845, guid: e893207ca5da72246be1ba47d8375926, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1088589299}
-    - target: {fileID: 8952615763056932845, guid: e893207ca5da72246be1ba47d8375926, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: click
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4621,6 +4621,7 @@ GameObject:
   - component: {fileID: 1088589300}
   - component: {fileID: 1088589301}
   - component: {fileID: 1088589302}
+  - component: {fileID: 1088589303}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4707,12 +4708,12 @@ RectTransform:
   - {fileID: 549081865}
   - {fileID: 364761749}
   - {fileID: 1710161645}
-  - {fileID: 1537025276}
   - {fileID: 139877973}
   - {fileID: 1491484434}
   - {fileID: 1751126722}
   - {fileID: 1141708920}
   - {fileID: 1759046981}
+  - {fileID: 1537025276}
   - {fileID: 879826748}
   - {fileID: 260962363}
   - {fileID: 1977531888}
@@ -4805,6 +4806,19 @@ MonoBehaviour:
   DailyRewardsWindow: {fileID: 0}
   QuestWindow: {fileID: 0}
   SpinWheelWindow: {fileID: 0}
+--- !u!114 &1088589303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088589290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbcf6197513e13d40b5674b3613133e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  settingsMenuUI: {fileID: 0}
 --- !u!1 &1110455885
 GameObject:
   m_ObjectHideFlags: 0
