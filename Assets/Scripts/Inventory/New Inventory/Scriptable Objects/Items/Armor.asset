@@ -16,7 +16,7 @@ MonoBehaviour:
   characterDisplay: {fileID: 0}
   stackable: 0
   type: 5
-  description: This is the Armor
+  description: This is a bandit light armor
   data:
     Name: 
     Id: 1
