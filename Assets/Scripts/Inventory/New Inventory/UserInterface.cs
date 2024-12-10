@@ -8,9 +8,9 @@ using UnityEngine.Events;
 
 public abstract class UserInterface : MonoBehaviour
 {
-
     public InventoryObject inventory;
     public Dictionary<GameObject, InventorySlot> slotsOnInterface = new Dictionary<GameObject, InventorySlot>();
+
     public void Start()
     {
         for (int i = 0; i < inventory.GetSlots.Length; i++)
@@ -21,8 +21,13 @@ public abstract class UserInterface : MonoBehaviour
         CreateSlots();
         AddEvent(gameObject, EventTriggerType.PointerEnter, delegate { OnEnterInterface(gameObject); });
         AddEvent(gameObject, EventTriggerType.PointerExit, delegate { OnExitInterface(gameObject); });
-    }
 
+        // Adding the click event for each slot
+        foreach (var slot in slotsOnInterface.Keys)
+        {
+            AddEvent(slot, EventTriggerType.PointerClick, delegate { OnSlotClick(slot); });
+        }
+    }
 
     private void OnSlotUpdate(InventorySlot _slot)
     {
@@ -40,11 +45,6 @@ public abstract class UserInterface : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    // void Update()
-    // {
-    //     slotsOnInterface.UpdateSlotDisplay();
-    // }
     public abstract void CreateSlots();
 
     protected void AddEvent(GameObject obj, EventTriggerType type, UnityAction<BaseEventData> action)
@@ -59,6 +59,44 @@ public abstract class UserInterface : MonoBehaviour
         trigger.triggers.Add(eventTrigger);
     }
 
+    // Handle clicking on a slot
+    public void OnSlotClick(GameObject obj)
+    {
+        // Check if the slot is in the interface and if it has an item
+        if (slotsOnInterface.ContainsKey(obj))
+        {
+            var inventorySlot = slotsOnInterface[obj];
+            Debug.Log("Slot Clicked: " + obj.name);
+
+            if (inventorySlot?.ItemObject != null)
+            {
+                Debug.Log("Item Name: " + inventorySlot.ItemObject.name);
+                Debug.Log("Item Type: " + inventorySlot.ItemObject.type);
+                Debug.Log("Is Stackable: " + inventorySlot.ItemObject.stackable);
+
+                if (inventorySlot.ItemObject.data != null)
+                {
+                    var data = inventorySlot.ItemObject.data;
+                    Debug.Log("Item Data:");
+                    Debug.Log("  Name: " + data.Name);
+                    Debug.Log("  ID: " + data.Id);
+
+                    foreach (var buff in data.buffs)
+                    {
+                        Debug.Log($"  Buff: Attribute = {buff.attribute}, Value = {buff.value}, Min = {buff.min}, Max = {buff.max}");
+                    }
+                }
+                else
+                {
+                    Debug.LogError("Item data is null!");
+                }
+            }
+            else
+            {
+                Debug.LogError("No item in the slot!");
+            }
+        }
+    }
 
     public void OnEnter(GameObject obj)
     {
@@ -82,19 +120,22 @@ public abstract class UserInterface : MonoBehaviour
     {
         MouseData.slotHoveredOver = null;
     }
+
     public void OnEnterInterface(GameObject obj)
     {
         MouseData.interfaceMouseIsOver = obj.GetComponent<UserInterface>();
-
     }
+
     public void OnExitInterface(GameObject obj)
     {
         MouseData.interfaceMouseIsOver = null;
     }
+
     public void OnDragStart(GameObject obj)
     {
         MouseData.tempItemBeingDragged = CreateTempItem(obj);
     }
+
     public GameObject CreateTempItem(GameObject obj)
     {
         GameObject tempItem = null;
@@ -110,13 +151,13 @@ public abstract class UserInterface : MonoBehaviour
         }
         return tempItem;
     }
+
     public void OnDragEnd(GameObject obj)
     {
         Destroy(MouseData.tempItemBeingDragged);
         if (MouseData.interfaceMouseIsOver == null)
         {
             slotsOnInterface[obj].RemoveItem();
-
             return;
         }
         if (MouseData.slotHoveredOver)
@@ -125,20 +166,21 @@ public abstract class UserInterface : MonoBehaviour
             inventory.SwapItems(slotsOnInterface[obj], mouseHoverSlotData);
         }
     }
+
     public void OnDrag(GameObject obj)
     {
         if (MouseData.tempItemBeingDragged != null)
             MouseData.tempItemBeingDragged.GetComponent<RectTransform>().position = Input.mousePosition;
     }
-
-
 }
+
 public static class MouseData
 {
     public static UserInterface interfaceMouseIsOver;
     public static GameObject tempItemBeingDragged;
     public static GameObject slotHoveredOver;
 }
+
 
 
 public static class ExtensionMethods

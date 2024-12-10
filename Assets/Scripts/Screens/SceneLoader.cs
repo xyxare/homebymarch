@@ -17,7 +17,7 @@ public class SceneLoader : MonoBehaviour
     progressSlider.value = 0;
     loaderUI.SetActive(true);
 
-    AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("Dungeon Exploration");
+    AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(scene);
     asyncOperation.allowSceneActivation = false;
     float progress = 0;
 
