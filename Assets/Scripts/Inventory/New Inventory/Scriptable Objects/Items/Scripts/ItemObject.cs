@@ -114,6 +114,6 @@ public class ItemBuff : IModifier
 
     public void GenerateValue()
     {
-        value = UnityEngine.Random.Range(min, max);
+        value = value;
     }
 }
