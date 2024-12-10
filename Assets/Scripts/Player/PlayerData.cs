@@ -1,75 +1,104 @@
 
 
+using System;
+using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+
+[System.Serializable]
+public class PlayerData : MonoBehaviour
+{
+    public string playerName;
+    public int health{get; private set;}
+    public int attack{get; private set;}
+    public int defense{get; private set;}
+    public int gold{get; private set;}
+    public double attackSpeed{get; private set;}
+
+    private string playerDataJsonFilePath;
 
 
-// namespace MyGame.Player
-// {
-// using System;
-// using UnityEngine;
+    public PlayerData()
+    {
+        // Default values for a new player
+        playerName = "New Player";
+        health = 100;
+        attack = 10;
+        defense = 5;
+        gold = 0;
+        attackSpeed = 2;
+        
+    }
+    void Start(){
+        playerDataJsonFilePath = Application.persistentDataPath + "/playerData.json";
+        LoadPlayerData();
+        
+    }
 
-// [System.Serializable]
-// public class PlayerData
-// {
-//     public string playerName;
-//     public int level;
-//     public int health;
-//     public int attack;
-//     public int defense;
-//     public int experience;
+    public void OnApplicationClose(){
+        SavePlayerData();
+    }
 
-//     public PlayerData()
-//     {
-//         // Default values for a new player
-//         playerName = "New Player";
-//         level = 1;
-//         health = 100;
-//         attack = 10;
-//         defense = 5;
-//         experience = 0;
-//         inventory = new Inventory();
-//     }
+    // Method to level up the player
+    public void LevelUp()
+    {
 
-//     // Method to level up the player
-//     public void LevelUp()
-//     {
-//         level++;
-//         health += 10;
-//         attack += 5;
-//         defense += 3;
-//     }
+        health += 10;
+        attack += 5;
+        defense += 3;
+        attackSpeed = attackSpeed / 0.995;
+        SavePlayerData();
+        
 
-//     // Method to take damage
-//     public void TakeDamage(int damage)
-//     {
-//         int damageTaken = damage - defense;
-//         health -= (damageTaken > 0) ? damageTaken : 0;
-//         if (health < 0) health = 0;
-//     }
+    }
 
-//     // Method to heal the player
-//     public void Heal(int amount)
-//     {
-//         health += amount;
-//         // Cap health at a maximum value, e.g., 100 + (10 * level)
-//         int maxHealth = 100 + (10 * level);
-//         if (health > maxHealth) health = maxHealth;
-//     }
+    public void AddGold(int amount){
+        gold += amount;
+        SavePlayerData();
+    }
 
-//     // Method to gain experience
-//     public void GainExperience(int exp)
-//     {
-//         experience += exp;
-//         // Example: Level up every 100 experience points
-//         if (experience >= 100 * level)
-//         {
-//             experience -= 100 * level;
-//             LevelUp();
-//         }
-//     }
+    public void SubtractGold(int amount){
+        gold -= amount;
+    }
 
-//     internal void Initialize()
-//     {
-//         throw new NotImplementedException();
-//     }
-// }
+    public void SavePlayerData(){
+
+        PlayerDataSaver data = new PlayerDataSaver();
+        data.health = health;
+        data.attack = attack;
+        data.defense = defense;
+        data.gold = gold;
+        data.attackSpeed = attackSpeed;
+
+        
+        string playerDataJson = JsonUtility.ToJson(data);
+        System.IO.File.WriteAllText(playerDataJsonFilePath, playerDataJson);
+        Debug.Log("Saved Player Data");
+
+    }
+
+    public void LoadPlayerData(){
+
+        if(System.IO.File.Exists(playerDataJsonFilePath)){
+            string playerDataJson = System.IO.File.ReadAllText(playerDataJsonFilePath);
+            health = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson).health;
+            attack = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson).attack;
+            defense = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson).defense;
+            gold = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson).gold;
+            attackSpeed = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson).attackSpeed;
+
+            Debug.Log("Player Data Loaded");
+
+
+        }
+
+    }
+
+
+    
+
+
+
+}
 // }

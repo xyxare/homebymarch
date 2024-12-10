@@ -17,7 +17,7 @@ namespace CoppraGames
             public Sprite icon;
             public int count;
             public int day;
-            public ItemSO itemSO; // add item here
+            public ItemObject itemSO; // add item here
         }
 
         public GameObject ResultPanel;
@@ -34,6 +34,7 @@ namespace CoppraGames
         public string dailyQuestJsonFilePath;
         public int currentDailySteps;
         public int requiredDailySteps;
+        public PlayerData playerData;
 
 
         void Awake()
@@ -47,7 +48,7 @@ namespace CoppraGames
         public void Init()
         { 
             dailyQuestJsonFilePath = Application.persistentDataPath + "/playerDailyQuestData.json";
-            requiredDailySteps = 20000;
+
 
 
 
@@ -182,18 +183,28 @@ namespace CoppraGames
             // string key = "reward_claimed_" + day;
             dailyQuestProgress.areDailyQuestsClaimed[day - 1] = true;
             Debug.Log("claimed. new array:" + dailyQuestProgress.areDailyQuestsClaimed[day - 1]);
-            playerInventory.AddItem(reward.itemSO, reward.count);
+
+
+
+            if(reward.itemSO != null){
+                Debug.Log(reward.itemSO.data.Name);
+
+                playerInventory.AddItem(reward.itemSO.data, reward.count);
+                playerInventory.Save();
+            } else {
+                playerData.AddGold(reward.count);
+            }
             SaveDailyQuestData();
             // PlayerPrefs.SetInt(key, 1);
             
 
-            QuestManager.instance.OnAchieveQuestGoal(QuestManager.QuestGoals.COLLECT_DAILY_REWARDS);
+            // QuestManager.instance.OnAchieveQuestGoal(QuestManager.QuestGoals.COLLECT_DAILY_REWARDS);
         }
 
         public void ShowResult(int resultIndex)
         {
             StartCoroutine(_ShowResult(resultIndex));
-            SoundController.instance.PlaySoundEffect("collection", false, 1);
+            // SoundController.instance.PlaySoundEffect("collection", false, 1);
         }
 
 

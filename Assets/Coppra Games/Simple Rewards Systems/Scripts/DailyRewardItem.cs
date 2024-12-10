@@ -27,6 +27,8 @@ namespace CoppraGames
             this.CountText.text = reward.count.ToString();
             this.day = reward.day;
 
+            Debug.Log("Main is null: " + (Main.instance.DailyRewardsWindow == null));
+
             bool isReadyToCollect = Main.instance.DailyRewardsWindow.IsDailyRewardReadyToCollect(day);
             bool isClaimed = Main.instance.DailyRewardsWindow.IsDailyRewardClaimed(day);
 

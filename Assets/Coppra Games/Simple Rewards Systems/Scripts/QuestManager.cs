@@ -41,7 +41,7 @@ namespace CoppraGames
             public Type type;
             public Sprite icon;
             public int count;
-            public ItemSO itemSO;
+            public Item itemSO;
         }
 
         public static QuestManager instance;

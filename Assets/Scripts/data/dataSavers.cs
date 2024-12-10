@@ -36,3 +36,13 @@ public class DailyQuestProgress {
     
   }
 }
+
+
+public class PlayerDataSaver {
+
+    public int health;
+    public int attack;
+    public int defense;
+    public int gold;
+    public double attackSpeed;
+}
