@@ -34,6 +34,7 @@ namespace CoppraGames
         public string dailyQuestJsonFilePath;
         public int currentDailySteps;
         public int requiredDailySteps;
+        public PlayerData playerData;
 
 
         void Awake()
@@ -182,7 +183,12 @@ namespace CoppraGames
             // string key = "reward_claimed_" + day;
             dailyQuestProgress.areDailyQuestsClaimed[day - 1] = true;
             Debug.Log("claimed. new array:" + dailyQuestProgress.areDailyQuestsClaimed[day - 1]);
-            playerInventory.AddItem(reward.itemSO, reward.count);
+
+            if(reward.itemSO.Name != ""){
+                playerInventory.AddItem(reward.itemSO, reward.count);
+            } else {
+                playerData.AddGold(reward.count);
+            }
             SaveDailyQuestData();
             // PlayerPrefs.SetInt(key, 1);
             
