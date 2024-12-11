@@ -35,7 +35,7 @@ public class PlayerData : MonoBehaviour
         attackSpeed = 2;
         
     }
-    void Start(){
+    void Awake(){
         playerDataJsonFilePath = Application.persistentDataPath + "/playerData.json";
         LoadPlayerData();
         
@@ -126,6 +126,11 @@ public class PlayerData : MonoBehaviour
         attackSpeed = playerData.attackSpeed;
 
         Debug.Log("player stats set!");
+    }
+
+    public void ChangePlayerName(string name){
+        playerName = name;
+        SavePlayerData();
     }
 
 
