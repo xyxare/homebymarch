@@ -5592,9 +5592,9 @@ MonoBehaviour:
   titleText: {fileID: 261033859}
   bodyText: {fileID: 1559482510}
   sceneNames:
-  - Exploration 4
-  - Exploration 5
-  - Exploration 2
+  - Dungeon exploration
+  - Dungeon exploration
+  - Dungeon exploration
   - Exploration 2
   - Exploration 2
   - Exploration 2
