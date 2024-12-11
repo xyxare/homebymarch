@@ -20,7 +20,6 @@ public class Player : MonoBehaviour
     public Transform offhandWristTransform;
     public Transform offhandHandTransform;
 
-    public SpellStrategy[] spells;
 
     private BoneCombiner boneCombiner;
      private HeadsUpDisplay headsUpDisplay;
@@ -41,6 +40,81 @@ public class Player : MonoBehaviour
         {
             equipment.GetSlots[i].OnBeforeUpdate += OnRemoveItem;
             equipment.GetSlots[i].OnAfterUpdate += OnAddItem;
+        }
+    }
+
+
+    public void OnRemoveItem(InventorySlot _slot)
+    {
+        if (_slot.ItemObject == null)
+            return;
+
+        switch (_slot.parent.inventory.type)
+        {
+            case InterfaceType.Inventory:
+                break;
+
+            case InterfaceType.Equipment:
+                print(string.Concat("Removed ", _slot.ItemObject, " on ", _slot.parent.inventory.type,
+                    ", Allowed Items: ", string.Join(", ", _slot.AllowedItems)));
+
+                for (int i = 0; i < _slot.item.buffs.Length; i++)
+                {
+                    for (int j = 0; j < attributes.Length; j++)
+                    {
+                        if (attributes[j].type == _slot.item.buffs[i].attribute)
+                            attributes[j].value.RemoveModifier(_slot.item.buffs[i]);
+                    }
+                }
+
+                if (_slot.ItemObject.characterDisplay != null)
+                {
+                    switch (_slot.AllowedItems[0])
+                    {
+                        case ItemType.Helmet:
+                            if (helmet != null)
+                            {
+                                Destroy(helmet.gameObject);
+                                helmet = null;
+                            }
+                            break;
+                        case ItemType.Weapon:
+                            if (sword != null)
+                            {
+                                Destroy(sword.gameObject);
+                                sword = null;
+                            }
+                            break;
+                        case ItemType.Shield:
+                            if (offhand != null)
+                            {
+                                Destroy(offhand.gameObject);
+                                offhand = null;
+                            }
+                            break;
+                        case ItemType.Boots:
+                            if (boots != null)
+                            {
+                                Destroy(boots.gameObject);
+                                boots = null;
+                            }
+                            break;
+                        case ItemType.Chest:
+                            if (chest != null)
+                            {
+                                Destroy(chest.gameObject);
+                                chest = null;
+                            }
+                            break;
+                    }
+                }
+                break;
+
+            case InterfaceType.Chest:
+                break;
+
+            default:
+                break;
         }
     }
 
@@ -76,7 +150,6 @@ public class Player : MonoBehaviour
                             break;
                         case ItemType.Weapon:
                             sword = Instantiate(_slot.ItemObject.characterDisplay, weaponTransform).transform;
-                            AddSkillToSpells(_slot.ItemObject.skillData as SpellStrategy);
                             break;
                         case ItemType.Shield:
                             switch (_slot.ItemObject.type)
@@ -88,7 +161,6 @@ public class Player : MonoBehaviour
                                 case ItemType.Shield:
                                     offhand = Instantiate(_slot.ItemObject.characterDisplay, offhandWristTransform)
                                         .transform;
-                                    AddSkillToSpells(_slot.ItemObject.skillData as SpellStrategy);
                                     break;
                             }
 
@@ -108,150 +180,6 @@ public class Player : MonoBehaviour
                 break;
             default:
                 break;
-        }
-    }
-
-    public void OnRemoveItem(InventorySlot _slot)
-    {
-        if (_slot.ItemObject == null)
-            return;
-        switch (_slot.parent.inventory.type)
-        {
-            case InterfaceType.Inventory:
-                break;
-            case InterfaceType.Equipment:
-                print($"Removed {_slot.ItemObject} on {_slot.parent.inventory.type}, Allowed Items: {string.Join(", ", _slot.AllowedItems)}");
-
-                for (int i = 0; i < _slot.item.buffs.Length; i++)
-                {
-                    for (int j = 0; j < attributes.Length; j++)
-                    {
-                        if (attributes[j].type == _slot.item.buffs[i].attribute)
-                            attributes[j].value.RemoveModifier(_slot.item.buffs[i]);
-                    }
-                }
-
-                if (_slot.ItemObject.characterDisplay != null)
-                {
-                    switch (_slot.AllowedItems[0])
-                    {
-                        case ItemType.Helmet:
-                            if (helmet != null)
-                            {
-                                Destroy(helmet.gameObject);
-                                helmet = null;
-                            }
-                            break;
-                        case ItemType.Weapon:
-                            if (sword != null)
-                            {
-                                Destroy(sword.gameObject);
-                                sword = null;
-                                RemoveSkillFromSpells(_slot.ItemObject.skillData as SpellStrategy);
-                            }
-                            break;
-                        case ItemType.Shield:
-                            if (offhand != null)
-                            {
-                                Destroy(offhand.gameObject);
-                                offhand = null;
-                                RemoveSkillFromSpells(_slot.ItemObject.skillData as SpellStrategy);
-                            }
-                            break;
-                        case ItemType.Boots:
-                            if (boots != null)
-                            {
-                                Destroy(boots.gameObject);
-                                boots = null;
-                            }
-                            break;
-                        case ItemType.Chest:
-                            if (chest != null)
-                            {
-                                Destroy(chest.gameObject);
-                                chest = null;
-                            }
-                            break;
-                    }
-                }
-                break;
-            case InterfaceType.Chest:
-                break;
-            default:
-                break;
-        }
-    }
-
-
-    void OnEnable()
-    {
-
-        HeadsUpDisplay.OnButtonPressed += CastSpell;
-    }
-
-    void OnDisable()
-    {
-
-        HeadsUpDisplay.OnButtonPressed -= CastSpell;
-    }
-
-    void CastSpell(int index)
-    {
-
-        spells[index].CastSpell(transform);
-        Debug.Log("spellcasted");
-
-    }
-
-   
-
-    
-
-    private void AddSkillToSpells(SpellStrategy skillData)
-    {
-        if (skillData != null)
-        {
-            List<SpellStrategy> spellList = new List<SpellStrategy>(spells);
-            spellList.Add(skillData);
-            spells = spellList.ToArray();
-
-            Debug.Log("Updated spells list:");
-            foreach (var spell in spells)
-            {
-                Debug.Log(spell);
-            }
-
-            UpdateSpellButtonSprites(); // Update button sprites after adding a skill
-        }
-    }
-
-    private void RemoveSkillFromSpells(SpellStrategy skillData)
-    {
-        if (skillData != null)
-        {
-            List<SpellStrategy> spellList = new List<SpellStrategy>(spells);
-            if (spellList.Remove(skillData))
-            {
-                spells = spellList.ToArray();
-
-                Debug.Log("Updated spells list after removal:");
-                Debug.Log("----------------------------------------------------------------");
-                foreach (var spell in spells)
-                {
-                    Debug.Log(spell);
-                }
-                Debug.Log("----------------------------------------------------------------");
-
-                UpdateSpellButtonSprites(); // Update button sprites after removing a skill
-            }
-        }
-    }
-
-    private void UpdateSpellButtonSprites()
-    {
-        if (headsUpDisplay != null)
-        {
-            headsUpDisplay.UpdateButtonSprites(spells);
         }
     }
 

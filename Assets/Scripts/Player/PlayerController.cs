@@ -146,25 +146,25 @@ namespace HomeByMarch
 
         void Start() => input.EnablePlayerActions();
 
-        // void OnEnable()
-        // {
-        //     input.Attack += OnAttack;
-        //     HeadsUpDisplay.OnButtonPressed += CastSpell;
-        // }
+        void OnEnable()
+        {
+            input.Attack += OnAttack;
+            HeadsUpDisplay.OnButtonPressed += CastSpell;
+        }
 
-        // void OnDisable()
-        // {
-        //     input.Attack -= OnAttack;
-        //     HeadsUpDisplay.OnButtonPressed -= CastSpell;
-        // }
+        void OnDisable()
+        {
+            input.Attack -= OnAttack;
+            HeadsUpDisplay.OnButtonPressed -= CastSpell;
+        }
 
-        // void CastSpell(int index)
-        // {
+        void CastSpell(int index)
+        {
             
-        //     spells[index].CastSpell(transform);
-        //     Debug.Log("spellcasted");
+            spells[index].CastSpell(transform);
+            Debug.Log("spellcasted");
        
-        // }
+        }
 
         void OnAttack()
         {
