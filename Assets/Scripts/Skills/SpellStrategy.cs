@@ -4,6 +4,8 @@ using UnityEngine;
 
 
 public abstract class SpellStrategy : ScriptableObject {
+
+    public Sprite uiDisplay;
     public abstract void CastSpell(Transform origin);
     
 }

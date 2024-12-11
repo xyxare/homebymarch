@@ -23,9 +23,13 @@ public class Player : MonoBehaviour
     public SpellStrategy[] spells;
 
     private BoneCombiner boneCombiner;
+     private HeadsUpDisplay headsUpDisplay;
 
     private void Start()
     {
+
+        headsUpDisplay = FindObjectOfType<HeadsUpDisplay>(); // Assuming there's only one HUD in the scene
+        UpdateSpellButtonSprites();
         boneCombiner = new BoneCombiner(gameObject);
 
         for (int i = 0; i < attributes.Length; i++)
@@ -178,21 +182,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void AddSkillToSpells(SpellStrategy skillData)
-    {
-        if (skillData != null)
-        {
-            List<SpellStrategy> spellList = new List<SpellStrategy>(spells);
-            spellList.Add(skillData);
-            spells = spellList.ToArray();
 
-            Debug.Log("Updated spells list:");
-            foreach (var spell in spells)
-            {
-                Debug.Log(spell);
-            }
-        }
-    }
     void OnEnable()
     {
 
@@ -213,6 +203,28 @@ public class Player : MonoBehaviour
 
     }
 
+   
+
+    
+
+    private void AddSkillToSpells(SpellStrategy skillData)
+    {
+        if (skillData != null)
+        {
+            List<SpellStrategy> spellList = new List<SpellStrategy>(spells);
+            spellList.Add(skillData);
+            spells = spellList.ToArray();
+
+            Debug.Log("Updated spells list:");
+            foreach (var spell in spells)
+            {
+                Debug.Log(spell);
+            }
+
+            UpdateSpellButtonSprites(); // Update button sprites after adding a skill
+        }
+    }
+
     private void RemoveSkillFromSpells(SpellStrategy skillData)
     {
         if (skillData != null)
@@ -229,10 +241,19 @@ public class Player : MonoBehaviour
                     Debug.Log(spell);
                 }
                 Debug.Log("----------------------------------------------------------------");
+
+                UpdateSpellButtonSprites(); // Update button sprites after removing a skill
             }
         }
     }
 
+    private void UpdateSpellButtonSprites()
+    {
+        if (headsUpDisplay != null)
+        {
+            headsUpDisplay.UpdateButtonSprites(spells);
+        }
+    }
 
 
     public void OnTriggerEnter(Collider other)
