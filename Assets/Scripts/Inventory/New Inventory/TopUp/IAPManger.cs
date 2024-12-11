@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
+using UnityEngine.UI;
+using TMPro;
 
 public class IAPManager : MonoBehaviour
 {
@@ -11,9 +13,19 @@ public class IAPManager : MonoBehaviour
     private string coins150 = "coins150";
     private string coins1000 = "coins1000";
 
-    // Reference to the ShopController
-    public ShopController _shopController;
+    [SerializeField]
+    private ShopController _shopController;
+    [SerializeField]
+    private Button coins50Button;
+    [SerializeField]
+    private Button coins100Button;
+    [SerializeField]
+    private Button coins150Button;
+    [SerializeField]
+    private Button coins1000Button;
 
+    // Reference to the ShopController
+  
     // Called when a purchase is successfully completed
     public void OnPurchaseComplete(Product product)
     {
@@ -44,4 +56,28 @@ public class IAPManager : MonoBehaviour
     {
         Debug.Log($"Purchase failed for product: {product.definition.id}. Reason: {failureDescription.reason}");
     }
+    public void OnProductFetched(Product product){
+        if(product.definition.id == coins50){
+            UpdateButtonPrice(coins50Button, product);
+        }
+        else if(product.definition.id == coins100){
+            UpdateButtonPrice(coins100Button, product);
+        }
+        else if(product.definition.id == coins150){
+            UpdateButtonPrice(coins150Button, product);
+        }
+        else if(product.definition.id == coins1000){
+            UpdateButtonPrice(coins1000Button, product);
+        }
+        
+    }
+    private void UpdateButtonPrice(Button button, Product product)
+{
+    TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+    if (buttonText != null)
+    {
+        buttonText.text = product.metadata.localizedPriceString + " " + product.metadata.isoCurrencyCode;
+    }
+}
+
 }
