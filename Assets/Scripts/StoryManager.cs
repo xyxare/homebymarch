@@ -2,18 +2,55 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System;
+using UnityEditor.U2D;
 
 public class StoryManager : MonoBehaviour
 {
+    public Image images;
     public TMP_Text titleText;
     public TMP_Text bodyText;
     public string[] sceneNames;
-    public GameObject loadingScreen; 
-    public Slider progressBar;    
+    public GameObject loadingScreen;
+    public Slider progressBar;
     private int lastClickedIndex = -1;
-    private float lastClickTime = 0f; 
+    private float lastClickTime = 0f;
     private float clickResetTime = 2f;
     private int currentIndex = 0;
+
+    private Sprite[] newImages;
+
+    private void Start()
+    {
+        newImages = new Sprite[]
+        {
+        //The Beginning - "The Call to Journey"
+        LoadSprite("stories/5"),         
+        LoadSprite("stories/homebymarch"),  
+        LoadSprite("stories/homebymarch"),  
+
+         //The Trials - "The Rising Storm"
+        LoadSprite("stories/1"),           
+        LoadSprite("stories/homebymarch"),  
+        LoadSprite("stories/homebymarch"),  
+
+        //The Resolution - "Homeward Bound"
+        LoadSprite("stories/3"),         
+        LoadSprite("stories/homebymarch"),  
+        LoadSprite("stories/homebymarch")
+        };
+    }
+    private Sprite LoadSprite(string path)
+    {
+        // Path should be relative to the Resources folder, e.g., "stories/5"
+        Sprite sprite = Resources.Load<Sprite>(path);
+        if (sprite == null)
+        {
+            Debug.LogError($"Failed to load sprite at path: {path}");
+        }
+        return sprite;
+    }
+
     private string[] newTMPTexts = new string[]
     {
         //The Beginning - "The Call to Journey"
@@ -50,20 +87,30 @@ public class StoryManager : MonoBehaviour
         "MARCH’S RETURN"
     };
 
-    
-    private int clickCount = 0;
-
-
     public void Next()
     {
-        currentIndex = (currentIndex + 3) % newTMPTexts.Length;
-        UpdateText();
+        if (newTMPTexts != null && newTMPTexts.Length > 0)
+        {
+            currentIndex = (currentIndex + 3) % newTMPTexts.Length;
+            UpdateText();
+        }
+        else
+        {
+            Debug.LogWarning("newTMPTexts array is null or empty.");
+        }
     }
 
     public void Previous()
     {
-        currentIndex = (currentIndex - 3 + newTMPTexts.Length) % newTMPTexts.Length;
-        UpdateText();
+        if (newTMPTexts != null && newTMPTexts.Length > 0)
+        {
+            currentIndex = (currentIndex - 3 + newTMPTexts.Length) % newTMPTexts.Length;
+            UpdateText();
+        }
+        else
+        {
+            Debug.LogWarning("newTMPTexts array is null or empty.");
+        }
     }
 
     public void OnButtonClick(int index)
@@ -84,10 +131,11 @@ public class StoryManager : MonoBehaviour
         else
         {
             // Display text associated with the button
-            if (index < newTMPTexts.Length && index < newTMPTitles.Length)
+            if (index < newTMPTexts.Length && index < newTMPTitles.Length && index < newImages.Length)
             {
                 titleText.text = newTMPTitles[index];
                 bodyText.text = newTMPTexts[index];
+                images.sprite = newImages[index];
             }
             else
             {
@@ -103,7 +151,7 @@ public class StoryManager : MonoBehaviour
     {
         if (loadingScreen != null)
         {
-            loadingScreen.SetActive(true); 
+            loadingScreen.SetActive(true);
         }
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
@@ -121,5 +169,6 @@ public class StoryManager : MonoBehaviour
     {
         titleText.text = newTMPTitles[currentIndex];
         bodyText.text = newTMPTexts[currentIndex];
+        images.sprite = newImages[currentIndex];
     }
 }
