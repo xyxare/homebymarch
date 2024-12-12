@@ -5,6 +5,7 @@ using Utilities;
 
 [CreateAssetMenu(fileName = "ShieldSpellStrategy", menuName = "Spells/ShieldSpellStrategy")]
 public class ShieldSpellStrategy : SpellStrategy {
+
     public GameObject shieldPrefab;
     public float duration = 5f;
 

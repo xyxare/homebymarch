@@ -36,4 +36,9 @@ public class SettingsMenu : MonoBehaviour
         Time.timeScale = 1f;
         settingsPanel = false;
     }
+
+    public void SetQuality(int qualityIndex)
+    {
+        QualitySettings.SetQualityLevel(qualityIndex);
+    }
 }

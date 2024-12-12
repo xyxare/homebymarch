@@ -6,6 +6,8 @@ using HomeByMarch;
 [CreateAssetMenu(fileName = "HealSpellStrategy", menuName = "Spells/HealSpellStrategy")]
 public class HealSpellStrategy : SpellStrategy
 {
+
+    
     public GameObject HealPrefab; // Visual effect for healing
     public float duration = 5f;  // Duration of the healing effect
     public float healPercentage = 0.2f; // 20% healing

@@ -21,4 +21,5 @@ MonoBehaviour:
     Name: 
     Id: 0
     buffs: []
+  skillData: {fileID: 0}
   boneNames: []

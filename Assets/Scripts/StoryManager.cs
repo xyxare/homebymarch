@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System;
-using UnityEditor.U2D;
+// using UnityEditor.U2D;
 
 public class StoryManager : MonoBehaviour
 {
