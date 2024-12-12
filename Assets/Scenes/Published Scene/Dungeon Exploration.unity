@@ -4399,6 +4399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 0e57e5d70b656274f95d9455f7a79221, type: 2}
+  price: 0
 --- !u!1 &276990132
 GameObject:
   m_ObjectHideFlags: 0
@@ -9690,8 +9691,13 @@ MonoBehaviour:
   itemDescriptionText: {fileID: 903912312}
   itemName: {fileID: 1833743553}
   itemStats: {fileID: 795494057}
+  itemPriceText: {fileID: 0}
   itemImage: {fileID: 1232722411}
   inventory: {fileID: 11400000, guid: ba391aef18194db419840aa8245becc2, type: 2}
+  playerData: {fileID: 0}
+  confirmPurchasePanel: {fileID: 0}
+  confirmButton: {fileID: 0}
+  insufficientGoldPanel: {fileID: 0}
 --- !u!114 &575601967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14806,6 +14812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 0e57e5d70b656274f95d9455f7a79221, type: 2}
+  price: 0
 --- !u!1001 &861956094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16871,7 +16878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &957397720
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17863,6 +17870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: fb9a25da542e55340acbd36b089eaf38, type: 2}
+  price: 0
 --- !u!1001 &1017715805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21115,6 +21123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 229842d3c954c5341ab5b385134217bf, type: 2}
+  price: 0
 --- !u!1001 &1256717143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21605,6 +21614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 73a8d9dc01d229a4ea9095477eddacfc, type: 2}
+  price: 0
 --- !u!1001 &1291654629
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22454,6 +22464,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 0e57e5d70b656274f95d9455f7a79221, type: 2}
+  price: 0
 --- !u!1 &1382504501
 GameObject:
   m_ObjectHideFlags: 0
@@ -22663,6 +22674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: bf4335a3732702f42a264d5ed627774d, type: 2}
+  price: 0
 --- !u!1001 &1391957386
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22756,6 +22768,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 0e57e5d70b656274f95d9455f7a79221, type: 2}
+  price: 0
 --- !u!1 &1399485515 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5226954981596785403, guid: 7d67ac5cfda0b944580afbed7561ec82, type: 3}
@@ -24259,6 +24272,7 @@ GameObject:
   - component: {fileID: 1493089055}
   - component: {fileID: 1493089056}
   - component: {fileID: 1493089057}
+  - component: {fileID: 1493089058}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -24418,6 +24432,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinText: {fileID: 1868591112}
+  playerData: {fileID: 1280169135}
+--- !u!114 &1493089058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493089050}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac245e956f8516e48936bea03a963a81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldText: {fileID: 1868591112}
   playerData: {fileID: 1280169135}
 --- !u!1001 &1498407251
 PrefabInstance:
@@ -24840,6 +24868,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 0e57e5d70b656274f95d9455f7a79221, type: 2}
+  price: 0
 --- !u!1 &1506514105
 GameObject:
   m_ObjectHideFlags: 0
@@ -26714,6 +26743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 0e57e5d70b656274f95d9455f7a79221, type: 2}
+  price: 0
 --- !u!1 &1650918565
 GameObject:
   m_ObjectHideFlags: 0
@@ -27665,6 +27695,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 0e57e5d70b656274f95d9455f7a79221, type: 2}
+  price: 0
 --- !u!1001 &1703331633
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27971,6 +28002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 0e57e5d70b656274f95d9455f7a79221, type: 2}
+  price: 0
 --- !u!1 &1727015103
 GameObject:
   m_ObjectHideFlags: 0
@@ -28542,7 +28574,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1753510724
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30542,6 +30574,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: click
       objectReference: {fileID: 0}
+    - target: {fileID: 4720217209853284242, guid: c876713e8ebd953488ca34dcc5760642, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7474863716632566192, guid: c876713e8ebd953488ca34dcc5760642, type: 3}
       propertyPath: m_Name
       value: Mission Button Prefab
@@ -32451,6 +32487,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 0e57e5d70b656274f95d9455f7a79221, type: 2}
+  price: 0
 --- !u!1 &2028403936
 GameObject:
   m_ObjectHideFlags: 0
@@ -32834,6 +32871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 11400000, guid: 0e57e5d70b656274f95d9455f7a79221, type: 2}
+  price: 0
 --- !u!1001 &2063281606
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36350,6 +36388,10 @@ PrefabInstance:
     - target: {fileID: 7273108704967822903, guid: 2ba0cbf228dd5ea428b8042e1d7ef540, type: 3}
       propertyPath: m_Name
       value: Inventory Button
+      objectReference: {fileID: 0}
+    - target: {fileID: 7273108704967822903, guid: 2ba0cbf228dd5ea428b8042e1d7ef540, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
