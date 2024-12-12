@@ -6,6 +6,7 @@ using UnityEngine;
 public class ShopItem: MonoBehaviour, ISerializationCallbackReceiver
 {
     public ItemObject item;
+    public int price;
     
     // Called after deserialization to update the sprite
     public void OnAfterDeserialize()

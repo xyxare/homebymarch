@@ -15,9 +15,16 @@ public class ShopUI : MonoBehaviour
 
     public TMP_Text itemName;
     public TMP_Text itemStats;
+    public TMP_Text itemPriceText;             // Text to display the item price
     public Image itemImage;                    // UI Image to display the item's image
 
     public InventoryObject inventory;
+    public PlayerData playerData;              // Reference to the PlayerData object
+
+    public GameObject confirmPurchasePanel;    // Panel to confirm the purchase
+    public Button confirmButton;               // Button to confirm the purchase
+    public GameObject insufficientGoldPanel;   // Panel to show insufficient gold message
+    private ShopItem currentShopItem;          // The current shop item being claimed
 
     private Dictionary<GameObject, ShopItem> slotsOnInterface;
 
@@ -29,6 +36,12 @@ public class ShopUI : MonoBehaviour
         {
             var shopItem = shopItems[i];
             var slot = slots[i];
+
+            if (slot == null || shopItem == null)
+            {
+                Debug.LogError("Slot or ShopItem is null!");
+                continue;
+            }
 
             // Set up only the click event for the slot (OnClick)
             AddEvent(slot, EventTriggerType.PointerClick, delegate { OnSlotClick(slot, shopItem); });
@@ -42,8 +55,34 @@ public class ShopUI : MonoBehaviour
             claimButtonRect.anchoredPosition = new Vector2(1, -70);
             claimButtonRect.localScale = new Vector3(0.5f, 0.5f, 0.4f);
 
+            // Update the image inside the slot
+            Transform childImage = slot.transform.Find("Image");
+            if (childImage != null)
+            {
+                Image slotImage = childImage.GetComponent<Image>();
+                if (slotImage != null && shopItem.item != null && shopItem.item.uiDisplay != null)
+                {
+                    slotImage.sprite = shopItem.item.uiDisplay;
+                }
+                else
+                {
+                    Debug.LogError("Slot image or shopItem.item.uiDisplay is null!");
+                }
+            }
+            else
+            {
+                Debug.LogError("Child object 'Image' not found under slot.");
+            }
+
             slotsOnInterface.Add(slot, shopItem);
         }
+
+        // Hide the confirm purchase panel and insufficient gold panel initially
+        confirmPurchasePanel.SetActive(false);
+        insufficientGoldPanel.SetActive(false);
+
+        // Add listener to the confirm button
+        confirmButton.onClick.AddListener(OnConfirmButtonClick);
     }
 
     private void AddEvent(GameObject slot, EventTriggerType triggerType, UnityEngine.Events.UnityAction<BaseEventData> action)
@@ -61,84 +100,90 @@ public class ShopUI : MonoBehaviour
 
     private void OnClaimButtonClick(ShopItem shopItem)
     {
-        OnClaim(shopItem);
+        // Check if player has enough gold
+        if (playerData.gold >= shopItem.price)
+        {
+            currentShopItem = shopItem;
+            confirmPurchasePanel.SetActive(true); // Show the confirmation panel
+        }
+        else
+        {
+            insufficientGoldPanel.SetActive(true); // Show the insufficient gold panel
+        }
+    }
+
+    private void OnConfirmButtonClick()
+    {
+        OnClaim(currentShopItem);
+        confirmPurchasePanel.SetActive(false); // Hide the confirmation panel
     }
 
     private void OnSlotClick(GameObject slot, ShopItem shopItem)
-{
-    Debug.Log("Slot Clicked: " + slot.name);
-    
-    if (shopItem?.item != null)
     {
-        Debug.Log("Item Name: " + shopItem.item.name);
-        Debug.Log("Item Type: " + shopItem.item.type);
-        Debug.Log("Is Stackable: " + shopItem.item.stackable);
-
-        if (shopItem.item.data != null)
+        Debug.Log("Slot Clicked: " + slot.name);
+        
+        if (shopItem?.item != null)
         {
-            Item data = shopItem.item.data;
-            Debug.Log("Item Data:");
-            Debug.Log("  Name: " + data.Name);
-            Debug.Log("  ID: " + data.Id);
+            Debug.Log("Item Name: " + shopItem.item.name);
+            Debug.Log("Item Type: " + shopItem.item.type);
+            Debug.Log("Is Stackable: " + shopItem.item.stackable);
 
-            if (data.buffs != null && data.buffs.Length > 0)
+            if (shopItem.item.data != null)
             {
-                Debug.Log("  Buffs:");
-                foreach (var buff in data.buffs)
-                {
-                    Debug.Log("    Attribute: " + buff.attribute);
-                    Debug.Log("    Value: " + buff.value);
+                Item data = shopItem.item.data;
+                Debug.Log("Item Data:");
+                Debug.Log("  Name: " + data.Name);
+                Debug.Log("  ID: " + data.Id);
 
-                    if (itemStats != null)
-                        itemStats.text = $"Attribute: {buff.attribute} Value: {buff.value}";
-                    else
-                        Debug.LogError("itemStats is not assigned!");
+                if (data.buffs != null && data.buffs.Length > 0)
+                {
+                    Debug.Log("  Buffs:");
+                    foreach (var buff in data.buffs)
+                    {
+                        Debug.Log("    Attribute: " + buff.attribute);
+                        Debug.Log("    Value: " + buff.value);
+
+                        if (itemStats != null)
+                            itemStats.text = $"Attribute: {buff.attribute} Value: {buff.value}";
+                        else
+                            Debug.LogError("itemStats is not assigned!");
+                    }
+                }
+                else
+                {
+                    Debug.Log("  No Buffs");
                 }
             }
             else
             {
-                Debug.Log("  No Buffs");
+                Debug.LogError("shopItem.item.data is null!");
             }
         }
         else
         {
-            Debug.LogError("shopItem.item.data is null!");
+            Debug.LogError("shopItem.item is null!");
         }
-    }
-    else
-    {
-        Debug.LogError("shopItem.item is null!");
-    }
 
-    if (itemDescriptionText != null && itemName != null)
-    {
-        itemDescriptionText.text = shopItem.item.description;
-        itemName.text = shopItem.item.name;
-    }
-    else
-    {
-        Debug.LogError("UI text components are not assigned!");
-    }
-
-    Transform childImage = slot.transform.Find("Image");
-    if (childImage != null)
-    {
-        Image slotImage = childImage.GetComponent<Image>();
-        if (slotImage != null && itemImage != null)
+        if (itemDescriptionText != null && itemName != null && itemPriceText != null)
         {
-            itemImage.sprite = slotImage.sprite;
+            itemDescriptionText.text = shopItem.item.description;
+            itemName.text = shopItem.item.name;
+            itemPriceText.text = $"Price: {shopItem.price}";
         }
         else
         {
-            Debug.LogError("Slot image or itemImage is null!");
+            Debug.LogError("UI text components are not assigned!");
+        }
+
+        if (shopItem.item != null && shopItem.item.uiDisplay != null)
+        {
+            itemImage.sprite = shopItem.item.uiDisplay;
+        }
+        else
+        {
+            Debug.LogError("shopItem.item or shopItem.item.uiDisplay is null!");
         }
     }
-    else
-    {
-        Debug.LogError("Child object 'Image' not found under slot.");
-    }
-}
-
 
     public void OnClaim(ShopItem shopItem)
     {
@@ -149,7 +194,9 @@ public class ShopUI : MonoBehaviour
 
             if (inventory.AddItem(_item, 1))
             {
+
                 inventory.Save();
+                playerData.SubtractGold(shopItem.price);
             }
         }
     }
