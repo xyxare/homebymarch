@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Services.Core;
-using Unity.Services.Authentication;
+using Unity.Services.
+Authentication;
 using System.Threading.Tasks;
 
 public class Authenticator : MonoBehaviour

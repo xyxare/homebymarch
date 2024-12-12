@@ -548,11 +548,12 @@ RectTransform:
   m_GameObject: {fileID: 2818754533121112252}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.75829387, y: 0.75829387, z: 0.75829387}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8554559777528908925}
   - {fileID: 6038154255667290177}
+  - {fileID: 7518535667305202184}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -631,6 +632,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2818754533121112252}
   m_CullTransparentMesh: 1
+--- !u!1 &3105765369537503791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7518535667305202184}
+  - component: {fileID: 2630172419387072004}
+  - component: {fileID: 197179585859605268}
+  m_Layer: 5
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7518535667305202184
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3105765369537503791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4946600010320653735}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2630172419387072004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3105765369537503791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113cf47b1effbbc4899ed7495e273318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: New Player
+--- !u!114 &197179585859605268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3105765369537503791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d29dbacc048e4ba418ebfa2ee67ef99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3107985970438101213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,7 +1620,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &4987202519472474281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1920,7 +1983,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 197179585859605268}
         m_TargetAssemblyTypeName: Authenticator, Assembly-CSharp
         m_MethodName: SignIn
         m_Mode: 1
@@ -2391,7 +2454,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -901, y: -455.99997}
+  m_AnchoredPosition: {x: -981, y: -454}
   m_SizeDelta: {x: 379.0188, y: 101.7792}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8253389440117859841
@@ -2756,8 +2819,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerData, Assembly-CSharp
-        m_MethodName: SavePlayerDataToCloud
+        m_TargetAssemblyTypeName: CoppraGames.DailyRewardsWindow, Assembly-CSharp
+        m_MethodName: SaveDailyQuestProgressToCloud
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2767,9 +2830,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CoppraGames.DailyRewardsWindow, Assembly-CSharp
-        m_MethodName: SaveDailyQuestProgressToCloud
+      - m_Target: {fileID: 2630172419387072004}
+        m_TargetAssemblyTypeName: PlayerData, Assembly-CSharp
+        m_MethodName: SavePlayerDataToCloud
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

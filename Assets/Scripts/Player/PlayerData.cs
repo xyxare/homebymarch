@@ -81,7 +81,8 @@ public class PlayerData : MonoBehaviour
         string playerDataJson = JsonUtility.ToJson(data);
         System.IO.File.WriteAllText(playerDataJsonFilePath, playerDataJson);
 
-        Debug.Log("Saved Player Data");
+        Debug.Log("Saved Player Data" + data.playerName);
+
 
     }
 
@@ -110,6 +111,7 @@ public class PlayerData : MonoBehaviour
     public async void LoadPlayerDataFromCloud(){
         string playerDataJson = await CloudSaver.LoadDataFromCloud("playerData");
         data = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson);
+        Debug.Log(data.playerName);
         
 
         SetPlayerStats(data);
@@ -138,4 +140,3 @@ public class PlayerData : MonoBehaviour
 
 
 }
-// }
