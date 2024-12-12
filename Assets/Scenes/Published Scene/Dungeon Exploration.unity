@@ -14100,6 +14100,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7536431997016880538, guid: 15f32a9777aa6f24db5a5165707fed9d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1280169129}
+    - targetCorrespondingSourceObject: {fileID: 7536431997016880538, guid: 15f32a9777aa6f24db5a5165707fed9d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1280169135}
   m_SourcePrefab: {fileID: 100100000, guid: 15f32a9777aa6f24db5a5165707fed9d, type: 3}
 --- !u!1 &824651174
 GameObject:
@@ -21566,6 +21569,19 @@ MonoBehaviour:
   - {fileID: 1870430493}
   - {fileID: 292223218}
   defaultUISprite: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+--- !u!114 &1280169135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 813307912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 113cf47b1effbbc4899ed7495e273318, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerName: New Player
 --- !u!1 &1289586560 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4688500522344100312, guid: 410ca2b01f6d5f24cb4eec44a6f53bfc, type: 3}
@@ -24402,6 +24418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinText: {fileID: 1868591112}
+  playerData: {fileID: 1280169135}
 --- !u!1001 &1498407251
 PrefabInstance:
   m_ObjectHideFlags: 0
