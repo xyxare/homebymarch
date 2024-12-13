@@ -22,7 +22,7 @@ namespace HomeByMarch
         public Canvas permissionCanvas;
          // Event channel to broadcast step count changes
 
-        private int dailyStepCount;
+        public int dailyStepCount;
         private int overallStepCount;  // Track overall steps
         private string stepJsonFilePath;
 
@@ -42,6 +42,8 @@ namespace HomeByMarch
 
         void Start()
         {
+
+            
             InitializeStepCounter();
             LoadStepData();  // Load saved step data
             RequestPermission();  // Request permissions for step counting

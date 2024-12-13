@@ -4987,6 +4987,7 @@ MonoBehaviour:
   text: {fileID: 1308380227}
   debugText: {fileID: 0}
   permissionCanvas: {fileID: 1493089053}
+  dailyStepCount: 0
 --- !u!1 &292223216
 GameObject:
   m_ObjectHideFlags: 0
@@ -36391,7 +36392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7273108704967822903, guid: 2ba0cbf228dd5ea428b8042e1d7ef540, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using HomeByMarch;
 public class StoryLockController : MonoBehaviour
 {
     [System.Serializable]
@@ -15,11 +15,15 @@ public class StoryLockController : MonoBehaviour
     }
 
     public StoryLock[] storyLocks;  
-    public int currentSteps;         
+    private StepCountDemo stepCountDemo;  // Reference to the StepCountDemo class
+
+    void Start()
+    {
+        stepCountDemo = FindObjectOfType<StepCountDemo>();  // Find the StepCountDemo instance
+    }
 
     void Update()
     {
-        
         foreach (StoryLock storyLock in storyLocks)
         {
             if (!storyLock.isUnlocked && CanUnlock(storyLock))
@@ -30,10 +34,9 @@ public class StoryLockController : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    
     bool CanUnlock(StoryLock storyLock)
     {
-        return storyLock.isPreviousStoryCompleted && currentSteps >= storyLock.requiredSteps;
+        return storyLock.isPreviousStoryCompleted && stepCountDemo.dailyStepCount >= storyLock.requiredSteps;
     }
 
     // Unlock a specific story lock
@@ -47,19 +50,11 @@ public class StoryLockController : MonoBehaviour
         }
     }
 
-    
     public void OnPreviousStoryComplete(int storyLockIndex)
     {
         if (storyLockIndex >= 0 && storyLockIndex < storyLocks.Length)
         {
             storyLocks[storyLockIndex].isPreviousStoryCompleted = true;
         }
-    }
-
-    
-    public void UpdateSteps(int steps)
-    {
-        currentSteps = steps;
-        PlayerPrefs.SetInt("currentSteps", currentSteps);
     }
 }
