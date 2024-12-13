@@ -58,7 +58,7 @@ namespace CoppraGames
             } else {
                 dailyQuestProgress = new DailyQuestProgress(rewards.Length);
             }
-            if(!IsYesterdayRewardCollected() | GetDaysSinceLastReset() == 7){
+            if(!IsYesterdayRewardCollected() | GetDaysSinceLastReset() >= 7){
                 ResetDailyRewards();
             }
 
@@ -304,5 +304,22 @@ namespace CoppraGames
 
             
         }
+
+    public async void SaveDailyQuestProgressToCloud(){
+
+        CloudSaver.SaveDataToCloud("dailyQuestProgress", dailyQuestProgress);
+    
+    }
+
+    public async void LoadPlayerDataFromCloud(){
+        string dailyQuestProgressJson = await CloudSaver.LoadDataFromCloud("dailyQuestProgress");
+        dailyQuestProgress.areDailyQuestsClaimed = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestProgressJson).areDailyQuestsClaimed;
+        
+
+        dailyQuestProgress.lastResetDate = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestProgressJson).lastResetDate;
+        SaveDailyQuestData();
+
+    }
+        
     }
 }

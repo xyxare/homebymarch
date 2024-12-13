@@ -26,19 +26,19 @@ namespace HomeByMarch
         private int overallStepCount;  // Track overall steps
         private string stepJsonFilePath;
 
-        private void OnEnable()
-        {
-            // Subscribe to the step gained event
-            GameEventsManager.instance.stepCountEvents.onStepsGained += StepsGained;
-            GameEventsManager.instance.stepCountEvents.onStepCountChange += StepCountChanged;
-        }
+        // private void OnEnable()
+        // {
+        //     // Subscribe to the step gained event
+        //     GameEventsManager.instance.stepCountEvents.onStepsGained += StepsGained;
+        //     GameEventsManager.instance.stepCountEvents.onStepCountChange += StepCountChanged;
+        // }
 
-        private void OnDisable()
-        {
-            // Unsubscribe from the step gained event
-            GameEventsManager.instance.stepCountEvents.onStepsGained -= StepsGained;
-            GameEventsManager.instance.stepCountEvents.onStepCountChange -= StepCountChanged;
-        }
+        // private void OnDisable()
+        // {
+        //     // Unsubscribe from the step gained event
+        //     GameEventsManager.instance.stepCountEvents.onStepsGained -= StepsGained;
+        //     GameEventsManager.instance.stepCountEvents.onStepCountChange -= StepCountChanged;
+        // }
 
         void Start()
         {
@@ -123,7 +123,7 @@ namespace HomeByMarch
                     text.text = value.ToString();  // Update UI
 
                     // Trigger step gained event
-                    GameEventsManager.instance.stepCountEvents.StepsGained(dailyStepCount);
+                    // GameEventsManager.instance.stepCountEvents.StepsGained(dailyStepCount);
 
                     SaveStepData();  // Save data after updating steps
                 })

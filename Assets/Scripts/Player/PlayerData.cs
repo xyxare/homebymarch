@@ -5,6 +5,10 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Unity.Services.Core;
+using Unity.Services.Authentication;
+using System.Threading.Tasks;
+
 
 [System.Serializable]
 public class PlayerData : MonoBehaviour
@@ -17,6 +21,7 @@ public class PlayerData : MonoBehaviour
     public double attackSpeed{get; private set;}
 
     private string playerDataJsonFilePath;
+    public PlayerDataSaver data;
 
 
     public PlayerData()
@@ -30,7 +35,7 @@ public class PlayerData : MonoBehaviour
         attackSpeed = 2;
         
     }
-    void Start(){
+    void Awake(){
         playerDataJsonFilePath = Application.persistentDataPath + "/playerData.json";
         LoadPlayerData();
         
@@ -64,7 +69,8 @@ public class PlayerData : MonoBehaviour
 
     public void SavePlayerData(){
 
-        PlayerDataSaver data = new PlayerDataSaver();
+        data = new PlayerDataSaver();
+        data.playerName = playerName;
         data.health = health;
         data.attack = attack;
         data.defense = defense;
@@ -74,7 +80,9 @@ public class PlayerData : MonoBehaviour
         
         string playerDataJson = JsonUtility.ToJson(data);
         System.IO.File.WriteAllText(playerDataJsonFilePath, playerDataJson);
-        Debug.Log("Saved Player Data");
+
+        Debug.Log("Saved Player Data" + data.playerName);
+
 
     }
 
@@ -82,11 +90,9 @@ public class PlayerData : MonoBehaviour
 
         if(System.IO.File.Exists(playerDataJsonFilePath)){
             string playerDataJson = System.IO.File.ReadAllText(playerDataJsonFilePath);
-            health = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson).health;
-            attack = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson).attack;
-            defense = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson).defense;
-            gold = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson).gold;
-            attackSpeed = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson).attackSpeed;
+            data = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson);
+
+            SetPlayerStats(data);
 
             Debug.Log("Player Data Loaded");
 
@@ -95,10 +101,42 @@ public class PlayerData : MonoBehaviour
 
     }
 
+    public async void SavePlayerDataToCloud(){
 
-    
+        CloudSaver.SaveDataToCloud("playerData", data);
+        
+
+    }
+
+    public async void LoadPlayerDataFromCloud(){
+        string playerDataJson = await CloudSaver.LoadDataFromCloud("playerData");
+        data = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson);
+        Debug.Log(data.playerName);
+        
+
+        SetPlayerStats(data);
+        SavePlayerData();
+
+    }
+
+    public void SetPlayerStats(PlayerDataSaver playerData){
+        playerName = playerData.playerName;
+        health = playerData.health;
+        attack = playerData.attack;
+        defense = playerData.defense;
+        gold = playerData.gold;
+        attackSpeed = playerData.attackSpeed;
+
+        Debug.Log("player stats set!");
+    }
+
+    public void ChangePlayerName(string name){
+        playerName = name;
+        SavePlayerData();
+    }
+
+
 
 
 
 }
-// }

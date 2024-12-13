@@ -149,19 +149,19 @@ namespace HomeByMarch
         void OnEnable()
         {
             input.Attack += OnAttack;
-            HeadsUpDisplay.OnButtonPressed += CastSpell;
+            // HeadsUpDisplay.OnButtonPressed += CastSpell;
         }
 
         void OnDisable()
         {
             input.Attack -= OnAttack;
-            HeadsUpDisplay.OnButtonPressed -= CastSpell;
+            // HeadsUpDisplay.OnButtonPressed -= CastSpell;
         }
 
         void CastSpell(int index)
         {
             
-            spells[index].CastSpell(transform);
+            // spells[index].CastSpell(transform);
             Debug.Log("spellcasted");
        
         }
