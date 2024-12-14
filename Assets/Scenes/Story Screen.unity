@@ -1896,6 +1896,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSounds:
   - {fileID: 8300000, guid: ade19ec00abd46841bafac226d573c73, type: 3}
+  - {fileID: 8300000, guid: 75b78244c0866ca47912fb61695001cf, type: 3}
   musicSource: {fileID: 459822111}
 --- !u!224 &462127553 stripped
 RectTransform:
@@ -5592,7 +5593,7 @@ MonoBehaviour:
   titleText: {fileID: 261033859}
   bodyText: {fileID: 1559482510}
   sceneNames:
-  - Dungeon exploration
+  - Audio sample
   - Dungeon exploration
   - Dungeon exploration
   - Exploration 2
