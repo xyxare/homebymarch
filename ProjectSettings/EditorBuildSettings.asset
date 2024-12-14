@@ -20,11 +20,14 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Published Scene/Dungeon Exploration.unity
     guid: e37db4b74d542c5419064e809abb4685
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/TestGame.unity
     guid: c10b9152bef74ac4bbd8bc0bdddc3b9b
   - enabled: 1
     path: Assets/Scenes/Published Scene/CoopSample.unity
     guid: 43d950c37495e894997f02aa5e641ce4
+  - enabled: 1
+    path: Assets/Scenes/RiverDungeon.unity
+    guid: c5ee33d110cb5e040a3d35b5d51e0184
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3a64439281883d24a91286adfccfc6c8, type: 2}
