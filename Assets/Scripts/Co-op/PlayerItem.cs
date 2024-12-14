@@ -1,18 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro; // For TextMeshPro
+using Photon.Realtime; // Ensure the correct Player class is used
 
 public class PlayerItem : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public TextMeshProUGUI playerName; // Use TextMeshProUGUI for TextMeshPro
 
-    // Update is called once per frame
-    void Update()
+    public void SetPlayerInfo(Photon.Realtime.Player _Player)
     {
-        
+        playerName.text = _Player.NickName; // Access the NickName property
     }
 }
