@@ -101,7 +101,7 @@ namespace CoppraGames
 
             DateTime resetTime;
 
-            resetTime = DateTime.Today;
+            resetTime = DateTime.Now;
             dailyQuestProgress.lastResetDate = resetTime.ToString();
             // PlayerPrefs.SetString("last_reset_time", resetTime.ToString());
 
@@ -125,13 +125,13 @@ namespace CoppraGames
 
         public int GetDaysSinceLastReset()
         {
-            DateTime current = DateTime.Today;
+            DateTime current = DateTime.Now;
             DateTime resetTime;
 
             string resetTimeString = dailyQuestProgress.lastResetDate;
             if (string.IsNullOrEmpty(resetTimeString))
             {
-                resetTime = DateTime.Today;
+                resetTime = DateTime.Now;
                 dailyQuestProgress.lastResetDate = resetTime.ToString();
                 // PlayerPrefs.SetString("last_reset_time", resetTime.ToString());
             }
@@ -139,7 +139,7 @@ namespace CoppraGames
             {
                 if (!DateTime.TryParse(resetTimeString, out resetTime))
                 {
-                    resetTime = DateTime.Today;
+                    resetTime = DateTime.Now;
                 }
             }
 
