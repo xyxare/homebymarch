@@ -564,5 +564,5 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: Direction
   m_SynchronizeLayers:
-  - SynchronizeType: 0
+  - SynchronizeType: 2
     LayerIndex: 0

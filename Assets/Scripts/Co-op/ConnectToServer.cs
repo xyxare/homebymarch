@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class ConnectToServer : MonoBehaviourPunCallbacks
 {
+    public PlayerData playerData;
+
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log("Connecting to Photon server...");
+        PhotonNetwork.NickName = playerData.playerName;
         PhotonNetwork.ConnectUsingSettings();
     }
 
@@ -22,6 +25,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     public override void OnJoinedLobby()
     {
         Debug.Log("Joined Lobby.");
+        Debug.Log("Player Name: " + playerData.playerName);
         SceneManager.LoadScene("Lobby");
     }
 
