@@ -33,7 +33,18 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public TextMeshProUGUI errorText;
 
     public Transform playerItemParent;
-    public TMP_InputField joinInput; 
+    public TMP_InputField joinInput;
+
+
+    public TextMeshProUGUI titleTextMeshPro;
+    public TextMeshProUGUI descriptionTextMeshPro;
+    public Image targetImage;
+
+    public string sceneName;
+
+    public GameObject playButton;
+
+
     private void Start()
     {
         PhotonNetwork.JoinLobby();
@@ -43,16 +54,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (PhotonNetwork.IsConnectedAndReady)
         {
-             PhotonNetwork.JoinRoom(joinInput.text);
+            PhotonNetwork.JoinRoom(joinInput.text);
         }
-      
+
     }
 
 
     public void OnClickCreate()
     {
         string roomName = GenerateRandomRoomName(6);
-        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = 2, IsVisible = true, IsOpen = true }, null);
+        PhotonNetwork.CreateRoom(roomName, new RoomOptions { MaxPlayers = 2, IsVisible = true, IsOpen = true, BroadcastPropsChangeToAll = true }, null);
     }
 
     public override void OnJoinedRoom()
@@ -73,8 +84,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         UpdatePlayerList();
     }
 
-  
-    
+
+
     private string GenerateRandomRoomName(int length)
     {
         const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -122,6 +133,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PlayerItem item = Instantiate(playerItemPrefab, playerItemParent);
             playerItemsList.Add(item);
+
+            if (player.Value == PhotonNetwork.LocalPlayer)
+            {
+                item.ApplyLocalChanges();
+            }
             item.SetPlayerInfo(player.Value);
         }
     }
@@ -145,16 +161,37 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        Debug.LogError($"Disconnected from Photon: {cause}");
-        loadingPanel.SetActive(false);
-        ShowErrorPanel($"Disconnected from Photon: {cause}");
-    }
+    // public override void OnDisconnected(DisconnectCause cause)
+    // {
+    //     Debug.LogError($"Disconnected from Photon: {cause}");
+  
+    // }
 
     private void ShowErrorPanel(string message)
     {
         errorPanel.SetActive(true);
         errorText.text = message;
+    }
+
+    private void Update()
+    {
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount>= 2)
+        {
+            playButton.SetActive(true);
+        }
+
+
+
+    }
+    public void OnClickPlayButtonClick()
+    {
+        Debug.Log(sceneName);
+        PhotonNetwork.LoadLevel(sceneName);
+
+    }
+
+    public void SetsceneName(string name)
+    {
+        sceneName = name;
     }
 }

@@ -17,6 +17,10 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
+    public void OnClickConnect(){
+        PhotonNetwork.AutomaticallySyncScene = true;
+    }
+
     public override void OnConnectedToMaster()
     {
         Debug.Log("Connected to the Master server in Asia.");
