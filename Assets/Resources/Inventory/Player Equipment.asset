@@ -41,7 +41,7 @@ MonoBehaviour:
         Id: -1
         buffs: []
       amount: 0
-    - AllowedItems: 
+    - AllowedItems: 04000000
       item:
         Name: 
         Id: -1

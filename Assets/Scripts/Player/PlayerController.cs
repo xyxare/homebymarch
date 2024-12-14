@@ -4,16 +4,18 @@ using KBCore.Refs;
 using UnityEngine;
 using Utilities;
 
+
+
+using Photon.Pun;
 namespace HomeByMarch
 {
     public class PlayerController : ValidatedMonoBehaviour
     {
         [Header("References")]
         Rigidbody rb;
-        [SerializeField] FixedJoystick joystick;
+        public FixedJoystick joystick;
         [SerializeField, Self] Animator animator;
         [SerializeField, Anywhere] InputReader input;
-        [SerializeField] EnemyDetector enemyDetector; // Reference to EnemyDetector
 
         [Header("Movement Settings")]
         [SerializeField] float moveSpeed = 6f;
@@ -89,9 +91,9 @@ namespace HomeByMarch
             SetupTimers();
             SetupStateMachine();
 
-            Enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
-            EnemyHealth = Enemy.GetComponent<Health>();
-            enemyDetector = GetComponent<EnemyDetector>(); // Initialize EnemyDetector
+
+            // EnemyHealth = Enemy.GetComponent<Health>();
+            // Initialize EnemyDetector
         }
 
         void SetupStateMachine()
@@ -144,7 +146,13 @@ namespace HomeByMarch
         void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
         void Any(IState to, IPredicate condition) => stateMachine.AddAnyTransition(to, condition);
 
-        void Start() => input.EnablePlayerActions();
+        
+        void Start(){
+                
+            PhotonNetwork.SendRate = 30;
+            PhotonNetwork.SerializationRate = 22;
+            input.EnablePlayerActions(); 
+        }
 
         void OnEnable()
         {
@@ -160,10 +168,10 @@ namespace HomeByMarch
 
         void CastSpell(int index)
         {
-            
+
             // spells[index].CastSpell(transform);
             Debug.Log("spellcasted");
-       
+
         }
 
         void OnAttack()
@@ -212,6 +220,7 @@ namespace HomeByMarch
             // }
         }
 
+
         void ResetAttack()
         {
             readyToAttack = true;
@@ -233,7 +242,7 @@ namespace HomeByMarch
             if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, attackDistance, attackLayer))
             {
                 Debug.Log($"Hit object: {hit.transform.name} at position: {hit.point}");
-                
+
                 // Hit an enemy, apply damage
                 //change Actor to Health Component or any component that contains take damage
                 if (hit.transform.TryGetComponent<Enemy>(out Enemy enemyComponent))
@@ -269,21 +278,29 @@ namespace HomeByMarch
 
         void Update()
         {
+            if (GetComponent<PhotonView>().IsMine == true)
+            {
             stateMachine.Update();
             HandleTimers();
             // if (input.Attack.IsPressed()) { Attack(); }
+            }
         }
 
         void FixedUpdate()
         {
+            if (GetComponent<PhotonView>().IsMine == true)
+            {
+                // Debug.Log("PlayerController Is me");
 #if ENABLE_LEGACY_INPUT_MANAGER
             inputs.x = joystick.Horizontal;
             inputs.y = joystick.Vertical;
 
             stateMachine.FixedUpdate();
 #else
-            InputSystemHelper.EnableBackendsWarningMessage();
+                InputSystemHelper.EnableBackendsWarningMessage();
 #endif
+            }
+
         }
 
         void UpdateAnimator()

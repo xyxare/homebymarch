@@ -66,7 +66,7 @@ public class ShopUI : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogError("Slot image or shopItem.item.uiDisplay is null!");
+                    slotImage.sprite = slotImage.sprite;
                 }
             }
             else
@@ -181,7 +181,7 @@ public class ShopUI : MonoBehaviour
         }
         else
         {
-            Debug.LogError("shopItem.item or shopItem.item.uiDisplay is null!");
+            itemImage.sprite = itemImage.sprite;
         }
     }
 

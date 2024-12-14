@@ -40,7 +40,7 @@ namespace CoppraGames
         void Awake()
         {
             HideResult();
-            //Init();
+            Init();
 
 
         }
