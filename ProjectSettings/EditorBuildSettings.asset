@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Story Screen.unity
     guid: 4e75040bc43b9e3498115dbd636cf341
+  - enabled: 1
+    path: Assets/Scenes/Published Scene/Audio sample.unity
+    guid: 4a8b48bfcb7bda846976b019ec9aae30
   - enabled: 0
     path: Assets/Scenes/LoadingScene.unity
     guid: 6a7cd42e9064ba44ab73c401b115f7d4
