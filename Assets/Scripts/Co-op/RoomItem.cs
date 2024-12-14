@@ -17,7 +17,7 @@ public class RoomItem : MonoBehaviour
 
     public void OnClickitem()
     {
-        manger.JoinRoom(roomNameText.text);
+        manger.JoinRoom();
     }
 
     public void SetRoomName(string name)
