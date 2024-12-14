@@ -19,9 +19,9 @@ public class OverallStepCounter : MonoBehaviour{
     public string stepDataJsonFilePath;
     public int overallStepsBeforeToday;
     
-    //for debug purposes
-    public TMP_Text overallStepsText;
-    public TMP_Text overallStepsBeforeTodayText;
+    // //for debug purposes
+    // public TMP_Text overallStepsText;
+    // public TMP_Text overallStepsBeforeTodayText;
     
 
     void Awake(){
@@ -34,8 +34,8 @@ public class OverallStepCounter : MonoBehaviour{
 
     void Update(){
         GetOverallSteps();
-        overallStepsText.text = "Overall steps: " +  overallSteps;
-        overallStepsBeforeTodayText.text = "Overall steps before today: " + overallStepsBeforeToday;
+        // overallStepsText.text = "Overall steps: " +  overallSteps;
+        // overallStepsBeforeTodayText.text = "Overall steps before today: " + overallStepsBeforeToday;
     }
 
     public void GetOverallSteps(){
