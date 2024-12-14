@@ -11,32 +11,20 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Story Screen.unity
     guid: 4e75040bc43b9e3498115dbd636cf341
-  - enabled: 0
-    path: Assets/Scenes/LoadingScene.unity
-    guid: 6a7cd42e9064ba44ab73c401b115f7d4
-  - enabled: 0
-    path: Assets/Scenes/Published Scene/Exploration 5.unity
-    guid: 4843bc0b1e6e1d44495471f49b2b9bbf
-  - enabled: 0
-    path: Assets/Scenes/Published Scene/Main Menu 1.unity
-    guid: 29ca59976eaa35b458cb70513f33a0e3
-  - enabled: 0
-    path: Assets/Scenes/Exploration(soundFix).unity
-    guid: 8c51aefed02736b4c933654abad93819
-  - enabled: 0
-    path: Assets/Scenes/Exploration(EnemyHealth).unity
-    guid: 7135804d9c2c4a1408027b246d0df117
-  - enabled: 0
-    path: Assets/StepCounter/Demo/Demo2.unity
-    guid: 8d6953350fbe0e74a9ec19275d0177c9
-  - enabled: 0
-    path: Assets/Scenes/Published Scene/Exploration 4.unity
-    guid: fb04ab8a891bb0d41bf4361a49857a7b
-  - enabled: 0
-    path: Assets/Scenes/Gameplay.unity
-    guid: 0d8512446d6aba047982bdc76fee7e14
+  - enabled: 1
+    path: Assets/Scenes/Loading Screen.unity
+    guid: 2f11686c856768641b51ec364ec4b9f3
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 728c649992945c14aade73c20191f238
   - enabled: 1
     path: Assets/Scenes/Published Scene/Dungeon Exploration.unity
     guid: e37db4b74d542c5419064e809abb4685
+  - enabled: 1
+    path: Assets/Scenes/TestGame.unity
+    guid: c10b9152bef74ac4bbd8bc0bdddc3b9b
+  - enabled: 1
+    path: Assets/Scenes/Published Scene/CoopSample.unity
+    guid: 43d950c37495e894997f02aa5e641ce4
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 3a64439281883d24a91286adfccfc6c8, type: 2}

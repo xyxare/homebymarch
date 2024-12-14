@@ -4,16 +4,18 @@ using KBCore.Refs;
 using UnityEngine;
 using Utilities;
 
+
+
+using Photon.Pun;
 namespace HomeByMarch
 {
     public class PlayerController : ValidatedMonoBehaviour
     {
         [Header("References")]
-        Rigidbody rb;
-        [SerializeField] FixedJoystick joystick;
+        Rigidbody m_Body; // Rigidbody reference
+        public FixedJoystick joystick;
         [SerializeField, Self] Animator animator;
         [SerializeField, Anywhere] InputReader input;
-        [SerializeField] EnemyDetector enemyDetector; // Reference to EnemyDetector
 
         [Header("Movement Settings")]
         [SerializeField] float moveSpeed = 6f;
@@ -22,6 +24,9 @@ namespace HomeByMarch
         [SerializeField] bool useCharacterForward = false;
 
         [SerializeField] float turnSpeed = 10f;
+
+        Vector3 networkPosition;
+        Quaternion networkRotation;
 
         [Header("Jump Settings")]
         [SerializeField] float jumpForce = 10f;
@@ -78,92 +83,126 @@ namespace HomeByMarch
 
         void Awake()
         {
-            rb = GetComponent<Rigidbody>();
+            m_Body = GetComponent<Rigidbody>();
+        
             mainCamera = Camera.main;
             attackLayer = LayerMask.GetMask("Enemy");
             if (mainCamera == null)
             {
                 Debug.LogError("Main Camera is not assigned or could not be found.");
             }
-
+        
             SetupTimers();
             SetupStateMachine();
-
-            Enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
-            EnemyHealth = Enemy.GetComponent<Health>();
-            enemyDetector = GetComponent<EnemyDetector>(); // Initialize EnemyDetector
+        
+        
+            // EnemyHealth = Enemy.GetComponent<Health>();
+            // Initialize EnemyDetector
         }
-
+        
+        public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+        {
+            if (stream.IsWriting)
+            {
+                // Send data for local player
+                stream.SendNext(m_Body.position);
+                stream.SendNext(m_Body.rotation);
+                stream.SendNext(m_Body.velocity);
+            }
+            else
+            {
+                // Receive data for remote players
+                networkPosition = (Vector3)stream.ReceiveNext();
+                networkRotation = (Quaternion)stream.ReceiveNext();
+                m_Body.velocity = (Vector3)stream.ReceiveNext();
+        
+                // Apply lag compensation
+                float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
+                networkPosition += m_Body.velocity * lag;
+            }
+        }
+        
         void SetupStateMachine()
         {
             // State Machine
             stateMachine = new StateMachine();
-
+        
             // Declare states
             var locomotionState = new LocomotionState(this, animator);
             var attackState = new AttackState(this, animator);
-
+        
             // Define transitions
             At(locomotionState, attackState, new FuncPredicate(() => attackTimer.IsRunning));
             At(attackState, locomotionState, new FuncPredicate(() => !attackTimer.IsRunning));
             Any(locomotionState, new FuncPredicate(ReturnToLocomotionState));
-
+        
             // Set initial state
             stateMachine.SetState(locomotionState);
         }
-
+        
         bool ReturnToLocomotionState()
         {
             return !attackTimer.IsRunning;
         }
-
+        
         void SetupTimers()
         {
             // Setup timers
             jumpTimer = new CountdownTimer(jumpDuration);
             jumpCooldownTimer = new CountdownTimer(jumpCooldown);
-
+        
             jumpTimer.OnTimerStart += () => jumpVelocity = jumpForce;
             jumpTimer.OnTimerStop += () => jumpCooldownTimer.Start();
-
+        
             dashTimer = new CountdownTimer(dashDuration);
             dashCooldownTimer = new CountdownTimer(dashCooldown);
-
+        
             dashTimer.OnTimerStart += () => dashVelocity = dashForce;
             dashTimer.OnTimerStop += () =>
             {
                 dashVelocity = 1f;
                 dashCooldownTimer.Start();
             };
-
+        
             attackTimer = new CountdownTimer(attackCooldown);
-
+        
             timers = new(5) { jumpTimer, jumpCooldownTimer, dashTimer, dashCooldownTimer, attackTimer };
         }
-
+        
         void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
         void Any(IState to, IPredicate condition) => stateMachine.AddAnyTransition(to, condition);
-
-        void Start() => input.EnablePlayerActions();
-
+        
+        
+        void Start()
+        {
+            // Set Photon network settings
+            PhotonNetwork.SendRate = 30; // Higher send rate for better responsiveness
+            PhotonNetwork.SerializationRate = 60; // Balance between performance and update frequency
+        
+            // Enable player actions
+            input.EnablePlayerActions();
+        }   
+        
         void OnEnable()
         {
+            // Subscribe to input events
             input.Attack += OnAttack;
-            // HeadsUpDisplay.OnButtonPressed += CastSpell;
+            // HeadsUpDisplay.OnButtonPressed += CastSpell; // Uncomment if needed
         }
-
+        
         void OnDisable()
         {
+            // Unsubscribe from input events
             input.Attack -= OnAttack;
-            // HeadsUpDisplay.OnButtonPressed -= CastSpell;
+            // HeadsUpDisplay.OnButtonPressed -= CastSpell; // Uncomment if needed
         }
 
         void CastSpell(int index)
         {
-            
+
             // spells[index].CastSpell(transform);
             Debug.Log("spellcasted");
-       
+
         }
 
         void OnAttack()
@@ -191,7 +230,7 @@ namespace HomeByMarch
             Invoke(nameof(ResetAttack), attackCooldown);
             // Invoke(nameof(ResetAttack), attackSpeed);
             // Invoke(nameof(AttackRayCast), attackDelay);
-            // if (rb == null || animator == null || enemyDetector == null)
+            // if (m_Body == null || animator == null || enemyDetector == null)
             // {
             //     Debug.LogError("Required components (Rigidbody, Animator, or EnemyDetector) are missing!");
             //     return;
@@ -211,6 +250,7 @@ namespace HomeByMarch
             //     Debug.LogWarning("No enemy detected or enemy out of attack range!");
             // }
         }
+
 
         void ResetAttack()
         {
@@ -233,7 +273,7 @@ namespace HomeByMarch
             if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, attackDistance, attackLayer))
             {
                 Debug.Log($"Hit object: {hit.transform.name} at position: {hit.point}");
-                
+
                 // Hit an enemy, apply damage
                 //change Actor to Health Component or any component that contains take damage
                 if (hit.transform.TryGetComponent<Enemy>(out Enemy enemyComponent))
@@ -269,21 +309,37 @@ namespace HomeByMarch
 
         void Update()
         {
-            stateMachine.Update();
-            HandleTimers();
-            // if (input.Attack.IsPressed()) { Attack(); }
+            if (GetComponent<PhotonView>().IsMine)
+            {
+                // Local player updates
+                stateMachine.Update();
+                HandleTimers();
+            }
+            else
+            {
+                // Remote player updates
+                m_Body.position = Vector3.Lerp(m_Body.position, networkPosition, Time.deltaTime * 10f);
+                m_Body.rotation = Quaternion.Lerp(m_Body.rotation, networkRotation, Time.deltaTime * 10f);
+            }
         }
+
+
 
         void FixedUpdate()
         {
+            if (GetComponent<PhotonView>().IsMine == true)
+            {
+                // Debug.Log("PlayerController Is me");
 #if ENABLE_LEGACY_INPUT_MANAGER
             inputs.x = joystick.Horizontal;
             inputs.y = joystick.Vertical;
 
             stateMachine.FixedUpdate();
 #else
-            InputSystemHelper.EnableBackendsWarningMessage();
+                InputSystemHelper.EnableBackendsWarningMessage();
 #endif
+            }
+
         }
 
         void UpdateAnimator()
@@ -316,8 +372,8 @@ namespace HomeByMarch
 
             UpdateTargetDirection();
 
-            Vector3 moveDirection = new Vector3(inputs.x * moveSpeed, rb.velocity.y, inputs.y * moveSpeed);
-            rb.velocity = moveDirection;
+            Vector3 moveDirection = new Vector3(inputs.x * moveSpeed, m_Body.velocity.y, inputs.y * moveSpeed);
+            m_Body.velocity = moveDirection;
 
             if (inputs != Vector2.zero && targetDirection.magnitude > 0.1f)
             {
