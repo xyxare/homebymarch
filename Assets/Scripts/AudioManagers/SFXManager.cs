@@ -21,7 +21,7 @@ public class SFXManager : MonoBehaviour
         }
         if (Application.isPlaying)
         {
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
     }
 

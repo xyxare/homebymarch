@@ -38,7 +38,7 @@ namespace HomeByMarch
         [SerializeField] public float attackCooldown = 0.5f;
         [SerializeField] public float attackDistance = 10f;
         [SerializeField] public int attackDamage = 10;
-        [SerializeField] public int attackDelay = 10;
+        [SerializeField] public int attackDelay = 5;
         [SerializeField] public int attackSpeed = 2;
 
         [SerializeField] SpellStrategy[] spells;
@@ -189,6 +189,7 @@ namespace HomeByMarch
 
             // Reset the attack state after the attack cooldown
             Invoke(nameof(ResetAttack), attackCooldown);
+            SFXManager.PlaySFX(SoundTypes.SwordSwing);
             // Invoke(nameof(ResetAttack), attackSpeed);
             // Invoke(nameof(AttackRayCast), attackDelay);
             // if (rb == null || animator == null || enemyDetector == null)
@@ -219,6 +220,7 @@ namespace HomeByMarch
         }
         void AttackRayCast()
         {
+            if(!attacking) return; // Only proceed if we are attacking
             Debug.Log("AttackRayCast initiated");
 
             // Adjust the ray origin and direction
@@ -251,6 +253,7 @@ namespace HomeByMarch
             {
                 Debug.LogWarning("Raycast did not hit any objects.");
             }
+            ResetAttack();
         }
 
 
