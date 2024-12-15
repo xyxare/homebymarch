@@ -1,20 +1,22 @@
+using System.Collections.Generic;
+using Cinemachine;
 using KBCore.Refs;
 using UnityEngine;
-using UnityEngine.AI;
 using Utilities;
+using Photon.Pun;
 using System.Collections;
+
 
 namespace HomeByMarch
 {
-    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
     [RequireComponent(typeof(PlayerDetector))]
     public class Enemy : Entity
     {
-
         int currentHealth;
         [SerializeField] public int maxHealth;
         [SerializeField] PlayerDetector playerDetector;
-        [SerializeField] private NavMeshAgent agent;
+        [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
         [SerializeField] private Animator animator;
         [SerializeField] float timeBetweenAttack = 1f;
         [SerializeField] float attackDelay = 0.8f;
@@ -22,6 +24,10 @@ namespace HomeByMarch
         bool isHit;
         [SerializeField] float wanderRadius = 10f;
         [SerializeField] private GameObject healthBarPrefab;
+
+        [SerializeField] public float attackDistance = 30f;
+        [SerializeField] public int attackDamage = 10;
+        public LayerMask attackLayer;
 
         private StateMachine stateMachine;
         public Transform Player { get; private set; }
@@ -33,10 +39,9 @@ namespace HomeByMarch
         void Awake()
         {
             Player = GameObject.FindGameObjectWithTag("Player").transform;
-            PlayerHealth = Player.GetComponent<Health>(); // Correctly reference the player's health\
+            PlayerHealth = Player.GetComponent<Health>(); // Correctly reference the player's health
             materialChanger = GetComponent<MaterialChanger>();
             currentHealth = maxHealth;
-
         }
 
         void Start()
@@ -91,12 +96,23 @@ namespace HomeByMarch
             if (attackTimer.IsRunning) return;
 
             attackTimer.Start();
+            agent.isStopped = true; // Stop movement during the attack
             StartCoroutine(DelayedAttack()); // Start the delayed attack coroutine
         }
 
+        private IEnumerator DelayedAttack()
+        {
+            yield return new WaitForSeconds(attackDelay); // Wait for the specified delay
+            if (playerDetector.CanAttackPlayer()) // Ensure player is still in range
+            {
+                AttackRayCast(); // Call the attack raycast method
+            }
+            agent.isStopped = false; // Resume movement after the attack
+        }
+
+
         public void OnHit()
         {
-
             if (materialChanger != null)
             {
                 // Change material when hit
@@ -113,15 +129,6 @@ namespace HomeByMarch
         {
             yield return new WaitForSeconds(OnHitDelay);
             isHit = false; // Reset the isHit flag after the delay
-        }
-
-        private IEnumerator DelayedAttack()
-        {
-            yield return new WaitForSeconds(attackDelay); // Wait for the specified delay
-            if (playerDetector.CanAttackPlayer()) // Ensure player is still in range
-            {
-                PlayerHealth.TakeDamage(10); // Apply damage after delay
-            }
         }
 
         public void TakeDamage(int amount)
@@ -142,5 +149,63 @@ namespace HomeByMarch
         {
             // This is now managed by the EnemyDeathState, so this method can be left empty
         }
+
+        // Raycast-based attack targeting the player
+        // Raycast-based attack targeting the player
+        void AttackRayCast()
+        {
+            Debug.Log("AttackRayCast initiated");
+
+            // Adjust the ray origin and direction
+            Vector3 rayOrigin = transform.position + Vector3.up * 1f; // Adjust for the player's height if necessary
+
+            // Define ray directions (center, left, right, up, down, and diagonals)
+            Vector3[] rayDirections = new Vector3[10]
+            {
+        transform.forward,                  // Straight ahead
+        transform.forward + transform.right, // Slightly to the right
+        transform.forward - transform.right, // Slightly to the left
+        transform.forward + transform.up,    // Slightly upwards
+        transform.forward - transform.up,    // Slightly downwards
+        transform.forward + transform.right + transform.up, // Diagonal up-right
+        transform.forward + transform.right - transform.up, // Diagonal down-right
+        transform.forward - transform.right + transform.up, // Diagonal up-left
+        transform.forward - transform.right - transform.up, // Diagonal down-left
+        transform.forward + transform.up * 2, // More upwards
+            };
+
+            // Debug the raycasts by drawing them in the scene view
+            foreach (var direction in rayDirections)
+            {
+                Vector3 endPoint = rayOrigin + direction * attackDistance;
+                Debug.DrawLine(rayOrigin, endPoint, Color.blue, 6f);
+            }
+
+            // Perform the raycasts
+            foreach (var direction in rayDirections)
+            {
+                if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, attackDistance))
+                {
+                    Debug.Log($"Hit object: {hit.transform.name} at position: {hit.point}");
+
+                    // Check if the hit object has the "Player" tag
+                    if (hit.transform.CompareTag("Player"))
+                    {
+                        // Apply damage to the player
+                        PlayerHealth.TakeDamage(attackDamage);
+                        Debug.Log($"Player took {attackDamage} damage.");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Hit object is not the player.");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning("Raycast did not hit any objects.");
+                }
+            }
+        }
+
     }
 }

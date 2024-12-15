@@ -3,10 +3,10 @@ using Cinemachine;
 using KBCore.Refs;
 using UnityEngine;
 using Utilities;
-
-
-
 using Photon.Pun;
+using System.Collections;
+
+
 namespace HomeByMarch
 {
     public class PlayerController : ValidatedMonoBehaviour
@@ -22,8 +22,8 @@ namespace HomeByMarch
         [SerializeField] float rotationSpeed = 15f;
         [SerializeField] float smoothTime = 0.2f;
         [SerializeField] bool useCharacterForward = false;
-
         [SerializeField] float turnSpeed = 10f;
+        [SerializeField] private Health health;
 
         Vector3 networkPosition;
         Quaternion networkRotation;
@@ -41,10 +41,9 @@ namespace HomeByMarch
 
         [Header("Attack Settings")]
         [SerializeField] public float attackCooldown = 0.1f;
-        [SerializeField] public float attackDistance = 10f;
+        [SerializeField] public float attackDistance = 30f;
         [SerializeField] public int attackDamage = 10;
         [SerializeField] public int attackDelay = 2;
-        [SerializeField] public int attackSpeed = 2;
 
         [SerializeField] SpellStrategy[] spells;
         public LayerMask attackLayer;
@@ -52,7 +51,6 @@ namespace HomeByMarch
         bool attacking = false;
         bool readyToAttack = true;
         int attackCount;
-
 
         const float ZeroF = 0f;
 
@@ -84,7 +82,6 @@ namespace HomeByMarch
         void Awake()
         {
             m_Body = GetComponent<Rigidbody>();
-
             mainCamera = Camera.main;
             attackLayer = LayerMask.GetMask("Enemy");
             if (mainCamera == null)
@@ -94,10 +91,6 @@ namespace HomeByMarch
 
             SetupTimers();
             SetupStateMachine();
-
-
-            // EnemyHealth = Enemy.GetComponent<Health>();
-            // Initialize EnemyDetector
         }
 
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -130,16 +123,22 @@ namespace HomeByMarch
             // Declare states
             var locomotionState = new LocomotionState(this, animator);
             var attackState = new AttackState(this, animator);
+            var deathState = new DeathState(this, animator);
 
             // Define transitions
             At(locomotionState, attackState, new FuncPredicate(() => attackTimer.IsRunning));
             At(attackState, locomotionState, new FuncPredicate(() => !attackTimer.IsRunning));
-            Any(locomotionState, new FuncPredicate(ReturnToLocomotionState));
+            Any(deathState, new FuncPredicate(() => IsDead()));
 
             // Set initial state
             stateMachine.SetState(locomotionState);
         }
 
+        // Add this method to check if the player is dead
+        public bool IsDead()
+        {
+            return health != null && health.CurrentHealth <= 0;
+        }
         bool ReturnToLocomotionState()
         {
             return !attackTimer.IsRunning;
@@ -172,7 +171,6 @@ namespace HomeByMarch
         void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
         void Any(IState to, IPredicate condition) => stateMachine.AddAnyTransition(to, condition);
 
-
         void Start()
         {
             // Set Photon network settings
@@ -185,24 +183,47 @@ namespace HomeByMarch
 
         void OnEnable()
         {
-            // Subscribe to input events
             input.Attack += OnAttack;
-            // HeadsUpDisplay.OnButtonPressed += CastSpell; // Uncomment if needed
+            health.OnDamageTaken += CheckHealth; // Subscribe to health damage event
         }
 
         void OnDisable()
         {
-            // Unsubscribe from input events
             input.Attack -= OnAttack;
-            // HeadsUpDisplay.OnButtonPressed -= CastSpell; // Uncomment if needed
+            health.OnDamageTaken -= CheckHealth; // Unsubscribe from health damage event
+        }
+
+        void CheckHealth()
+        {
+            if (health.IsDead)
+            {
+                Die(); // Call the Die method when health reaches 0
+            }
+        }
+
+        public void Die()
+        {
+            // Logic to handle player death
+            stateMachine.SetState(new DeathState(this, animator));
+
+            health.ShowDeathPanel();
+
+            // Start a coroutine to delay Time.timeScale
+            StartCoroutine(DelayTimeScale());
+        }
+
+        private IEnumerator DelayTimeScale()
+        {
+            // Wait for 4 seconds before changing time scale
+            yield return new WaitForSeconds(4f);
+
+            Time.timeScale = 0f; // Set Time.timeScale after the delay
         }
 
         void CastSpell(int index)
         {
-
             // spells[index].CastSpell(transform);
             Debug.Log("spellcasted");
-
         }
 
         void OnAttack()
@@ -216,7 +237,6 @@ namespace HomeByMarch
 
         public void Attack()
         {
-
             if (!readyToAttack) return; // Only proceed if we are ready to attack
 
             // Start the attack timer and initiate the attack logic
@@ -228,72 +248,68 @@ namespace HomeByMarch
 
             // Reset the attack state after the attack cooldown
             Invoke(nameof(ResetAttack), attackCooldown);
-            // Invoke(nameof(ResetAttack), attackSpeed);
-            // Invoke(nameof(AttackRayCast), attackDelay);
-            // if (m_Body == null || animator == null || enemyDetector == null)
-            // {
-            //     Debug.LogError("Required components (Rigidbody, Animator, or EnemyDetector) are missing!");
-            //     return;
-            // }
-
-            // // Check if an enemy is detected and within attack range
-            // if (enemyDetector.CanDetectEnemy() && enemyDetector.CanAttackEnemy())
-            // {
-            //     Debug.Log($"Attacking enemy: {enemyDetector.Enemy.name}");
-
-            //     // Apply damage to the enemy
-            //     enemyDetector.EnemyHealth.TakeDamage(attackDamage);
-            //     Debug.Log($"Enemy {enemyDetector.Enemy.name} hit and took {attackDamage} damage.");
-            // }
-            // else
-            // {
-            //     Debug.LogWarning("No enemy detected or enemy out of attack range!");
-            // }
         }
-
 
         void ResetAttack()
         {
             readyToAttack = true;
             attacking = false;
         }
+
         void AttackRayCast()
         {
             Debug.Log("AttackRayCast initiated");
 
             // Adjust the ray origin and direction
             Vector3 rayOrigin = transform.position + Vector3.up * 1f; // Adjust for the player's height if necessary
-            Vector3 rayDirection = transform.forward;
 
-            // Debug the raycast by drawing it in the scene view
-            Vector3 endPoint = rayOrigin + rayDirection * attackDistance;
-            Debug.DrawLine(rayOrigin, endPoint, Color.blue, 6f);
-
-            // Perform the raycast
-            if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, attackDistance, attackLayer))
+            // Define ray directions (center, left, right, up, down, and diagonals)
+            Vector3[] rayDirections = new Vector3[10]
             {
-                Debug.Log($"Hit object: {hit.transform.name} at position: {hit.point}");
+                transform.forward,                  // Straight ahead
+                transform.forward + transform.right, // Slightly to the right
+                transform.forward - transform.right, // Slightly to the left
+                transform.forward + transform.up,    // Slightly upwards
+                transform.forward - transform.up,    // Slightly downwards
+                transform.forward + transform.right + transform.up, // Diagonal up-right
+                transform.forward + transform.right - transform.up, // Diagonal down-right
+                transform.forward - transform.right + transform.up, // Diagonal up-left
+                transform.forward - transform.right - transform.up, // Diagonal down-left
+                transform.forward + transform.up * 2, // More upwards
+            };
 
-                // Hit an enemy, apply damage
-                //change Actor to Health Component or any component that contains take damage
-                if (hit.transform.TryGetComponent<Enemy>(out Enemy enemyComponent))
+            // Debug the raycasts by drawing them in the scene view
+            foreach (var direction in rayDirections)
+            {
+                Vector3 endPoint = rayOrigin + direction * attackDistance;
+                Debug.DrawLine(rayOrigin, endPoint, Color.blue, 6f);
+            }
+
+            // Perform the raycasts
+            foreach (var direction in rayDirections)
+            {
+                if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, attackDistance, attackLayer))
                 {
-                    // Apply damage to the enemy
-                    enemyComponent.TakeDamage(attackDamage);
-                    Debug.Log($"Enemy {enemyComponent.name} took {attackDamage} damage.");
+                    Debug.Log($"Hit object: {hit.transform.name} at position: {hit.point}");
+
+                    // Hit an enemy, apply damage
+                    if (hit.transform.TryGetComponent<Enemy>(out Enemy enemyComponent))
+                    {
+                        // Apply damage to the enemy
+                        enemyComponent.TakeDamage(attackDamage);
+                        Debug.Log($"Enemy {enemyComponent.name} took {attackDamage} damage.");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Hit object is not an enemy.");
+                    }
                 }
                 else
                 {
-                    Debug.LogWarning("Hit object is not an enemy.");
+                    Debug.LogWarning("Raycast did not hit any objects.");
                 }
             }
-            else
-            {
-                Debug.LogWarning("Raycast did not hit any objects.");
-            }
         }
-
-
 
         void HitTarget(Vector3 pos)
         {
@@ -304,8 +320,6 @@ namespace HomeByMarch
             // GameObject GO = Instantiate(hitEffect, pos, Quaternion.identity);
             // Destroy(GO, 20);
         }
-
-
 
         void Update()
         {
@@ -322,11 +336,11 @@ namespace HomeByMarch
                 m_Body.rotation = Quaternion.Lerp(m_Body.rotation, networkRotation, Time.deltaTime * 10f);
             }
         }
+
         public bool IsMoving()
         {
             return m_Body.velocity.magnitude > 0.1f; // Example condition for moving
         }
-
 
         void FixedUpdate()
         {
@@ -334,15 +348,14 @@ namespace HomeByMarch
             {
                 // Debug.Log("PlayerController Is me");
 #if ENABLE_LEGACY_INPUT_MANAGER
-            inputs.x = joystick.Horizontal;
-            inputs.y = joystick.Vertical;
+                inputs.x = joystick.Horizontal;
+                inputs.y = joystick.Vertical;
 
-            stateMachine.FixedUpdate();
+                stateMachine.FixedUpdate();
 #else
                 InputSystemHelper.EnableBackendsWarningMessage();
 #endif
             }
-
         }
 
         void UpdateAnimator()
@@ -392,33 +405,18 @@ namespace HomeByMarch
                 Vector3 forward = mainCamera.transform.TransformDirection(Vector3.forward);
                 forward.y = 0;
                 Vector3 right = mainCamera.transform.TransformDirection(Vector3.right);
-                targetDirection = inputs.x * right + inputs.y * forward;
+                targetDirection = (forward * inputs.y) + (right * inputs.x);
             }
             else
             {
-                turnSpeedMultiplier = 0.2f;
-                Vector3 forward = transform.TransformDirection(Vector3.forward);
-                forward.y = 0;
-                Vector3 right = transform.TransformDirection(Vector3.right);
-                targetDirection = inputs.x * right + Mathf.Abs(inputs.y) * forward;
+                targetDirection = transform.forward;
             }
         }
 
-        void HandleRotation()
+        public void HandleRotation()
         {
-            Vector3 lookDirection = targetDirection.normalized;
-            Quaternion freeRotation = Quaternion.LookRotation(lookDirection, transform.up);
-            float differenceRotation = freeRotation.eulerAngles.y - transform.eulerAngles.y;
-            float eulerY = transform.eulerAngles.y;
-
-            if (differenceRotation != 0)
-            {
-                eulerY = freeRotation.eulerAngles.y;
-            }
-
-            Vector3 euler = new Vector3(0, eulerY, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(euler), turnSpeed * turnSpeedMultiplier * Time.deltaTime);
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * turnSpeed * turnSpeedMultiplier);
         }
     }
 }
-
