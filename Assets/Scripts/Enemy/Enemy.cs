@@ -13,6 +13,8 @@ namespace HomeByMarch
     [RequireComponent(typeof(PlayerDetector))]
     public class Enemy : Entity
     {
+
+        private DungeonGameController gameController;
         float currentHealth;
         [SerializeField] public int maxHealth;
         [SerializeField] PlayerDetector playerDetector;
@@ -32,7 +34,6 @@ namespace HomeByMarch
         private StateMachine stateMachine;
         public Transform Player { get; private set; }
         public Health PlayerHealth { get; private set; }
-        public MaterialChanger materialChanger;
         CountdownTimer attackTimer;
         CountdownTimer onHitTimer;
 
@@ -42,12 +43,14 @@ namespace HomeByMarch
         {
             Player = GameObject.FindGameObjectWithTag("Player").transform;
             PlayerHealth = Player.GetComponent<Health>(); // Correctly reference the player's health
-            materialChanger = GetComponent<MaterialChanger>();
+           
             currentHealth = maxHealth;
         }
 
         void Start()
         {
+
+            gameController = FindObjectOfType<DungeonGameController>();
             attackTimer = new CountdownTimer(timeBetweenAttack);
             onHitTimer = new CountdownTimer(OnHitDelay); // Initialize on-hit timer
 
@@ -116,14 +119,7 @@ namespace HomeByMarch
 
         public void OnHit()
         {
-            if (materialChanger != null)
-            {
-                // Change material when hit
-                materialChanger.ChangeMaterial();
-            }
-            if (onHitTimer.IsRunning) return;
-
-            isHit = true; // Set isHit to true when the enemy is hit
+           
             onHitTimer.Start(); // Start the on-hit timer
             StartCoroutine(OnHitDelayed()); // Start the delayed hit coroutine
         }
@@ -141,6 +137,11 @@ namespace HomeByMarch
 
             if (currentHealth <= 0)
             {
+
+                if (gameController != null)
+                {
+                    gameController.OnEnemyDefeated();  // Notify the DungeonGameController that the enemy is defeated
+                }
                 stateMachine.SetState(new EnemyDeathState(this, animator, agent)); // Set the death state
             }
             else

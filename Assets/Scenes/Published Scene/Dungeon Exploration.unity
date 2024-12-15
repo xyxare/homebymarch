@@ -3799,31 +3799,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 257.88013
+      value: 258.30667
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -315.30356
+      value: -316.42773
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -272.73547
+      value: -272.92984
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.998069
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.044016074
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.023138558
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0372227
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3875,19 +3875,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474475973207613294, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.998069
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7474475973207613294, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.044016052
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7474475973207613294, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.02313856
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7474475973207613294, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0372227
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7474475973207613294, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4277,7 +4277,7 @@ MonoBehaviour:
   onPurchaseComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnPurchaseComplete
         m_Mode: 0
@@ -4292,7 +4292,7 @@ MonoBehaviour:
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnPurchaseFailed
         m_Mode: 0
@@ -4307,7 +4307,7 @@ MonoBehaviour:
   onProductFetched:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnProductFetched
         m_Mode: 0
@@ -7772,7 +7772,7 @@ MonoBehaviour:
   onPurchaseComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnPurchaseComplete
         m_Mode: 0
@@ -7787,7 +7787,7 @@ MonoBehaviour:
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnPurchaseFailed
         m_Mode: 0
@@ -7802,7 +7802,7 @@ MonoBehaviour:
   onProductFetched:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnProductFetched
         m_Mode: 0
@@ -12454,7 +12454,7 @@ MonoBehaviour:
   onPurchaseComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnPurchaseComplete
         m_Mode: 0
@@ -12469,7 +12469,7 @@ MonoBehaviour:
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnPurchaseFailed
         m_Mode: 0
@@ -12484,7 +12484,7 @@ MonoBehaviour:
   onProductFetched:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnProductFetched
         m_Mode: 0
@@ -13782,59 +13782,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8460917321318470221, guid: 3964c23ae9838e84889ea6d65b5861aa, type: 3}
   m_PrefabInstance: {fileID: 743646177}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &749438575
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 749438577}
-  - component: {fileID: 749438576}
-  m_Layer: 5
-  m_Name: IAPManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &749438576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 749438575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e147ae1818816b34c98ebc8c9f2f31c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _shopController: {fileID: 1493089057}
-  coins50Button: {fileID: 1382504503}
-  coins100Button: {fileID: 676781183}
-  coins150Button: {fileID: 441131012}
-  coins1000Button: {fileID: 238802857}
---- !u!224 &749438577
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 749438575}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.31875, y: 1.31875, z: 1.31875}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 963, y: 443.6019}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &753230116
 GameObject:
   m_ObjectHideFlags: 0
@@ -15204,66 +15151,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
---- !u!1 &803546894
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 803546897}
-  - component: {fileID: 803546896}
-  - component: {fileID: 803546895}
-  m_Layer: 0
-  m_Name: VisualScripting SceneVariables
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &803546895
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803546894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 765181c9ef4b24d32a4f7cbd2ef370dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &803546896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803546894}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _data:
-    _json: '{"declarations":{"Kind":"Scene","collection":{"$content":[],"$version":"A"},"$version":"A"}}'
-    _objectReferences: []
---- !u!4 &803546897
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 803546894}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &804172005 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2929252283123773938, guid: aaa2c939c0359ac4dbce3f49e8b90252, type: 3}
@@ -20340,7 +20227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -1014233919462176944, guid: 15f32a9777aa6f24db5a5165707fed9d, type: 3}
       propertyPath: sceneViewId
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2301977587601115403, guid: 15f32a9777aa6f24db5a5165707fed9d, type: 3}
       propertyPath: joystick
@@ -24415,7 +24302,7 @@ MonoBehaviour:
   onPurchaseComplete:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnPurchaseComplete
         m_Mode: 0
@@ -24430,7 +24317,7 @@ MonoBehaviour:
   onPurchaseFailed:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnPurchaseFailed
         m_Mode: 0
@@ -24445,7 +24332,7 @@ MonoBehaviour:
   onProductFetched:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 749438576}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IAPManager, Assembly-CSharp
         m_MethodName: OnProductFetched
         m_Mode: 0
@@ -53195,7 +53082,6 @@ SceneRoots:
   - {fileID: 661539823}
   - {fileID: 1493089054}
   - {fileID: 1786396886}
-  - {fileID: 749438577}
   - {fileID: 1557337314}
   - {fileID: 862320218}
   - {fileID: 1727015105}
@@ -53208,5 +53094,4 @@ SceneRoots:
   - {fileID: 597041537}
   - {fileID: 789439224}
   - {fileID: 1765787349}
-  - {fileID: 803546897}
   - {fileID: 1029674393}
