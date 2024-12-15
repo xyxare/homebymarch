@@ -8,7 +8,7 @@ namespace Unity.Services.Authentication.PlayerAccounts.Samples
 {
     class PlayerAccountsDemo : MonoBehaviour
     {
-        
+
         [SerializeField]
         TMP_Text m_StatusText;
         [SerializeField]
@@ -29,13 +29,18 @@ namespace Unity.Services.Authentication.PlayerAccounts.Samples
         {
             if (PlayerAccountService.Instance.IsSignedIn)
             {
+                Debug.Log("starting sign in with unity");
                 SignInWithUnity();
+                Debug.Log("signed in with unity");
                 return;
             }
 
             try
             {
                 await PlayerAccountService.Instance.StartSignInAsync();
+                Debug.Log("skibidi start signin async" + AuthenticationService.Instance.PlayerId);
+                UpdateUI();
+
             }
             catch (RequestFailedException ex)
             {
