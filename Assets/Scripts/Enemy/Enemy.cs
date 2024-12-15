@@ -5,7 +5,7 @@ using UnityEngine;
 using Utilities;
 using Photon.Pun;
 using System.Collections;
-
+using UnityEngine.UI;
 
 namespace HomeByMarch
 {
@@ -13,7 +13,7 @@ namespace HomeByMarch
     [RequireComponent(typeof(PlayerDetector))]
     public class Enemy : Entity
     {
-        int currentHealth;
+        float currentHealth;
         [SerializeField] public int maxHealth;
         [SerializeField] PlayerDetector playerDetector;
         [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
@@ -35,6 +35,8 @@ namespace HomeByMarch
         public MaterialChanger materialChanger;
         CountdownTimer attackTimer;
         CountdownTimer onHitTimer;
+
+        public Image healthBar;
 
         void Awake()
         {
@@ -73,7 +75,9 @@ namespace HomeByMarch
 
         void Update()
         {
-            if (playerDetector.CanDetectPlayer())
+
+
+            if (currentHealth < maxHealth || playerDetector.CanDetectPlayer())
             {
                 healthBarPrefab.SetActive(true);
             }
@@ -84,6 +88,10 @@ namespace HomeByMarch
             stateMachine.Update();
             attackTimer.Tick(Time.deltaTime);
             onHitTimer.Tick(Time.deltaTime); // Tick on-hit timer
+
+            Debug.Log("Current Health: " + currentHealth);
+
+            healthBar.fillAmount = Mathf.Clamp(currentHealth / maxHealth, 0.0f, 1.0f);
         }
 
         void FixedUpdate()
@@ -131,10 +139,11 @@ namespace HomeByMarch
             isHit = false; // Reset the isHit flag after the delay
         }
 
+
         public void TakeDamage(int amount)
         {
             currentHealth -= amount;
-
+            currentHealth = Mathf.Clamp(currentHealth, 0.0f, maxHealth);
             if (currentHealth <= 0)
             {
                 stateMachine.SetState(new EnemyDeathState(this, animator, agent)); // Set the death state
