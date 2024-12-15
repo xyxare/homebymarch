@@ -89,7 +89,7 @@ namespace HomeByMarch
             attackTimer.Tick(Time.deltaTime);
             onHitTimer.Tick(Time.deltaTime); // Tick on-hit timer
 
-            Debug.Log("Current Health: " + currentHealth);
+            // Debug.Log("Current Health: " + currentHealth);
 
             healthBar.fillAmount = Mathf.Clamp(currentHealth / maxHealth, 0.0f, 1.0f);
         }
@@ -113,7 +113,7 @@ namespace HomeByMarch
             yield return new WaitForSeconds(attackDelay); // Wait for the specified delay
             if (playerDetector.CanAttackPlayer()) // Ensure player is still in range
             {
-                AttackRayCast(); // Call the attack raycast method
+                // AttackRayCast(); // Call the attack raycast method
             }
             agent.isStopped = false; // Resume movement after the attack
         }
@@ -144,6 +144,7 @@ namespace HomeByMarch
         {
             currentHealth -= amount;
             currentHealth = Mathf.Clamp(currentHealth, 0.0f, maxHealth);
+
             if (currentHealth <= 0)
             {
                 stateMachine.SetState(new EnemyDeathState(this, animator, agent)); // Set the death state
@@ -157,11 +158,11 @@ namespace HomeByMarch
         void Death()
         {
             // This is now managed by the EnemyDeathState, so this method can be left empty
-        }
+        
 
         // Raycast-based attack targeting the player
         // Raycast-based attack targeting the player
-        void AttackRayCast()
+        void AttackRayCst()
         {
             Debug.Log("AttackRayCast initiated");
 
@@ -184,11 +185,11 @@ namespace HomeByMarch
             };
 
             // Debug the raycasts by drawing them in the scene view
-            foreach (var direction in rayDirections)
-            {
-                Vector3 endPoint = rayOrigin + direction * attackDistance;
-                Debug.DrawLine(rayOrigin, endPoint, Color.blue, 6f);
-            }
+            // foreach (var direction in rayDirections)
+            // {
+            //     Vector3 endPoint = rayOrigin + direction * attackDistance;
+            //     Debug.DrawLine(rayOrigin, endPoint, Color.blue, 6f);
+            // }
 
             // Perform the raycasts
             foreach (var direction in rayDirections)
@@ -217,4 +218,4 @@ namespace HomeByMarch
         }
 
     }
-}
+}}
