@@ -40,10 +40,10 @@ namespace HomeByMarch
         [SerializeField] float dashCooldown = 2f;
 
         [Header("Attack Settings")]
-        [SerializeField] public float attackCooldown = 0.5f;
+        [SerializeField] public float attackCooldown = 0.1f;
         [SerializeField] public float attackDistance = 10f;
         [SerializeField] public int attackDamage = 10;
-        [SerializeField] public int attackDelay = 10;
+        [SerializeField] public int attackDelay = 2;
         [SerializeField] public int attackSpeed = 2;
 
         [SerializeField] SpellStrategy[] spells;
@@ -84,22 +84,22 @@ namespace HomeByMarch
         void Awake()
         {
             m_Body = GetComponent<Rigidbody>();
-        
+
             mainCamera = Camera.main;
             attackLayer = LayerMask.GetMask("Enemy");
             if (mainCamera == null)
             {
                 Debug.LogError("Main Camera is not assigned or could not be found.");
             }
-        
+
             SetupTimers();
             SetupStateMachine();
-        
-        
+
+
             // EnemyHealth = Enemy.GetComponent<Health>();
             // Initialize EnemyDetector
         }
-        
+
         public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
         {
             if (stream.IsWriting)
@@ -115,81 +115,81 @@ namespace HomeByMarch
                 networkPosition = (Vector3)stream.ReceiveNext();
                 networkRotation = (Quaternion)stream.ReceiveNext();
                 m_Body.velocity = (Vector3)stream.ReceiveNext();
-        
+
                 // Apply lag compensation
                 float lag = Mathf.Abs((float)(PhotonNetwork.Time - info.timestamp));
                 networkPosition += m_Body.velocity * lag;
             }
         }
-        
+
         void SetupStateMachine()
         {
             // State Machine
             stateMachine = new StateMachine();
-        
+
             // Declare states
             var locomotionState = new LocomotionState(this, animator);
             var attackState = new AttackState(this, animator);
-        
+
             // Define transitions
             At(locomotionState, attackState, new FuncPredicate(() => attackTimer.IsRunning));
             At(attackState, locomotionState, new FuncPredicate(() => !attackTimer.IsRunning));
             Any(locomotionState, new FuncPredicate(ReturnToLocomotionState));
-        
+
             // Set initial state
             stateMachine.SetState(locomotionState);
         }
-        
+
         bool ReturnToLocomotionState()
         {
             return !attackTimer.IsRunning;
         }
-        
+
         void SetupTimers()
         {
             // Setup timers
             jumpTimer = new CountdownTimer(jumpDuration);
             jumpCooldownTimer = new CountdownTimer(jumpCooldown);
-        
+
             jumpTimer.OnTimerStart += () => jumpVelocity = jumpForce;
             jumpTimer.OnTimerStop += () => jumpCooldownTimer.Start();
-        
+
             dashTimer = new CountdownTimer(dashDuration);
             dashCooldownTimer = new CountdownTimer(dashCooldown);
-        
+
             dashTimer.OnTimerStart += () => dashVelocity = dashForce;
             dashTimer.OnTimerStop += () =>
             {
                 dashVelocity = 1f;
                 dashCooldownTimer.Start();
             };
-        
+
             attackTimer = new CountdownTimer(attackCooldown);
-        
+
             timers = new(5) { jumpTimer, jumpCooldownTimer, dashTimer, dashCooldownTimer, attackTimer };
         }
-        
+
         void At(IState from, IState to, IPredicate condition) => stateMachine.AddTransition(from, to, condition);
         void Any(IState to, IPredicate condition) => stateMachine.AddAnyTransition(to, condition);
-        
-        
+
+
         void Start()
         {
             // Set Photon network settings
             PhotonNetwork.SendRate = 30; // Higher send rate for better responsiveness
             PhotonNetwork.SerializationRate = 60; // Balance between performance and update frequency
-        
+
             // Enable player actions
             input.EnablePlayerActions();
-        }   
-        
+        }
+
         void OnEnable()
         {
             // Subscribe to input events
             input.Attack += OnAttack;
             // HeadsUpDisplay.OnButtonPressed += CastSpell; // Uncomment if needed
         }
-        
+
         void OnDisable()
         {
             // Unsubscribe from input events
@@ -322,7 +322,10 @@ namespace HomeByMarch
                 m_Body.rotation = Quaternion.Lerp(m_Body.rotation, networkRotation, Time.deltaTime * 10f);
             }
         }
-
+        public bool IsMoving()
+        {
+            return m_Body.velocity.magnitude > 0.1f; // Example condition for moving
+        }
 
 
         void FixedUpdate()

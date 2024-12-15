@@ -9,6 +9,7 @@ namespace HomeByMarch {
         protected static readonly int JumpHash = Animator.StringToHash("Jump");
         // protected static readonly int DashHash = Animator.StringToHash("Dash");
         protected static readonly int AttackHash = Animator.StringToHash("Attack");
+        protected static readonly int AttackHash2 = Animator.StringToHash("Attack2");
         protected static readonly int DamageHash = Animator.StringToHash("Damage");
         
         protected const float crossFadeDuration = 0.1f;
