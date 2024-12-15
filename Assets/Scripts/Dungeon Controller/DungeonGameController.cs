@@ -10,6 +10,7 @@ public class DungeonGameController : MonoBehaviour
     public int totalEnemiesToDefeat = 10; // Total number of enemies to defeat
 
     private int enemiesDefeated = 0;    // Track the number of defeated enemies
+    private int enemiesSpawned = 0;     // Track the number of enemies spawned
     private float timeRemaining;        // Time remaining in the dungeon
     private bool gameActive = true;     // Flag to track if the game is active
 
@@ -76,10 +77,11 @@ public class DungeonGameController : MonoBehaviour
     // Coroutine to spawn enemies at random spawn points
     IEnumerator SpawnEnemies()
     {
-        while (gameActive && enemiesDefeated < totalEnemiesToDefeat)
+        while (gameActive && enemiesSpawned < totalEnemiesToDefeat)
         {
             int spawnIndex = Random.Range(0, spawnPoints.Length);  // Random spawn point
             Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);  // Spawn enemy at chosen point
+            enemiesSpawned++;  // Increment the spawn count
             yield return new WaitForSeconds(2f);  // Wait before spawning the next enemy (adjust as needed)
         }
     }

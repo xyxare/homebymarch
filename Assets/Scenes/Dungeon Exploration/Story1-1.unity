@@ -17998,11 +17998,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -353.58777
+      value: -353.83008
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -255.72928
+      value: -255.38622
       objectReference: {fileID: 0}
     - target: {fileID: 2953254979806699775, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_Follow
@@ -19604,13 +19604,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6729c5518d554b645891bb7708bf70ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 6573201946671972391, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+  enemyPrefab: {fileID: 1374317198282855615, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
   spawnPoints:
   - {fileID: 1924743816}
   - {fileID: 1751405759}
   - {fileID: 769102562}
   timeLimit: 60
-  totalEnemiesToDefeat: 5
+  totalEnemiesToDefeat: 1
   timerText: {fileID: 525903445}
   enemiesDefeatedText: {fileID: 450888955}
 --- !u!1001 &965007597
@@ -35744,7 +35744,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 971675740344223386, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
       propertyPath: maxHealth
-      value: 10000
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 971675740344223386, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
       propertyPath: deathPanel
@@ -35754,10 +35754,22 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5577616865229644186, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 5765312195323335215, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
       propertyPath: joystick
       value: 
       objectReference: {fileID: 1574967993}
+    - target: {fileID: 7709492317439385268, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
+      propertyPath: m_Height
+      value: 14.69
+      objectReference: {fileID: 0}
+    - target: {fileID: 7709492317439385268, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
+      propertyPath: m_Center.y
+      value: 6.9
+      objectReference: {fileID: 0}
     - target: {fileID: 8537319089193260290, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.35453343
@@ -35796,6 +35808,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8537319089193260290, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8999682618936005855, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9021122190215925688, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
@@ -40799,17 +40815,75 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 29551813066107154, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
-      propertyPath: materialChanger
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 771486186156623923, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
-      propertyPath: _camera
+      propertyPath: targetCamera
       value: 
       objectReference: {fileID: 872033880}
+    - target: {fileID: 1203583423825346218, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
+        'mixamorig:LeftHandIndex1'\n\tTransform 'mixamorig:Spine1'\n\tTransform 'mixamorig:RightArm'\n\tTransform
+        'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftShoulder'\n\tTransform 'mixamorig:RightFoot'\n\tTransform
+        'mixamorig:Head'\n\tTransform 'mixamorig:LeftUpLeg'\n\tand more ...\n\tFrom
+        animation clip 'Enemy_OnHit'"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4296195713211034395, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_Constraints
+      value: 116
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775836032099697507, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775836032099697507, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9961791
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775836032099697507, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0000003825407
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775836032099697507, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.043903828
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775836032099697507, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.07549679
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775836032099697507, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775836032099697507, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -45
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775836032099697507, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775836032099697507, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 5.018
+      objectReference: {fileID: 0}
+    - target: {fileID: 5775836032099697507, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -8.651
+      objectReference: {fileID: 0}
     - target: {fileID: 6573201946671972391, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
       propertyPath: m_Name
       value: Turtle Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6573201946671972391, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8131191399310285122, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+      propertyPath: m_Center.y
+      value: 5.49
       objectReference: {fileID: 0}
     - target: {fileID: 8604486052173188233, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -40852,7 +40926,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 4423552092573706333, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
+    - {fileID: 4296195713211034395, guid: 8ab8ba6feb9d2394a8a999b44a34e89e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

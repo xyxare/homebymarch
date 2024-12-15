@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fbc873917b25ae4dbca27ff3c72620c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
+  targetCamera: {fileID: 0}
 --- !u!1 &3895580731635131888
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,14 +401,13 @@ MonoBehaviour:
   timeBetweenAttack: 1
   attackDelay: 0.8
   OnHitDelay: 0.5
-  wanderRadius: 5
+  wanderRadius: 50.56
   healthBarPrefab: {fileID: 1224032117765719054}
   attackDistance: 10
   attackDamage: 10
   attackLayer:
     serializedVersion: 2
     m_Bits: 0
-  materialChanger: {fileID: 7204390593218704887}
   healthBar: {fileID: 6660053159335580024}
 --- !u!114 &8194880563178115001
 MonoBehaviour:

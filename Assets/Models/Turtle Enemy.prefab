@@ -1630,12 +1630,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8604486052173188233}
   - component: {fileID: 5229515307392270970}
-  - component: {fileID: 4139465702407337980}
   - component: {fileID: 29551813066107154}
   - component: {fileID: 265519600204910133}
   - component: {fileID: 3231551693112964372}
   - component: {fileID: 5520358843968160030}
-  - component: {fileID: 4423552092573706333}
   m_Layer: 6
   m_Name: Turtle Enemy
   m_TagString: Enemy
@@ -1682,29 +1680,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!136 &4139465702407337980
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6573201946671972391}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2.13
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.93, z: 0}
 --- !u!114 &29551813066107154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1731,7 +1706,6 @@ MonoBehaviour:
   attackLayer:
     serializedVersion: 2
     m_Bits: 0
-  materialChanger: {fileID: 4423552092573706333}
   healthBar: {fileID: 2934529087811201897}
 --- !u!114 &265519600204910133
 MonoBehaviour:
@@ -1780,22 +1754,6 @@ MonoBehaviour:
   maxHealth: 100
   playerHealthChannel: {fileID: 11400000, guid: 18e133ff9499a2e4d9591cf6d9188b7d, type: 2}
   deathPanel: {fileID: 0}
---- !u!114 &4423552092573706333
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6573201946671972391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57388629e9575cc48a8a37c7be325cc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skinnedMeshRenderer: {fileID: 0}
-  materials:
-  - {fileID: 2100000, guid: 768ffdf2b6949054488c74579e87288b, type: 2}
-  materialSlot: 0
 --- !u!1 &6733043740312832346
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,6 +1764,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8009660352352899679}
   - component: {fileID: 1203583423825346218}
+  - component: {fileID: 4296195713211034395}
+  - component: {fileID: 8131191399310285122}
   m_Layer: 0
   m_Name: Mutant Roaring 1
   m_TagString: Untagged
@@ -1857,6 +1817,56 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!54 &4296195713211034395
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6733043740312832346}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!136 &8131191399310285122
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6733043740312832346}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 11.3
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.93, z: 0}
 --- !u!1 &6868890977257045498
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,7 +1982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fbc873917b25ae4dbca27ff3c72620c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
+  targetCamera: {fileID: 0}
 --- !u!1 &7369315266992505105
 GameObject:
   m_ObjectHideFlags: 0

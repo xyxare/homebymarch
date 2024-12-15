@@ -266,16 +266,16 @@ namespace HomeByMarch
             // Define ray directions (center, left, right, up, down, and diagonals)
             Vector3[] rayDirections = new Vector3[10]
             {
-                transform.forward,                  // Straight ahead
-                transform.forward + transform.right, // Slightly to the right
-                transform.forward - transform.right, // Slightly to the left
-                transform.forward + transform.up,    // Slightly upwards
-                transform.forward - transform.up,    // Slightly downwards
-                transform.forward + transform.right + transform.up, // Diagonal up-right
-                transform.forward + transform.right - transform.up, // Diagonal down-right
-                transform.forward - transform.right + transform.up, // Diagonal up-left
-                transform.forward - transform.right - transform.up, // Diagonal down-left
-                transform.forward + transform.up * 2, // More upwards
+        transform.forward,                  // Straight ahead
+        transform.forward + transform.right, // Slightly to the right
+        transform.forward - transform.right, // Slightly to the left
+        transform.forward + transform.up,    // Slightly upwards
+        transform.forward - transform.up,    // Slightly downwards
+        transform.forward + transform.right + transform.up, // Diagonal up-right
+        transform.forward + transform.right - transform.up, // Diagonal down-right
+        transform.forward - transform.right + transform.up, // Diagonal up-left
+        transform.forward - transform.right - transform.up, // Diagonal down-left
+        transform.forward + transform.up * 2, // More upwards
             };
 
             // Debug the raycasts by drawing them in the scene view
@@ -292,12 +292,26 @@ namespace HomeByMarch
                 {
                     Debug.Log($"Hit object: {hit.transform.name} at position: {hit.point}");
 
-                    // Hit an enemy, apply damage
+                    // Hit an enemy, apply damage and knockback
                     if (hit.transform.TryGetComponent<Enemy>(out Enemy enemyComponent))
                     {
                         // Apply damage to the enemy
                         enemyComponent.TakeDamage(attackDamage);
                         Debug.Log($"Enemy {enemyComponent.name} took {attackDamage} damage.");
+
+                        // Apply knockback force
+                        Rigidbody enemyRigidbody = hit.transform.GetComponent<Rigidbody>();
+                        if (enemyRigidbody != null)
+                        {
+                            Vector3 knockbackDirection = (hit.transform.position - transform.position).normalized;
+                            knockbackDirection.y = 0; // Optional: Ignore vertical knockback
+                            enemyRigidbody.AddForce(knockbackDirection * attackDamage * 5f, ForceMode.Impulse); // Adjust force multiplier as needed
+                            Debug.Log($"Enemy {enemyComponent.name} knocked back.");
+                        }
+                        else
+                        {
+                            Debug.LogWarning("Hit object does not have a Rigidbody for knockback.");
+                        }
                     }
                     else
                     {
@@ -310,6 +324,7 @@ namespace HomeByMarch
                 }
             }
         }
+
 
         void HitTarget(Vector3 pos)
         {
