@@ -97,11 +97,27 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5d70a714e6a3244eb55a10730b206da, type: 3}
+--- !u!1 &1426678965927270202 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2467011430236699021, guid: f5d70a714e6a3244eb55a10730b206da, type: 3}
+  m_PrefabInstance: {fileID: 3598377368622460599}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &4134261181843849412 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 625958029236809331, guid: f5d70a714e6a3244eb55a10730b206da, type: 3}
   m_PrefabInstance: {fileID: 3598377368622460599}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7645310993468664981 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6622992889282380322, guid: f5d70a714e6a3244eb55a10730b206da, type: 3}
+  m_PrefabInstance: {fileID: 3598377368622460599}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6336501320870414602
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -119,20 +135,28 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 7645310993468664981}
+    - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
+      propertyPath: maxHealth
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: attackDistance
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: healthBarPrefab
       value: 
-      objectReference: {fileID: 1374317198282855615}
+      objectReference: {fileID: 1426678965927270202}
     - target: {fileID: 4971209092809514421, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: m_Name
       value: Enemy Updated Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7674317522466817946, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -46.63
+      value: -55.881516
       objectReference: {fileID: 0}
     - target: {fileID: 7674317522466817946, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -140,7 +164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7674317522466817946, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 63.53
+      value: 62.41
       objectReference: {fileID: 0}
     - target: {fileID: 7674317522466817946, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -173,6 +197,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 6142405815677772784, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
     - {fileID: 1937514902379888368, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
+    - {fileID: 1146980738255146355, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
     m_RemovedGameObjects:
     - {fileID: 4208005295201583124, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
     m_AddedGameObjects:
@@ -181,11 +206,6 @@ PrefabInstance:
       addedObject: {fileID: 4134261181843849412}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
---- !u!1 &1374317198282855615 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4971209092809514421, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
-  m_PrefabInstance: {fileID: 6336501320870414602}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4426863891895979664 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7674317522466817946, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}

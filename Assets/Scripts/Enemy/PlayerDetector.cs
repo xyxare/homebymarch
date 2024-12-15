@@ -51,20 +51,20 @@ namespace HomeByMarch
 
         public void SetDetectionStrategy(IDetectionStrategy detectionStrategy) => this.detectionStrategy = detectionStrategy;
 
-        // void OnDrawGizmos() {
-        //     Gizmos.color = Color.red;
+        void OnDrawGizmos() {
+            Gizmos.color = Color.red;
 
-        //     // Draw a spheres for the radii
-        //     Gizmos.DrawWireSphere(transform.position, detectionRadius);
-        //     Gizmos.DrawWireSphere(transform.position, innerDetectionRadius);
+            // Draw a spheres for the radii
+            Gizmos.DrawWireSphere(transform.position, detectionRadius);
+            Gizmos.DrawWireSphere(transform.position, innerDetectionRadius);
 
-        //     // Calculate our cone directions
-        //     Vector3 forwardConeDirection = Quaternion.Euler(0, detectionAngle / 2, 0) * transform.forward * detectionRadius;
-        //     Vector3 backwardConeDirection = Quaternion.Euler(0, -detectionAngle / 2, 0) * transform.forward * detectionRadius;
+            // Calculate our cone directions
+            Vector3 forwardConeDirection = Quaternion.Euler(0, detectionAngle / 2, 0) * transform.forward * detectionRadius;
+            Vector3 backwardConeDirection = Quaternion.Euler(0, -detectionAngle / 2, 0) * transform.forward * detectionRadius;
 
-        //     // Draw lines to represent the cone
-        //     Gizmos.DrawLine(transform.position, transform.position + forwardConeDirection);
-        //     Gizmos.DrawLine(transform.position, transform.position + backwardConeDirection);
-        // }
+            // Draw lines to represent the cone
+            Gizmos.DrawLine(transform.position, transform.position + forwardConeDirection);
+            Gizmos.DrawLine(transform.position, transform.position + backwardConeDirection);
+        }
     }
 }

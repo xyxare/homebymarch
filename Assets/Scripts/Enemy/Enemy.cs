@@ -75,8 +75,6 @@ namespace HomeByMarch
 
         void Update()
         {
-
-
             if (currentHealth < maxHealth || playerDetector.CanDetectPlayer())
             {
                 healthBarPrefab.SetActive(true);
@@ -88,8 +86,6 @@ namespace HomeByMarch
             stateMachine.Update();
             attackTimer.Tick(Time.deltaTime);
             onHitTimer.Tick(Time.deltaTime); // Tick on-hit timer
-
-            // Debug.Log("Current Health: " + currentHealth);
 
             healthBar.fillAmount = Mathf.Clamp(currentHealth / maxHealth, 0.0f, 1.0f);
         }
@@ -113,11 +109,10 @@ namespace HomeByMarch
             yield return new WaitForSeconds(attackDelay); // Wait for the specified delay
             if (playerDetector.CanAttackPlayer()) // Ensure player is still in range
             {
-                // AttackRayCast(); // Call the attack raycast method
+                AttackRayCast(); // Call the attack raycast method
             }
             agent.isStopped = false; // Resume movement after the attack
         }
-
 
         public void OnHit()
         {
@@ -139,7 +134,6 @@ namespace HomeByMarch
             isHit = false; // Reset the isHit flag after the delay
         }
 
-
         public void TakeDamage(int amount)
         {
             currentHealth -= amount;
@@ -155,45 +149,37 @@ namespace HomeByMarch
             }
         }
 
-        void Death()
-        {
-            // This is now managed by the EnemyDeathState, so this method can be left empty
-        
-
-        // Raycast-based attack targeting the player
-        // Raycast-based attack targeting the player
-        void AttackRayCst()
+        void AttackRayCast()
         {
             Debug.Log("AttackRayCast initiated");
 
-            // Adjust the ray origin and direction
-            Vector3 rayOrigin = transform.position + Vector3.up * 1f; // Adjust for the player's height if necessary
+            // Adjust the ray origin to slightly above the enemy to avoid collision with the ground
+            Vector3 rayOrigin = transform.position + Vector3.up * 1f; // Adjust for height if necessary
 
-            // Define ray directions (center, left, right, up, down, and diagonals)
+            // Define ray directions (straight, diagonals, etc.)
             Vector3[] rayDirections = new Vector3[10]
             {
-        transform.forward,                  // Straight ahead
-        transform.forward + transform.right, // Slightly to the right
-        transform.forward - transform.right, // Slightly to the left
-        transform.forward + transform.up,    // Slightly upwards
-        transform.forward - transform.up,    // Slightly downwards
+        transform.forward,                      // Straight ahead
+        transform.forward + transform.right,     // Slightly to the right
+        transform.forward - transform.right,     // Slightly to the left
+        transform.forward + transform.up,        // Slightly upwards
+        transform.forward - transform.up,        // Slightly downwards
         transform.forward + transform.right + transform.up, // Diagonal up-right
         transform.forward + transform.right - transform.up, // Diagonal down-right
         transform.forward - transform.right + transform.up, // Diagonal up-left
         transform.forward - transform.right - transform.up, // Diagonal down-left
-        transform.forward + transform.up * 2, // More upwards
+        transform.forward + transform.up * 2     // More upwards (for vertical range)
             };
 
-            // Debug the raycasts by drawing them in the scene view
-            // foreach (var direction in rayDirections)
-            // {
-            //     Vector3 endPoint = rayOrigin + direction * attackDistance;
-            //     Debug.DrawLine(rayOrigin, endPoint, Color.blue, 6f);
-            // }
-
-            // Perform the raycasts
+            // Perform the raycasts and log the result
             foreach (var direction in rayDirections)
             {
+                // Calculate the end point of the ray by adding the direction * distance to the ray origin
+                Vector3 rayEnd = rayOrigin + direction * attackDistance;
+
+                // Visualize the ray using Debug.DrawLine
+                Debug.DrawLine(rayOrigin, rayEnd, Color.red, 0.1f);
+
                 if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, attackDistance))
                 {
                     Debug.Log($"Hit object: {hit.transform.name} at position: {hit.point}");
@@ -201,9 +187,8 @@ namespace HomeByMarch
                     // Check if the hit object has the "Player" tag
                     if (hit.transform.CompareTag("Player"))
                     {
-                        // Apply damage to the player
-                        PlayerHealth.TakeDamage(attackDamage);
-                        Debug.Log($"Player took {attackDamage} damage.");
+                        Debug.Log("Player hit! Applying damage.");
+                        PlayerHealth.TakeDamage(attackDamage);  // Apply damage to the player
                     }
                     else
                     {
@@ -217,5 +202,6 @@ namespace HomeByMarch
             }
         }
 
+
     }
-}}
+}
