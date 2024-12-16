@@ -41,5 +41,10 @@ public class PanelManager : MonoBehaviour
         player.equipment.SaveInventoryToCloud("equipment");
         Debug.Log("Player data saved to cloud.");
     }
+
+    public void LoadInventoryFromCloud(){
+        player.inventory.LoadInventoryFromCloud("inventory");
+        player.equipment.LoadInventoryFromCloud("equipment");
+        Debug.Log("Player data loaded from cloud.");
+    }
 }
-    
