@@ -11966,10 +11966,6 @@ PrefabInstance:
       propertyPath: weaponTransform
       value: 
       objectReference: {fileID: 1766585870}
-    - target: {fileID: 5162560978917505820, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
-      propertyPath: sceneViewId
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 5765312195323335215, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
       propertyPath: joystick
       value: 
@@ -13790,7 +13786,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 753230119}
-  - component: {fileID: 753230118}
   - component: {fileID: 753230117}
   - component: {fileID: 753230120}
   m_Layer: 0
@@ -13821,18 +13816,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &753230118
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753230116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4cc80a164cf03d84a94e4521b3e4deb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &753230119
 Transform:
   m_ObjectHideFlags: 0
@@ -19827,6 +19810,10 @@ PrefabInstance:
     - target: {fileID: 1374317198282855615, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
       propertyPath: m_Name
       value: Enemy Updated Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 1374317198282855615, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4426863891895979664, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
       propertyPath: m_LocalPosition.x
