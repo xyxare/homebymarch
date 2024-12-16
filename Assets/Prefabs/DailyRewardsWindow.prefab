@@ -3261,7 +3261,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9ba174268c6e14c4980de3d3046fed80, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a9836651d9e39b4fb6693a52561ad18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3470,7 +3470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b7e6f9ce747b04e1b9db526471629555, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a9836651d9e39b4fb6693a52561ad18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4245,7 +4245,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 29df9b0cde5d441c48d02addd07610de, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a9836651d9e39b4fb6693a52561ad18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5500,7 +5500,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dcbd11bf8a2734afdac3fe1fb38d71ab, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a9836651d9e39b4fb6693a52561ad18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5651,7 +5651,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9075b64c6be9643b1ad74388fb2780d5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a9836651d9e39b4fb6693a52561ad18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6315,52 +6315,31 @@ MonoBehaviour:
   - icon: {fileID: 21300000, guid: 6a95e9914ed4eaa468b14329c06183af, type: 3}
     count: 100
     day: 1
-    itemSO:
-      Name: 
-      Id: 0
-      buffs: []
+    itemSO: {fileID: 0}
   - icon: {fileID: 21300000, guid: 6a95e9914ed4eaa468b14329c06183af, type: 3}
     count: 200
     day: 2
-    itemSO:
-      Name: 
-      Id: 0
-      buffs: []
+    itemSO: {fileID: 0}
   - icon: {fileID: 21300000, guid: 6a95e9914ed4eaa468b14329c06183af, type: 3}
     count: 5
     day: 3
-    itemSO:
-      Name: 
-      Id: 0
-      buffs: []
+    itemSO: {fileID: 0}
   - icon: {fileID: 21300000, guid: 6a95e9914ed4eaa468b14329c06183af, type: 3}
     count: 6
     day: 4
-    itemSO:
-      Name: 
-      Id: 0
-      buffs: []
+    itemSO: {fileID: 0}
   - icon: {fileID: 21300000, guid: 6a95e9914ed4eaa468b14329c06183af, type: 3}
     count: 10
     day: 5
-    itemSO:
-      Name: 
-      Id: 0
-      buffs: []
+    itemSO: {fileID: 0}
   - icon: {fileID: 21300000, guid: 6a95e9914ed4eaa468b14329c06183af, type: 3}
     count: 30
     day: 6
-    itemSO:
-      Name: 
-      Id: 0
-      buffs: []
+    itemSO: {fileID: 0}
   - icon: {fileID: 21300000, guid: 6a95e9914ed4eaa468b14329c06183af, type: 3}
     count: 50
     day: 7
-    itemSO:
-      Name: 
-      Id: 0
-      buffs: []
+    itemSO: {fileID: 0}
   rewardItemComponents:
   - {fileID: 1487858089839940798}
   - {fileID: 9047047772565477274}
@@ -6372,6 +6351,7 @@ MonoBehaviour:
   dailyQuestJsonFilePath: 
   currentDailySteps: 0
   requiredDailySteps: 200
+  playerData: {fileID: 0}
 --- !u!1 &9047047773521199606
 GameObject:
   m_ObjectHideFlags: 0
@@ -7796,7 +7776,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6135cc5ca5d12485898437e437ab172e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a9836651d9e39b4fb6693a52561ad18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7871,7 +7851,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2942c1082bf624a4994a8a2552f70b44, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a9836651d9e39b4fb6693a52561ad18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
