@@ -4410,9 +4410,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef0ffef9cc1e7d5469a2c2de35f0e300, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  images: {fileID: 0}
-  titleText: {fileID: 0}
-  bodyText: {fileID: 0}
   storyLocks:
   - lockObject: {fileID: 5939474952712471986}
     requiredSteps: 1000
@@ -5873,9 +5870,9 @@ MonoBehaviour:
   titleText: {fileID: 261033859}
   bodyText: {fileID: 1559482510}
   sceneNames:
-  - Dungeon exploration
-  - Dungeon exploration
-  - Dungeon exploration
+  - Story1-1
+  - Story1-1
+  - Story1-3
   - Exploration 2
   - Exploration 2
   - Exploration 2

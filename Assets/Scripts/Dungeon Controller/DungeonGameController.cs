@@ -45,8 +45,8 @@ public class DungeonGameController : MonoBehaviour
     void UpdateUI()
     {
         // Using TMP_Text components to update the UI text
-        timerText.text = "Time Left: " + Mathf.Ceil(timeRemaining).ToString();
-        enemiesDefeatedText.text = "Enemies Defeated: " + enemiesDefeated.ToString();
+        timerText.text = Mathf.Ceil(timeRemaining).ToString();
+        enemiesDefeatedText.text =  enemiesDefeated.ToString() + "/" + totalEnemiesToDefeat;
     }
 
     // This method is called when an enemy is defeated
