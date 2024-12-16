@@ -3480,6 +3480,8 @@ GameObject:
   - component: {fileID: 1433467654}
   - component: {fileID: 1433467653}
   - component: {fileID: 1433467655}
+  - component: {fileID: 1433467657}
+  - component: {fileID: 1433467656}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -3527,6 +3529,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d29dbacc048e4ba418ebfa2ee67ef99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1433467656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433467652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60337118f590a64bbe44abf9d49d08d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventory: {fileID: 11400000, guid: ba391aef18194db419840aa8245becc2, type: 2}
+  equipment: {fileID: 11400000, guid: 43835e75255697f44b8c11400e3fd98a, type: 2}
+  attributes: []
+  weaponTransform: {fileID: 0}
+  offhandWristTransform: {fileID: 0}
+  offhandHandTransform: {fileID: 0}
+  spells: []
+--- !u!114 &1433467657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433467652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 524c9a0548a102b4eb8f14fa46babfd9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1433467656}
+  loadDelay: 0.5
 --- !u!1 &1486284201
 GameObject:
   m_ObjectHideFlags: 0

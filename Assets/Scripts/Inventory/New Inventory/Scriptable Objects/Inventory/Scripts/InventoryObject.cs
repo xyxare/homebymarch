@@ -103,6 +103,20 @@ public class InventoryObject : ScriptableObject
         formatter.Serialize(stream, Container);
         stream.Close();
     }
+
+    public async void SaveInventoryToCloud(string fileName)
+    {
+        // Serialize the inventory container to JSON
+        string inventoryData = JsonUtility.ToJson(Container, true);
+
+        // Save the inventory data to the cloud
+        CloudSaver.SaveDataToCloud(fileName, inventoryData);
+    }
+
+
+
+
+
     [ContextMenu("Load")]
     public void Load()
     {
