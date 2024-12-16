@@ -1882,6 +1882,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: Music Source
       objectReference: {fileID: 0}
+    - target: {fileID: 2391417506721852244, guid: 833ba67db62b55c49999744618b46152, type: 3}
+      propertyPath: sceneMusicMappings.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391417506721852244, guid: 833ba67db62b55c49999744618b46152, type: 3}
+      propertyPath: sceneMusicMappings.Array.data[0].musicClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ade19ec00abd46841bafac226d573c73, type: 3}
+    - target: {fileID: 2391417506721852244, guid: 833ba67db62b55c49999744618b46152, type: 3}
+      propertyPath: sceneMusicMappings.Array.data[0].sceneName
+      value: Main Tutorial
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391417506721852244, guid: 833ba67db62b55c49999744618b46152, type: 3}
+      propertyPath: sceneMusicMappings.Array.data[1].sceneName
+      value: Main Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391417506721852244, guid: 833ba67db62b55c49999744618b46152, type: 3}
+      propertyPath: sceneMusicMappings.Array.data[2].musicClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ade19ec00abd46841bafac226d573c73, type: 3}
+    - target: {fileID: 2391417506721852244, guid: 833ba67db62b55c49999744618b46152, type: 3}
+      propertyPath: sceneMusicMappings.Array.data[2].sceneName
+      value: Story Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 2391417506721852244, guid: 833ba67db62b55c49999744618b46152, type: 3}
+      propertyPath: sceneMusicMappings.Array.data[3].musicClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 75b78244c0866ca47912fb61695001cf, type: 3}
+    - target: {fileID: 2391417506721852244, guid: 833ba67db62b55c49999744618b46152, type: 3}
+      propertyPath: sceneMusicMappings.Array.data[3].sceneName
+      value: Audio sample
+      objectReference: {fileID: 0}
     - target: {fileID: 7559573791040211087, guid: 833ba67db62b55c49999744618b46152, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
