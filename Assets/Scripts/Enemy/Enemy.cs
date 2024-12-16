@@ -1,48 +1,64 @@
+using System.Collections.Generic;
+using Cinemachine;
 using KBCore.Refs;
 using UnityEngine;
-using UnityEngine.AI;
 using Utilities;
+using Photon.Pun;
 using System.Collections;
+using UnityEngine.UI;
 
 namespace HomeByMarch
 {
-    [RequireComponent(typeof(NavMeshAgent))]
+    [RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
     [RequireComponent(typeof(PlayerDetector))]
     public class Enemy : Entity
     {
-
-        int currentHealth;
+        private DungeonGameController gameController;
+        float currentHealth;
         [SerializeField] public int maxHealth;
         [SerializeField] PlayerDetector playerDetector;
-        [SerializeField] private NavMeshAgent agent;
+        [SerializeField] private UnityEngine.AI.NavMeshAgent agent;
         [SerializeField] private Animator animator;
         [SerializeField] float timeBetweenAttack = 1f;
         [SerializeField] float attackDelay = 0.8f;
-        [SerializeField] float OnHitDelay = 0.5f; // Delay before the damage is applied
-        bool isHit;
+        [SerializeField] float OnHitDelay = 0.5f;
         [SerializeField] float wanderRadius = 10f;
         [SerializeField] private GameObject healthBarPrefab;
+        [SerializeField] public float attackDistance = 30f;
+        [SerializeField] public int attackDamage = 10;
+        public LayerMask attackLayer;
 
         private StateMachine stateMachine;
         public Transform Player { get; private set; }
         public Health PlayerHealth { get; private set; }
-        public MaterialChanger materialChanger;
         CountdownTimer attackTimer;
         CountdownTimer onHitTimer;
 
+        public Image healthBar;
+        bool isHit;
+
         void Awake()
         {
-            Player = GameObject.FindGameObjectWithTag("Player").transform;
-            PlayerHealth = Player.GetComponent<Health>(); // Correctly reference the player's health\
-            materialChanger = GetComponent<MaterialChanger>();
-            currentHealth = maxHealth;
+            Player = GameObject.FindGameObjectWithTag("Player")?.transform;
+            if (Player == null)
+            {
+                Debug.LogError("Player not found! Ensure the Player GameObject is tagged as 'Player'.");
+            }
 
+            PlayerHealth = Player?.GetComponent<Health>();
+            if (PlayerHealth == null)
+            {
+                Debug.LogError("Health component not found on Player GameObject.");
+            }
+
+            currentHealth = maxHealth;
         }
 
         void Start()
         {
+            gameController = FindObjectOfType<DungeonGameController>();
             attackTimer = new CountdownTimer(timeBetweenAttack);
-            onHitTimer = new CountdownTimer(OnHitDelay); // Initialize on-hit timer
+            onHitTimer = new CountdownTimer(OnHitDelay);
 
             stateMachine = new StateMachine();
 
@@ -50,14 +66,14 @@ namespace HomeByMarch
             var chaseState = new EnemyChaseState(this, animator, agent, playerDetector.Player);
             var attackState = new EnemyAttackState(this, animator, agent, playerDetector.Player);
             var deathState = new EnemyDeathState(this, animator, agent);
-            var onHitState = new EnemyOnHitState(this, animator, agent); // Add on-hit state
+            var onHitState = new EnemyOnHitState(this, animator, agent);
 
             At(wanderState, chaseState, new FuncPredicate(() => playerDetector.CanDetectPlayer()));
             At(chaseState, wanderState, new FuncPredicate(() => !playerDetector.CanDetectPlayer()));
             At(chaseState, attackState, new FuncPredicate(() => playerDetector.CanAttackPlayer()));
             At(attackState, chaseState, new FuncPredicate(() => !playerDetector.CanAttackPlayer()));
             At(attackState, onHitState, new FuncPredicate(() => isHit));
-            At(onHitState, attackState, new FuncPredicate(() => !isHit && !onHitTimer.IsRunning)); // Transition back to attack state if not hit and on-hit timer is not running
+            At(onHitState, attackState, new FuncPredicate(() => !isHit && !onHitTimer.IsRunning));
             Any(deathState, new FuncPredicate(() => currentHealth <= 0));
 
             stateMachine.SetState(wanderState);
@@ -68,7 +84,7 @@ namespace HomeByMarch
 
         void Update()
         {
-            if (playerDetector.CanDetectPlayer())
+            if (currentHealth < maxHealth || playerDetector.CanDetectPlayer())
             {
                 healthBarPrefab.SetActive(true);
             }
@@ -76,9 +92,12 @@ namespace HomeByMarch
             {
                 healthBarPrefab.SetActive(false);
             }
+
             stateMachine.Update();
             attackTimer.Tick(Time.deltaTime);
-            onHitTimer.Tick(Time.deltaTime); // Tick on-hit timer
+            onHitTimer.Tick(Time.deltaTime);
+
+            healthBar.fillAmount = Mathf.Clamp(currentHealth / maxHealth, 0.0f, 1.0f);
         }
 
         void FixedUpdate()
@@ -91,56 +110,96 @@ namespace HomeByMarch
             if (attackTimer.IsRunning) return;
 
             attackTimer.Start();
-            StartCoroutine(DelayedAttack()); // Start the delayed attack coroutine
+            agent.isStopped = true;
+            StartCoroutine(DelayedAttack());
+        }
+
+        private IEnumerator DelayedAttack()
+        {
+            Debug.Log("Attack initiated");
+
+            yield return new WaitForSeconds(attackDelay);
+
+            if (playerDetector.CanAttackPlayer())
+            {
+                Debug.Log("Player in range. Executing attack.");
+                AttackRayCast();
+            }
+            else
+            {
+                Debug.LogWarning("Player out of attack range.");
+            }
+
+            agent.isStopped = false;
         }
 
         public void OnHit()
         {
-
-            if (materialChanger != null)
-            {
-                // Change material when hit
-                materialChanger.ChangeMaterial();
-            }
-            if (onHitTimer.IsRunning) return;
-
-            isHit = true; // Set isHit to true when the enemy is hit
-            onHitTimer.Start(); // Start the on-hit timer
-            StartCoroutine(OnHitDelayed()); // Start the delayed hit coroutine
+            isHit = true;
+            onHitTimer.Start();
+            StartCoroutine(OnHitDelayed());
         }
 
         private IEnumerator OnHitDelayed()
         {
             yield return new WaitForSeconds(OnHitDelay);
-            isHit = false; // Reset the isHit flag after the delay
-        }
-
-        private IEnumerator DelayedAttack()
-        {
-            yield return new WaitForSeconds(attackDelay); // Wait for the specified delay
-            if (playerDetector.CanAttackPlayer()) // Ensure player is still in range
-            {
-                PlayerHealth.TakeDamage(10); // Apply damage after delay
-            }
+            isHit = false;
         }
 
         public void TakeDamage(int amount)
         {
             currentHealth -= amount;
+            currentHealth = Mathf.Clamp(currentHealth, 0.0f, maxHealth);
 
             if (currentHealth <= 0)
             {
-                stateMachine.SetState(new EnemyDeathState(this, animator, agent)); // Set the death state
+                gameController?.OnEnemyDefeated();
+                stateMachine.SetState(new EnemyDeathState(this, animator, agent));
             }
             else
             {
-                OnHit(); // Call OnHit method to trigger the hit state
+                OnHit();
             }
         }
 
-        void Death()
+        void AttackRayCast()
         {
-            // This is now managed by the EnemyDeathState, so this method can be left empty
+            Vector3 rayOrigin = transform.position + Vector3.up * 1f;
+
+            Vector3[] rayDirections = new Vector3[10]
+            {
+                transform.forward,
+                transform.forward + transform.right,
+                transform.forward - transform.right,
+                transform.forward + transform.up,
+                transform.forward - transform.up,
+                transform.forward + transform.right + transform.up,
+                transform.forward + transform.right - transform.up,
+                transform.forward - transform.right + transform.up,
+                transform.forward - transform.right - transform.up,
+                transform.forward + transform.up * 2
+            };
+
+            foreach (var direction in rayDirections)
+            {
+                Vector3 rayEnd = rayOrigin + direction * attackDistance;
+                Debug.DrawLine(rayOrigin, rayEnd, Color.red, 0.1f);
+
+                if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, attackDistance))
+                {
+                    Debug.Log($"Hit object: {hit.transform.name}");
+
+                    if (hit.transform.CompareTag("Player"))
+                    {
+                        Debug.Log("Player hit! Applying damage.");
+                        PlayerHealth.TakeDamage(attackDamage);
+                    }
+                }
+                else
+                {
+                    Debug.Log("No object hit by ray.");
+                }
+            }
         }
     }
 }

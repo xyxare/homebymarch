@@ -776,9 +776,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7518535667305202184}
   - component: {fileID: 2630172419387072004}
-  - component: {fileID: 197179585859605268}
   - component: {fileID: 1512901363889295711}
-  - component: {fileID: 594412704354243628}
   m_Layer: 5
   m_Name: GameObject
   m_TagString: Untagged
@@ -818,18 +816,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: New Player
---- !u!114 &197179585859605268
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3105765369537503791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d29dbacc048e4ba418ebfa2ee67ef99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1512901363889295711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,25 +831,6 @@ MonoBehaviour:
   m_StatusText: {fileID: 6509404147871889477}
   m_SignOut: {fileID: 4139384220211100863}
   m_SignIn: {fileID: 6539333201664736541}
---- !u!114 &594412704354243628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3105765369537503791}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b7212eb2a5b8054fb4a3e90d0dc187b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stepData:
-    lastSaveTime: 
-    registrationTime: 
-    numberOfSteps: 0
-  overallSteps: 0
-  stepDataJsonFilePath: 
-  overallStepsBeforeToday: 0
 --- !u!1 &3107985970438101213
 GameObject:
   m_ObjectHideFlags: 0
@@ -1143,7 +1110,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 594412704354243628}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OverallStepCounter, Assembly-CSharp
         m_MethodName: LoadStepDataFromCloud
         m_Mode: 1
@@ -1861,7 +1828,7 @@ GameObject:
   - component: {fileID: 3356671553009762443}
   - component: {fileID: 5611372903134237374}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Acount Panel Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2889,7 +2856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8554559777528908925
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3295,7 +3262,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 594412704354243628}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: OverallStepCounter, Assembly-CSharp
         m_MethodName: SaveStepDataToCloud
         m_Mode: 1

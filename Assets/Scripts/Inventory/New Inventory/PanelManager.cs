@@ -35,4 +35,16 @@ public class PanelManager : MonoBehaviour
         player.equipment.Load();
         Debug.Log("Player data loaded after delay.");
     }
+
+    public void SaveInventoryToCloud(){
+        player.inventory.SaveInventoryToCloud("inventory");
+        player.equipment.SaveInventoryToCloud("equipment");
+        Debug.Log("Player data saved to cloud.");
+    }
+
+    public void LoadInventoryFromCloud(){
+        player.inventory.LoadInventoryFromCloud("inventory");
+        player.equipment.LoadInventoryFromCloud("equipment");
+        Debug.Log("Player data loaded from cloud.");
+    }
 }

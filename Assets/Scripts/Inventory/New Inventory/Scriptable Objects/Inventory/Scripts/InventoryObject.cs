@@ -103,6 +103,62 @@ public class InventoryObject : ScriptableObject
         formatter.Serialize(stream, Container);
         stream.Close();
     }
+
+    public async void SaveInventoryToCloud(string fileName)
+    {
+        // Load the inventory data from the local file first
+        if (File.Exists(string.Concat(Application.persistentDataPath, savePath)))
+        {
+            IFormatter formatter = new BinaryFormatter();
+            Stream stream = new FileStream(string.Concat(Application.persistentDataPath, savePath), FileMode.Open, FileAccess.Read);
+            Inventory newContainer = (Inventory)formatter.Deserialize(stream);
+            stream.Close();
+
+            // Log the inventory data before saving
+            string inventoryData = JsonUtility.ToJson(newContainer, true);
+            Debug.Log("Saving Inventory Data: " + inventoryData);  // Log the data for debugging purposes
+
+            // Save the inventory data to the cloud
+            CloudSaver.SaveDataToCloud(fileName, inventoryData);
+        }
+        else
+        {
+            Debug.LogError("Inventory file not found!");
+        }
+    }
+
+    public async void LoadInventoryFromCloud(string fileName)
+    {
+        // Load the inventory data from the cloud
+        string inventoryData = await CloudSaver.LoadDataFromCloud(fileName);  // Assuming LoadDataFromCloud is an async method
+
+        if (!string.IsNullOrEmpty(inventoryData))
+        {
+            // Log the loaded data for debugging
+            Debug.Log("Loaded Inventory Data: " + inventoryData);
+
+            // Deserialize the inventory data
+            Inventory loadedContainer = JsonUtility.FromJson<Inventory>(inventoryData);
+
+            // Now update the slots in the game with the loaded data
+            for (int i = 0; i < GetSlots.Length; i++)
+            {
+                GetSlots[i].UpdateSlot(loadedContainer.Slots[i].item, loadedContainer.Slots[i].amount);
+            }
+
+            Save();
+        }
+        else
+        {
+            Debug.LogError("Failed to load inventory data from the cloud.");
+        }
+    }
+
+
+
+
+
+
     [ContextMenu("Load")]
     public void Load()
     {
