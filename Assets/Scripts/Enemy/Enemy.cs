@@ -39,8 +39,17 @@ namespace HomeByMarch
 
         void Awake()
         {
-            Player = GameObject.FindGameObjectWithTag("Player").transform;
-            PlayerHealth = Player.GetComponent<Health>();
+            Player = GameObject.FindGameObjectWithTag("Player")?.transform;
+            if (Player == null)
+            {
+                Debug.LogError("Player not found! Ensure the Player GameObject is tagged as 'Player'.");
+            }
+
+            PlayerHealth = Player?.GetComponent<Health>();
+            if (PlayerHealth == null)
+            {
+                Debug.LogError("Health component not found on Player GameObject.");
+            }
 
             currentHealth = maxHealth;
         }
@@ -110,7 +119,7 @@ namespace HomeByMarch
             Debug.Log("Attack initiated");
 
             yield return new WaitForSeconds(attackDelay);
-            
+
             if (playerDetector.CanAttackPlayer())
             {
                 Debug.Log("Player in range. Executing attack.");
@@ -176,7 +185,7 @@ namespace HomeByMarch
                 Vector3 rayEnd = rayOrigin + direction * attackDistance;
                 Debug.DrawLine(rayOrigin, rayEnd, Color.red, 0.1f);
 
-                if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, attackDistance, attackLayer))
+                if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, attackDistance))
                 {
                     Debug.Log($"Hit object: {hit.transform.name}");
 
@@ -185,6 +194,10 @@ namespace HomeByMarch
                         Debug.Log("Player hit! Applying damage.");
                         PlayerHealth.TakeDamage(attackDamage);
                     }
+                }
+                else
+                {
+                    Debug.Log("No object hit by ray.");
                 }
             }
         }
