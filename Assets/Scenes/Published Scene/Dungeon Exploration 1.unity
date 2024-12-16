@@ -4587,6 +4587,7 @@ MonoBehaviour:
   text: {fileID: 1308380227}
   debugText: {fileID: 0}
   permissionCanvas: {fileID: 1493089053}
+  dailyStepCount: 0
 --- !u!1 &292223216
 GameObject:
   m_ObjectHideFlags: 0
@@ -12819,6 +12820,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1014233919462176944, guid: 15f32a9777aa6f24db5a5165707fed9d, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 240495869672435250, guid: 15f32a9777aa6f24db5a5165707fed9d, type: 3}
       propertyPath: joystick
       value: 
@@ -19455,7 +19460,6 @@ MonoBehaviour:
   joystick: {fileID: 1640369396}
   animator: {fileID: 1280169121}
   input: {fileID: 11400000, guid: dac05e4578fcd474c89199ab39f0f7ee, type: 2}
-  enemyDetector: {fileID: 1280169127}
   moveSpeed: 3
   rotationSpeed: 15
   smoothTime: 0.2
