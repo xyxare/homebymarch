@@ -922,7 +922,7 @@ PlayerSettings:
   XboxOneOverrideIdentityPublisher: 
   vrEditorSettings: {}
   cloudServicesEnabled:
-    Purchasing: 1
+    Purchasing: 0
   luminIcon:
     m_Name: 
     m_ModelFolderPath: 
@@ -942,11 +942,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 5899395f-3148-408d-b0d9-4a01f4aa4301
+  cloudProjectId: a7d44637-2fde-4db7-b4ff-628ad7152136
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: homebymarch 2024-08-28_06-38-23
-  organizationId: d_a_v00
+  projectName: homebymarch
+  organizationId: xyxare
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
