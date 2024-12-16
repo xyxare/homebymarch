@@ -2474,6 +2474,14 @@ PrefabInstance:
       value: Account Panel 1
       objectReference: {fileID: 0}
     - target: {fileID: 4550384149078918067, guid: 96fd3e3fdddbdc349bbc0eca0d8463c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550384149078918067, guid: 96fd3e3fdddbdc349bbc0eca0d8463c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550384149078918067, guid: 96fd3e3fdddbdc349bbc0eca0d8463c5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 319376985}
@@ -2482,12 +2490,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 775914162}
     - target: {fileID: 4550384149078918067, guid: 96fd3e3fdddbdc349bbc0eca0d8463c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 1433467657}
+    - target: {fileID: 4550384149078918067, guid: 96fd3e3fdddbdc349bbc0eca0d8463c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550384149078918067, guid: 96fd3e3fdddbdc349bbc0eca0d8463c5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SaveDailyQuestProgressToCloud
       objectReference: {fileID: 0}
     - target: {fileID: 4550384149078918067, guid: 96fd3e3fdddbdc349bbc0eca0d8463c5, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: SaveStepDataToCloud
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550384149078918067, guid: 96fd3e3fdddbdc349bbc0eca0d8463c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SaveInventoryToCloud
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550384149078918067, guid: 96fd3e3fdddbdc349bbc0eca0d8463c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: PanelManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4550384149078918067, guid: 96fd3e3fdddbdc349bbc0eca0d8463c5, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4946600010320653735, guid: 96fd3e3fdddbdc349bbc0eca0d8463c5, type: 3}
       propertyPath: m_Pivot.x
