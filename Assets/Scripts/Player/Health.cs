@@ -13,9 +13,13 @@ namespace HomeByMarch
         public delegate void DamageTaken();
         public event DamageTaken OnDamageTaken;
 
-        private int currentHealth;
+        public int currentHealth;
 
-        public int CurrentHealth => currentHealth;
+        public int CurrentHealth
+        {
+            get => currentHealth;
+            set => currentHealth = value;
+        }
         public int MaxHealth => maxHealth;
         public bool IsDead => currentHealth <= 0;
 

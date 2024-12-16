@@ -403,6 +403,7 @@ MonoBehaviour:
   maxHealth: 300
   playerHealthChannel: {fileID: 11400000, guid: b83ca446ee59b604283b025ab624a6c4, type: 2}
   deathPanel: {fileID: 0}
+  currentHealth: 0
 --- !u!114 &8999682618936005855
 MonoBehaviour:
   m_ObjectHideFlags: 0

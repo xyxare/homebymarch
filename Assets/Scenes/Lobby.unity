@@ -555,7 +555,7 @@ MonoBehaviour:
   titleTextMeshPro: {fileID: 561121937}
   descriptionTextMeshPro: {fileID: 1349118832}
   targetImage: {fileID: 1803907913}
-  sceneName: 
+  sceneName: Dungeon Exploration
   playButton: {fileID: 1694510589}
 --- !u!4 &72614497
 Transform:
@@ -3866,7 +3866,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1694510590
 RectTransform:
   m_ObjectHideFlags: 0
