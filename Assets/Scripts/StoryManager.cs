@@ -23,18 +23,18 @@ public class StoryManager : MonoBehaviour
         newImages = new Sprite[]
         {
         //The Beginning - "The Call to Journey"
-        LoadSprite("stories/5"),         
-        LoadSprite("stories/homebymarch"),  
+        LoadSprite("stories/part 1 sub 1"),
+        LoadSprite("stories/homebymarch"),
         LoadSprite("stories/homebymarch"),  
 
          //The Trials - "The Rising Storm"
-        LoadSprite("stories/1"),           
-        LoadSprite("stories/homebymarch"),  
+        LoadSprite("stories/1"),
+        LoadSprite("stories/homebymarch"),
         LoadSprite("stories/homebymarch"),  
 
         //The Resolution - "Homeward Bound"
-        LoadSprite("stories/3"),         
-        LoadSprite("stories/homebymarch"),  
+        LoadSprite("stories/3"),
+        LoadSprite("stories/homebymarch"),
         LoadSprite("stories/homebymarch")
         };
     }
@@ -51,38 +51,38 @@ public class StoryManager : MonoBehaviour
 
     private string[] newTMPTexts = new string[]
     {
-        //The Beginning - "The Call to Journey"
-        "A world unknown, a compass broken. Each shard a question: Where am I? Who am I now? And how far must I walk to find the answers?",
-        "Solace is no sanctuary, but its cries for help are loud enough to drown out my own. Can I truly piece together their hope while chasing fragments of my own?",
-        "Every journey begins with uncertainty. With only fragments in hand and doubts in my heart, I take the first step—into the unknown, into myself.",
+        //The Beginning - "Compass"
+        "A common peasant picks up a compass’ needle and is whisked away to a land far from home.\n\n\"When you are called for something greater, do you answer? Or do you remain still, perpetuating your excuses?\"",
+        "The peasant discovers that the weight of the world is in their hands. In spite of the pressure, they agree.\n\n\"Do I even get to go home? Am I trudging along this lengthy quest out of blind faith that I'll be back?\"",
+        "The world the peasant claims to save brought them wealth, but isolates them from the people they claim to be saving.\n\n\"Why couldn’t I live a peaceful life like the others?\"",
 
-        //The Trials - "The Rising Storm"
-        "Beneath the earth lie shadows of greed and whispers of the past. Each dungeon tests more than my strength—it questions my purpose. How much of myself will I lose before I emerge into the light?",
-        "Allies once trusted, now shadows in my path. The taste of betrayal is bitter, but the question cuts deeper: Is the compass worth more than the bonds I’ve built along the way?",
-        "Standing before the Gatekeeper, I see not an enemy but a mirror. To pass, I must answer the hardest question yet: Am I worthy of the journey I’ve begun?",
+        //A THOUSAND MILES
+        "Distrust festers in our hero and their companion as they are told a great evil shall come and stop them specifically.\n\n\"What in the world are you thinking, putting me in charge of all of this?\"",
+        "Our hero is told of the nature of their assailant, and the revelation nearly causes them to desert their mission.\n\n\"When you run out of what you have, do you still wish to give to those with less?\"",
+        "Our hero approaches the peak of the highest mountain and the end of the longest river.\n\n\"The cunning waste their pains; The wise men vex their brains; But the simpleton, who seeks no gains, with belly full, he wanders free as drifting boat upon the sea.\"",
 
-        //The Resolution - "Homeward Bound"
-        "A throne left empty, a king left forgotten. His madness speaks of the compass’s truth, but will his tragedy become my own? Or will I rise where he fell?",
-        "The compass spins one last time, pointing to a choice I never wanted to make. Return to the life I’ve lost, or stay to protect the world I’ve found. What will I choose, and what will it cost?",
-        "The journey ends where it began, but I am no longer the same. Whether here or there, home is no longer a place—it’s the path I walked and the lives I’ve touched."
+        //MARCH
+        "Izenik now knows the full weight of their quest and the true consequences of failure. they approach the lair of the commander to finally begin the end.\n\n\"I may not be the hero from chivalry, but I shall gallop on.\"",
+        "In which is discovered the full truth behind the eater of worlds, and Izenik's last stand against the overwhelming force.\n\n\"For I wish to see the world I love once more. I ask for strength one last time.\"",
+        "The compass is no more. the ender of worlds towers before iznik.\n\n\"There's no place like home.\""
     };
 
     private string[] newTMPTitles = new string[]
     {
-        //The Beginning - "The Call to Journey"
-        "THE SHATTERED COMPASS",
-        "THE TOWN OF SOLACE",
+        //The Beginning - "Compass"
+        "INERTIA",
+        "POT OF KNOWLEDGE",
         "THE FIRST STEP",
 
-        //The Trials - "The Rising Storm"
-        "THE DUNGEONS OF DREAD",
-        "THE BROTHERHOOD’S BETRAYAL",
-        "THE GATEKEEPER",
+        //A THOUSAND MILES
+        "AT EACH OTHER’S THROATS",
+        "UNCROSSABLE WALL",
+        "DREAM OF THE CELESTIAL CHAMBER",
 
-        //The Resolution - "Homeward Bound"
-        "THE FORGOTTEN KING",
-        "THE TRIAL OF SACRIFICE",
-        "MARCH’S RETURN"
+        //MARCH
+        "A FUTURE UNCERTAIN",
+        "A PAST ONE CANNOT RETURN TO",
+        "WHEN ALL HOPE IS LOST"
     };
 
     public void Next()
