@@ -9,7 +9,7 @@ namespace HomeByMarch {
             if (player.IsMoving()) {
                 animator.CrossFade(AttackHash2, crossFadeDuration);
             } else {
-                animator.CrossFade(AttackHash3, crossFadeDuration);
+                animator.CrossFade(AttackHash, crossFadeDuration);
             }
             player.Attack();
         }

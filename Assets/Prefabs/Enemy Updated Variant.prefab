@@ -143,10 +143,6 @@ PrefabInstance:
       value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
-      propertyPath: wanderRadius
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: attackDistance
       value: 10
       objectReference: {fileID: 0}
