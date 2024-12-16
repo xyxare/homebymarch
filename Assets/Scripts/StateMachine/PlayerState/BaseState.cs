@@ -10,6 +10,7 @@ namespace HomeByMarch {
         // protected static readonly int DashHash = Animator.StringToHash("Dash");
         protected static readonly int AttackHash = Animator.StringToHash("Attack");
         protected static readonly int AttackHash2 = Animator.StringToHash("Attack2");
+        protected static readonly int AttackHash3 = Animator.StringToHash("Attack3");
         protected static readonly int DamageHash = Animator.StringToHash("Damage");
         protected static readonly int DeathHash = Animator.StringToHash("Death");
         
