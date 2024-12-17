@@ -20136,9 +20136,11 @@ MonoBehaviour:
   totalEnemiesToDefeat: 10
   timerText: {fileID: 525903445}
   enemiesDefeatedText: {fileID: 450888955}
+  enemiesRemainingText: {fileID: 0}
   startButton: {fileID: 1601838620}
   winPanel: {fileID: 1972924473}
   challengePanel: {fileID: 1767224436}
+  useTimeLimit: 1
 --- !u!1001 &965007597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29164,71 +29166,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3146083388307954384, guid: b22eaeb277257e2439ef8b9f8e7158a0, type: 3}
   m_PrefabInstance: {fileID: 1441435522}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1445266337
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1374317198282855615, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: m_Name
-      value: Enemy Updated Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 2688189113178513086, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: avoidancePriority
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426863891895979664, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -1.7671072
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426863891895979664, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 7.5568833
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426863891895979664, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 32.03736
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426863891895979664, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.38146713
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426863891895979664, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426863891895979664, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.9243824
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426863891895979664, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426863891895979664, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426863891895979664, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 135.151
-      objectReference: {fileID: 0}
-    - target: {fileID: 4426863891895979664, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7292251493735157273, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
-      propertyPath: attackDamage
-      value: 5
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
 --- !u!1001 &1448666645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42839,4 +42776,3 @@ SceneRoots:
   - {fileID: 962123720}
   - {fileID: 671680702}
   - {fileID: 8728641670809793175}
-  - {fileID: 1445266337}
