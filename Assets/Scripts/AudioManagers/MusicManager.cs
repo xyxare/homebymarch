@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; 
 using System;
 
 public class MusicManager : MonoBehaviour
@@ -9,6 +10,18 @@ public class MusicManager : MonoBehaviour
 
     public AudioClip[] musicSounds;
     public AudioSource musicSource;
+
+
+    [System.Serializable]
+    public class SceneMusicMapping
+    {
+        public string sceneName;
+        public AudioClip musicClip;
+    }
+
+    public List<SceneMusicMapping> sceneMusicMappings = new List<SceneMusicMapping>();
+
+    private string currentMusicName = "";  
 
     private void Awake()
     {
@@ -22,11 +35,43 @@ public class MusicManager : MonoBehaviour
             return;
         }
         DontDestroyOnLoad(gameObject);
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
     {
-        PlayMusic("PlaceHolder Music");
+
+        PlayMusicForCurrentScene();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+
+        PlayMusicForCurrentScene();
+    }
+
+    private void PlayMusicForCurrentScene()
+    {
+        
+        string currentScene = SceneManager.GetActiveScene().name;
+
+        
+        SceneMusicMapping sceneMusic = sceneMusicMappings.Find(mapping => mapping.sceneName == currentScene);
+
+        if (sceneMusic != null)
+        {
+           
+            if (sceneMusic.musicClip != null && sceneMusic.musicClip.name != currentMusicName)
+            {
+                PlayMusic(sceneMusic.musicClip.name);
+                currentMusicName = sceneMusic.musicClip.name;  
+            }
+        }
+        else
+        {
+            Debug.LogWarning("No music mapped for scene: " + currentScene);
+        }
     }
 
     public void PlayMusic(string name)
@@ -36,11 +81,11 @@ public class MusicManager : MonoBehaviour
         {
             Debug.LogWarning("Music: " + name + " not found!");
         }
-        else{
+        else
+        {
             musicSource.clip = s;
             musicSource.Play();
         }
-        
     }
 
     public void MuteMusic()
@@ -48,9 +93,8 @@ public class MusicManager : MonoBehaviour
         musicSource.mute = !musicSource.mute;
     }
 
-    public void  MusicVolume(float volume)
+    public void MusicVolume(float volume)
     {
         musicSource.volume = volume;
     }
-
 }
