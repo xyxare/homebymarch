@@ -18,6 +18,7 @@ namespace HomeByMarch
         {
             // Update the health bar based on the current health
             healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0.0f, 1.0f);
+            Debug.Log("Current Health: " + health);
         }
 
         // Method to take damage

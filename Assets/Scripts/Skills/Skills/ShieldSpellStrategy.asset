@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3ced775e126c04f85a9f1cceae9f1d, type: 3}
   m_Name: ShieldSpellStrategy
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 21300000, guid: 1e745190eb4dd8a4095d22215a313740, type: 3}
+  uiDisplay: {fileID: 21300000, guid: c4e5acfe60140a34f9c55aff4c584ca6, type: 3}
   shieldPrefab: {fileID: 1289543790355709915, guid: b99922c2f59b1a542bdd06ae8bee47ae, type: 3}
   duration: 5

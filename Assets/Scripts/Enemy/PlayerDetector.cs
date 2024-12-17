@@ -1,44 +1,56 @@
 using UnityEngine;
 using Utilities;
 
-namespace HomeByMarch {
-    public class PlayerDetector : MonoBehaviour {
+namespace HomeByMarch
+{
+    public class PlayerDetector : MonoBehaviour
+    {
         [SerializeField] float detectionAngle = 60f; // Cone in front of enemy
         [SerializeField] float detectionRadius = 10f; // Large circle around enemy
         [SerializeField] float innerDetectionRadius = 5f; // Small circle around enemy
         [SerializeField] float detectionCooldown = 1f; // Time between detections
         [SerializeField] float attackRange = 2f; // Distance from enemy to player to attack
-        
+
         public Transform Player { get; private set; }
         public Health PlayerHealth { get; private set; }
-        
+
         CountdownTimer detectionTimer;
-        
+
         IDetectionStrategy detectionStrategy;
 
-        void Awake() {
+        void Awake()
+        {
             Player = GameObject.FindGameObjectWithTag("Player").transform; // Make sure to TAG the player!
             PlayerHealth = Player.GetComponent<Health>();
         }
 
-        void Start() {
+        void Start()
+        {
             detectionTimer = new CountdownTimer(detectionCooldown);
             detectionStrategy = new ConeDetectionStrategy(detectionAngle, detectionRadius, innerDetectionRadius);
         }
-        
+
         void Update() => detectionTimer.Tick(Time.deltaTime);
 
-        public bool CanDetectPlayer() {
+        public bool CanDetectPlayer()
+        {
             return detectionTimer.IsRunning || detectionStrategy.Execute(Player, transform, detectionTimer);
         }
 
-        public bool CanAttackPlayer() {
+        public bool CanAttackPlayer()
+        {
+            // Prevent attack if player's health is zero
+            if (PlayerHealth.CurrentHealth == 0)
+            {
+                return false;
+            }
+
             var directionToPlayer = Player.position - transform.position;
             return directionToPlayer.magnitude <= attackRange;
         }
-        
+
         public void SetDetectionStrategy(IDetectionStrategy detectionStrategy) => this.detectionStrategy = detectionStrategy;
-        
+
         void OnDrawGizmos() {
             Gizmos.color = Color.red;
 

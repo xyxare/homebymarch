@@ -6,7 +6,11 @@ namespace HomeByMarch {
 
         public override void OnEnter() {
             Debug.Log("AttackState.OnEnter");
-            animator.CrossFade(AttackHash, crossFadeDuration);
+            if (player.IsMoving()) {
+                animator.CrossFade(AttackHash2, crossFadeDuration);
+            } else {
+                animator.CrossFade(AttackHash, crossFadeDuration);
+            }
             player.Attack();
         }
 
@@ -14,4 +18,4 @@ namespace HomeByMarch {
             player.HandleMovement();
         }
     }
-}   
+}
