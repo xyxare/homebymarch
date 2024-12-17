@@ -15548,11 +15548,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8581315213303147609, guid: 98b8078c77dcfa54383fba57e5a626f5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -43.92624
+      value: -43.92995
       objectReference: {fileID: 0}
     - target: {fileID: 8581315213303147609, guid: 98b8078c77dcfa54383fba57e5a626f5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.08229
+      value: -16.081406
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23192,6 +23192,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1014233919462176944, guid: 15f32a9777aa6f24db5a5165707fed9d, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 240495869672435250, guid: 15f32a9777aa6f24db5a5165707fed9d, type: 3}
       propertyPath: joystick
       value: 
