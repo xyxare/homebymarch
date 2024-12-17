@@ -20136,7 +20136,7 @@ MonoBehaviour:
   totalEnemiesToDefeat: 10
   timerText: {fileID: 525903445}
   enemiesDefeatedText: {fileID: 450888955}
-  enemiesRemainingText: {fileID: 0}
+  enemiesRemainingText: {fileID: 1538875641}
   startButton: {fileID: 1601838620}
   winPanel: {fileID: 1972924473}
   challengePanel: {fileID: 1767224436}
