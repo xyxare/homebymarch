@@ -5,7 +5,6 @@ using Photon.Pun;
 using Cinemachine;
 using HomeByMarch;
 
-
 public class SpawnPlayers : MonoBehaviour
 {
     public FixedJoystick joystickPrefab; // Reference to the joystick prefab
@@ -13,26 +12,29 @@ public class SpawnPlayers : MonoBehaviour
     public Camera mainCamera; // Reference to the main camera
     public CinemachineVirtualCamera cinemachineCamera; // Reference to the Cinemachine camera
     public Canvas uiCanvas; // Reference to the canvas where the joystick should be instantiated
-    public float minX;
-    public float maxX;
-    public float minZ;
-    public float maxZ;
+    public List<Transform> spawnPoints; // List of predefined spawn points
 
     private FixedJoystick instantiatedJoystick;
 
     // Start is called before the first frame update
-
     void Start()
     {
-        // Generate a random position within the defined bounds
-        Vector3 randomPosition = new Vector3(
-            Random.Range(minX, maxX),
-            41.24628f, // Assuming ground level
-            Random.Range(minZ, maxZ)
-        );
+        Vector3 spawnPosition;
+
+        // Determine which spawn point to use based on the player's actor number
+        int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1; // ActorNumber starts at 1
+        if (spawnPoints != null && playerIndex < spawnPoints.Count)
+        {
+            spawnPosition = spawnPoints[playerIndex].position;
+        }
+        else
+        {
+            Debug.LogError("No valid spawn point available for player index: " + playerIndex);
+            return;
+        }
 
         // Instantiate the player using PhotonNetwork
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, randomPosition, Quaternion.identity);
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
 
         // Ensure the PlayerController is found
         PlayerController playerController = player.GetComponent<PlayerController>();
@@ -80,5 +82,4 @@ public class SpawnPlayers : MonoBehaviour
             Debug.LogError("PlayerController component not found on the instantiated player.");
         }
     }
-
 }

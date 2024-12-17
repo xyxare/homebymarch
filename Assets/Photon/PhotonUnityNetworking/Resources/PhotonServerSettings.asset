@@ -39,6 +39,9 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - ClosePanelRPC
+  - NextStoryRPC
+  - PreviousStoryRPC
   - ApplyDamage
   - Attack
   - Die

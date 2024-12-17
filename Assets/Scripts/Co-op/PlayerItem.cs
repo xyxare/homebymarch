@@ -24,6 +24,8 @@ public class PlayerItem : MonoBehaviourPunCallbacks
 
     public Sprite[] avatars;
 
+    
+
     private void Awake()
     {
         backgroundImage = GetComponent<Image>();
