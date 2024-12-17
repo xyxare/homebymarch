@@ -14,6 +14,7 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
         Debug.Log("Connecting to Photon server in the Asia region...");
         PhotonNetwork.NickName = playerData.playerName;
         PhotonNetwork.PhotonServerSettings.AppSettings.FixedRegion = "asia"; // Specify Asia region
+        PhotonNetwork.AutomaticallySyncScene = true;
         PhotonNetwork.ConnectUsingSettings();
     }
 
