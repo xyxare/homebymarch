@@ -84,20 +84,22 @@ namespace HomeByMarch
 
         void Update()
         {
-            if (currentHealth < maxHealth || playerDetector.CanDetectPlayer())
+            if (currentHealth <= 0)
             {
-                healthBarPrefab.SetActive(true);
+                stateMachine.SetState(new EnemyDeathState(this, animator, agent));  // Enforce death state if health is zero
             }
             else
             {
-                healthBarPrefab.SetActive(false);
+                stateMachine.Update();
             }
 
-            stateMachine.Update();
             attackTimer.Tick(Time.deltaTime);
             onHitTimer.Tick(Time.deltaTime);
 
             healthBar.fillAmount = Mathf.Clamp(currentHealth / maxHealth, 0.0f, 1.0f);
+
+            // Show health bar only when health is below max or player is detected
+            healthBarPrefab.SetActive(currentHealth < maxHealth || playerDetector.CanDetectPlayer());
         }
 
         void FixedUpdate()
@@ -148,13 +150,15 @@ namespace HomeByMarch
 
         public void TakeDamage(int amount)
         {
+            if (currentHealth <= 0) return; // Prevent further damage after death
+
             currentHealth -= amount;
             currentHealth = Mathf.Clamp(currentHealth, 0.0f, maxHealth);
 
             if (currentHealth <= 0)
             {
-                gameController?.OnEnemyDefeated();
-                stateMachine.SetState(new EnemyDeathState(this, animator, agent));
+                gameController?.OnEnemyDefeated(); // Trigger defeat only once
+                stateMachine.SetState(new EnemyDeathState(this, animator, agent));  // Transition to death state
             }
             else
             {

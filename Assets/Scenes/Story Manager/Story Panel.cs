@@ -9,6 +9,7 @@ public class StoryPanel : MonoBehaviour
     public GameObject nextButton; // GameObject for the next button
     public GameObject previousButton; // GameObject for the previous button
     public GameObject panel; // The parent panel that will be closed
+    public GameObject dungeonChallengePanel; // The Dungeon Challenge Panel to show after the story
 
     [Header("Story Data")]
     public List<Sprite> storySprites; // List of story sprites
@@ -47,9 +48,7 @@ public class StoryPanel : MonoBehaviour
         if (currentIndex >= 0 && currentIndex < storySprites.Count)
         {
             // Debugging: Log the current index and sprite being assigned
-            Debug.Log("Updating story. Current Index: " + currentIndex);
-            Debug.Log("Assigning sprite: " + (storySprites[currentIndex] != null ? storySprites[currentIndex].name : "null"));
-
+          
             // Update the sprite
             if (storySprites[currentIndex] != null)
             {
@@ -57,7 +56,7 @@ public class StoryPanel : MonoBehaviour
             }
             else
             {
-                Debug.LogError("The sprite at index " + currentIndex + " is null.");
+              
             }
         }
         else
@@ -68,7 +67,9 @@ public class StoryPanel : MonoBehaviour
 
         // Enable/Disable buttons based on index
         previousButton.GetComponent<Button>().interactable = currentIndex > 0;
-        nextButton.GetComponent<Button>().interactable = currentIndex < storySprites.Count - 1;
+        
+        // Keep the "Next" button always active and handle logic in NextStory
+        nextButton.GetComponent<Button>().interactable = true;
     }
 
     public void NextStory()
@@ -80,12 +81,21 @@ public class StoryPanel : MonoBehaviour
         }
         else
         {
-            // Take a screenshot on the last photo
-            Debug.Log("Last photo reached, taking a screenshot.");
-            TakeScreenshot();
+            // Last photo reached, now transition to the Dungeon Challenge Panel
+            Debug.Log("Last photo reached. Transitioning to Dungeon Challenge.");
 
-            // Close the panel after the screenshot
-            panel.SetActive(false);  // Disable the entire panel
+            // Disable the Story Panel
+            panel.SetActive(false);
+
+            // Enable the Dungeon Challenge Panel
+            if (dungeonChallengePanel != null)
+            {
+                dungeonChallengePanel.SetActive(true);
+            }
+            else
+            {
+                Debug.LogError("Dungeon Challenge Panel is not assigned.");
+            }
         }
     }
 
@@ -100,15 +110,5 @@ public class StoryPanel : MonoBehaviour
         {
             Debug.LogWarning("No previous stories available.");
         }
-    }
-
-    private void TakeScreenshot()
-    {
-        // Generate a file path (You can customize this path)
-        string screenshotPath = "Screenshot_" + System.DateTime.Now.ToString("yyyy-MM-dd_HH-mm-ss") + ".png";
-
-        // Capture the screenshot and save it to the path
-        ScreenCapture.CaptureScreenshot(screenshotPath);
-        Debug.Log("Screenshot saved to: " + screenshotPath);
     }
 }

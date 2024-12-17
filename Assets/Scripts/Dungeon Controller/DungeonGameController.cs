@@ -27,17 +27,18 @@ public class DungeonGameController : MonoBehaviour
         // Add listener to the start button to start the game
         startButton.onClick.AddListener(StartGame);
         winPanel.SetActive(false); // Make sure the win panel is hidden at the start
+     // Make sure the challenge panel is hidden at the start
     }
 
     // This method is called when the Start button is clicked
     void StartGame()
     {
+        challengePanel.SetActive(false);
         gameActive = true;        // Set the game to active
         timeRemaining = timeLimit; // Reset the timer
         enemiesDefeated = 0;      // Reset the defeated enemies count
         enemiesSpawned = 0;       // Reset the spawned enemies count
-        UpdateUI();  
-        challengePanel.SetActive(false);             // Update the UI to reflect the initial state
+        UpdateUI();               // Update the UI to reflect the initial state
         StartCoroutine(SpawnEnemies()); // Start spawning enemies
     }
 
@@ -100,6 +101,16 @@ public class DungeonGameController : MonoBehaviour
             Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);  // Spawn enemy at chosen point
             enemiesSpawned++;  // Increment the spawn count
             yield return new WaitForSeconds(2f);  // Wait before spawning the next enemy (adjust as needed)
+        }
+    }
+
+    // This method is called when the player collides with the Dungeon Trigger
+    private void OnTriggerEnter(Collider other)
+    {
+        // Check if the player (tagged as "Player") collided with the trigger
+        if (other.CompareTag("Player"))
+        {
+            challengePanel.SetActive(true); // Show the Dungeon Challenge Panel
         }
     }
 }
