@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;  // Add the TextMesh Pro namespace
 using UnityEngine;
+using UnityEngine.UI;  // Add the UI namespace for Button
 
 public class DungeonGameController : MonoBehaviour
 {
@@ -12,17 +13,32 @@ public class DungeonGameController : MonoBehaviour
     private int enemiesDefeated = 0;    // Track the number of defeated enemies
     private int enemiesSpawned = 0;     // Track the number of enemies spawned
     private float timeRemaining;        // Time remaining in the dungeon
-    private bool gameActive = true;     // Flag to track if the game is active
+    private bool gameActive = false;    // Flag to track if the game is active
 
     // References to TextMeshProUGUI components
     public TMP_Text timerText;          // TMP Text for displaying the timer
     public TMP_Text enemiesDefeatedText; // TMP Text for displaying defeated enemies
+    public Button startButton;          // Reference to the start button
+    public GameObject winPanel;         // Reference to the Win Panel (UI)
+    public GameObject challengePanel;   // Reference to the Dungeon Challenge Panel (UI)
 
     void Start()
     {
-        timeRemaining = timeLimit;
-        UpdateUI();
-        StartCoroutine(SpawnEnemies());
+        // Add listener to the start button to start the game
+        startButton.onClick.AddListener(StartGame);
+        winPanel.SetActive(false); // Make sure the win panel is hidden at the start
+    }
+
+    // This method is called when the Start button is clicked
+    void StartGame()
+    {
+        gameActive = true;        // Set the game to active
+        timeRemaining = timeLimit; // Reset the timer
+        enemiesDefeated = 0;      // Reset the defeated enemies count
+        enemiesSpawned = 0;       // Reset the spawned enemies count
+        UpdateUI();  
+        challengePanel.SetActive(false);             // Update the UI to reflect the initial state
+        StartCoroutine(SpawnEnemies()); // Start spawning enemies
     }
 
     void Update()
@@ -46,7 +62,7 @@ public class DungeonGameController : MonoBehaviour
     {
         // Using TMP_Text components to update the UI text
         timerText.text = Mathf.Ceil(timeRemaining).ToString();
-        enemiesDefeatedText.text =  enemiesDefeated.ToString() + "/" + totalEnemiesToDefeat;
+        enemiesDefeatedText.text = enemiesDefeated.ToString() + "/" + totalEnemiesToDefeat;
     }
 
     // This method is called when an enemy is defeated
@@ -66,12 +82,13 @@ public class DungeonGameController : MonoBehaviour
         if (won)
         {
             Debug.Log("You win! All enemies defeated.");
+            winPanel.SetActive(true); // Show the win panel
         }
         else
         {
             Debug.Log("Time's up! You lose.");
         }
-        // Additional game end logic (e.g., display end screen, stop gameplay)
+        // Additional game end logic (e.g., stop gameplay, show end screen)
     }
 
     // Coroutine to spawn enemies at random spawn points
