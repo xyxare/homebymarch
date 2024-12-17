@@ -175,7 +175,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     private void Update()
     {
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && PhotonNetwork.CurrentRoom.PlayerCount >= 2)
         {
             playButton.SetActive(true);
         }

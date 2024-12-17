@@ -870,10 +870,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1378712022}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 30, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &39701372
 MonoBehaviour:
@@ -3125,6 +3125,7 @@ RectTransform:
   - {fileID: 1972924474}
   - {fileID: 1851977466}
   - {fileID: 1381297250}
+  - {fileID: 514703239}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4361,10 +4362,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1887919342}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 207, y: 78}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &187732175
 MonoBehaviour:
@@ -11479,7 +11480,6 @@ GameObject:
   - component: {fileID: 498029001}
   m_Layer: 5
   m_Name: Skill Button 3
-  m_Name: Skill Button 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11498,6 +11498,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 138349027}
+  - {fileID: 1245786099}
   m_Father: {fileID: 135324850}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -12231,6 +12232,7 @@ MonoBehaviour:
   nextButton: {fileID: 1429881485}
   previousButton: {fileID: 786695289}
   panel: {fileID: 514703238}
+  dungeonChallengePanel: {fileID: 0}
   storySprites:
   - {fileID: 21300000, guid: 9e4bdd08f100e674cbbba290047936ab, type: 3}
   - {fileID: 21300000, guid: f558a1eefb9e27249936f025968b954a, type: 3}
@@ -18335,7 +18337,7 @@ PrefabInstance:
     - target: {fileID: 295100527989799487, guid: d335f04f3e60c514e9762220e4d1085e, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1907336846}
+      objectReference: {fileID: 0}
     - target: {fileID: 398986217092428183, guid: d335f04f3e60c514e9762220e4d1085e, type: 3}
       propertyPath: m_Name
       value: Inventory Panel
@@ -22966,17 +22968,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3146083388307954384, guid: b22eaeb277257e2439ef8b9f8e7158a0, type: 3}
   m_PrefabInstance: {fileID: 1045221557}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1049223452 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3841088501215635521, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
-  m_PrefabInstance: {fileID: 1827039009}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60337118f590a64bbe44abf9d49d08d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1050658585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26912,10 +26903,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 498028997}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -146, y: -86}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1245786100
 MonoBehaviour:
@@ -29176,6 +29167,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1125905703}
+  - {fileID: 39701371}
   m_Father: {fileID: 135324850}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -33378,7 +33370,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 480300685}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1577668978
 MeshRenderer:
@@ -34262,8 +34254,7 @@ Transform:
   m_LocalPosition: {x: -56.61, y: 41.47, z: 53.37}
   m_LocalScale: {x: 0.8344672, y: 0.83446723, z: 0.8344672}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1121529182}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1614179891
@@ -38587,6 +38578,10 @@ PrefabInstance:
       propertyPath: deathPanel
       value: 
       objectReference: {fileID: 538420370}
+    - target: {fileID: 5162560978917505820, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5765312195323335215, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
       propertyPath: joystick
       value: 
@@ -39552,7 +39547,6 @@ GameObject:
   - component: {fileID: 1887919346}
   m_Layer: 5
   m_Name: Skill Button 2
-  m_Name: Skill Button 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39571,6 +39565,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 374403022}
+  - {fileID: 187732174}
   m_Father: {fileID: 135324850}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -39952,17 +39947,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8460917321318470221, guid: 3964c23ae9838e84889ea6d65b5861aa, type: 3}
   m_PrefabInstance: {fileID: 1907207919}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1907336846 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3841088501215635521, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
-  m_PrefabInstance: {fileID: 1827039009}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60337118f590a64bbe44abf9d49d08d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1908935467
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -41351,16 +41335,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd853fca13d3c9b4e97fa86136a96162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldownButtons:
-  - button: {fileID: 1378712023}
-    cooldownText: {fileID: 39701372}
-    cooldownTime: 5
-  - button: {fileID: 498028998}
-    cooldownText: {fileID: 1245786100}
-    cooldownTime: 5
-  - button: {fileID: 1887919343}
-    cooldownText: {fileID: 187732175}
-    cooldownTime: 5
 --- !u!4 &1994615067
 Transform:
   m_ObjectHideFlags: 0
@@ -44214,3 +44188,9 @@ SceneRoots:
   - {fileID: 962123720}
   - {fileID: 671680702}
   - {fileID: 8728641670809793175}
+  - {fileID: 13170479}
+  - {fileID: 385012035}
+  - {fileID: 1418190695}
+  - {fileID: 1577668977}
+  - {fileID: 1608434020}
+  - {fileID: 1752312763}
