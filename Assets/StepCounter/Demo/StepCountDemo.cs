@@ -14,36 +14,21 @@ namespace HomeByMarch
         public int dailySteps;    // Daily steps count
         public int overallSteps;  // Overall steps count
         public string lastSavedDate; // Store the last saved date to check if a new day has started
+
+        public int lastSavedStepCount; // Store the last saved step count to check if a new day has started
     }
 
     public class StepCountDemo : MonoBehaviour
     {
         public TMP_Text text, debugText;
         public Canvas permissionCanvas;
-         // Event channel to broadcast step count changes
-
         public int dailyStepCount;
-        private int overallStepCount;  // Track overall steps
+        private int overallStepCount;
         private string stepJsonFilePath;
-
-        // private void OnEnable()
-        // {
-        //     // Subscribe to the step gained event
-        //     GameEventsManager.instance.stepCountEvents.onStepsGained += StepsGained;
-        //     GameEventsManager.instance.stepCountEvents.onStepCountChange += StepCountChanged;
-        // }
-
-        // private void OnDisable()
-        // {
-        //     // Unsubscribe from the step gained event
-        //     GameEventsManager.instance.stepCountEvents.onStepsGained -= StepsGained;
-        //     GameEventsManager.instance.stepCountEvents.onStepCountChange -= StepCountChanged;
-        // }
+        private int previousDailyStepCount;  // Track previous day's steps
 
         void Start()
         {
-
-            
             InitializeStepCounter();
             LoadStepData();  // Load saved step data
             RequestPermission();  // Request permissions for step counting
@@ -82,10 +67,12 @@ namespace HomeByMarch
                 if (data.lastSavedDate != DateTime.Today.ToString("yyyy-MM-dd"))
                 {
                     dailyStepCount = 0;  // Reset daily steps if it's a new day
+                    previousDailyStepCount = data.dailySteps;  // Store the last recorded daily steps
                 }
                 else
                 {
                     dailyStepCount = data.dailySteps;  // Load today's steps
+                    previousDailyStepCount = data.lastSavedStepCount;  // Store last recorded daily steps for comparison
                 }
 
                 overallStepCount = data.overallSteps;  // Load the overall step count
@@ -94,6 +81,7 @@ namespace HomeByMarch
             {
                 overallStepCount = 0;
                 dailyStepCount = 0;
+                previousDailyStepCount = 0;
             }
         }
 
@@ -104,7 +92,8 @@ namespace HomeByMarch
                 numberOfSteps = dailyStepCount,
                 dailySteps = dailyStepCount,
                 overallSteps = overallStepCount,
-                lastSavedDate = DateTime.Today.ToString("yyyy-MM-dd")
+                lastSavedDate = DateTime.Today.ToString("yyyy-MM-dd"),
+                lastSavedStepCount = dailyStepCount  // Save the last recorded daily step count
             };
 
             string stepCountString = JsonUtility.ToJson(data);
@@ -120,12 +109,8 @@ namespace HomeByMarch
                 .OnQuerySuccess((value) =>
                 {
                     dailyStepCount = value;  // Update daily steps
-                    overallStepCount += dailyStepCount;  // Update overall step count
-
+                    UpdateOverallSteps();  // Update overall steps by adding the difference
                     text.text = value.ToString();  // Update UI
-
-                    // Trigger step gained event
-                    // GameEventsManager.instance.stepCountEvents.StepsGained(dailyStepCount);
 
                     SaveStepData();  // Save data after updating steps
                 })
@@ -133,35 +118,30 @@ namespace HomeByMarch
                 .Execute();
         }
 
-        private void StepsGained(int steps)
+        private void UpdateOverallSteps()
         {
-            // Log the steps gained
-            Debug.Log($"Steps gained: {steps}");
+            Debug.Log("Previous Daily Steps: " + previousDailyStepCount);
 
-            // Update the step count using the gained steps
-            dailyStepCount += steps;
+            // Calculate the difference between today's steps and the last recorded steps
+            int stepsDifference = dailyStepCount - previousDailyStepCount;
+            Debug.Log("stepsDifference: " + stepsDifference);
 
-            // Trigger the step count change event
-            GameEventsManager.instance.stepCountEvents.StepCountChange(dailyStepCount);
-        }
+            if (stepsDifference > 0)  // Only update if there's an increase in steps
+            {
 
-        private void StepCountChanged(int updatedSteps)
-        {
-            // Log the updated step count
-            Debug.Log($"Step count updated: {updatedSteps}");
-
-            // Update the UI
-            text.text = updatedSteps.ToString();
-
-            // Optionally, invoke the FloatEventChannel
-            
+                overallStepCount += stepsDifference;  // Add the difference to the overall step count
+                previousDailyStepCount = dailyStepCount;  // Update previous day's step count
+                Debug.Log("Updated Overall Steps: " + overallStepCount); // Log the updated overall step count
+            }
         }
 
         async void RequestPermission()
         {
 #if UNITY_ANDROID
-            AndroidRuntimePermissions.Permission fileManagementResult = await AndroidRuntimePermissions.RequestPermissionAsync("android.permission.MANAGE_EXTERNAL_STORAGE");
+        AndroidRuntimePermissions.Permission fileManagementResult = await AndroidRuntimePermissions.RequestPermissionAsync("android.permission.MANAGE_EXTERNAL_STORAGE");
 #endif
         }
     }
+
+
 }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using HomeByMarch;
-using HomeByMarch;  // Add this directive to reference the StepCountDemo class
+using TMPro;
+using ExitGames.Client.Photon.StructWrapping;
 public class StoryLockController : MonoBehaviour
 {
     [System.Serializable]

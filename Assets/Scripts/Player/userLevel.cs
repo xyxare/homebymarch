@@ -54,16 +54,16 @@ public class UserLevel : MonoBehaviour
         return (100 * Mathf.FloorToInt(Mathf.Pow(level - 1, 2.35f)));
     }
 
-    void UpdateText() 
+    void UpdateText()
     {
         levelText.text = currentUserLevel.ToString();
-        currentStepCountText.text = "Daily steps: " + currentStepCount.ToString();
+        currentStepCountText.text = "Daily steps: " + dailyStepCount;
         currentStepCountTextOutside.text = currentStepCount.ToString(); // Update the outside text with just the number
         totalStepsForNextLevelText.text = "Walk a total of " + ReformatIntToText(totalStepsForNextLevel) + " steps to advance to Level " + (currentUserLevel + 1);
         remainingStepsForNextLevelText.text = "Remaining steps for next level: " + ReformatIntToText(remainingStepsForNextLevel); // Update remaining steps text
 
         // Display overall steps in the new text field
-        overallStepCountText.text = "Overall steps: " + ReformatIntToText(overallStepCount);
+        overallStepCountText.text = "Overall steps: " +overallStepCount;
 
         // Display the username if PlayerData is available
         if (userNameText != null && playerData != null)
@@ -78,14 +78,19 @@ public class UserLevel : MonoBehaviour
         stepCountData = File.ReadAllText(stepJsonFilePath);
         StepData data = JsonUtility.FromJson<StepData>(stepCountData);
 
-        currentStepCount = data.numberOfSteps;
         dailyStepCount = data.dailySteps;
+
+        // Use overall steps instead of current (daily) steps for leveling
         overallStepCount = data.overallSteps;
 
+        // Calculate total steps required for the next level based on overall steps
         totalStepsForNextLevel = CalculateTotalStepsForLevel(currentUserLevel + 1);
-        remainingStepsForNextLevel = totalStepsForNextLevel - currentStepCount; // Update remaining steps for next level
 
-        if (currentStepCount >= totalStepsForNextLevel)
+        // Calculate the remaining steps for the next level
+        remainingStepsForNextLevel = totalStepsForNextLevel - overallStepCount;
+
+        // Check if the user has reached enough overall steps to level up
+        if (overallStepCount >= totalStepsForNextLevel)
         {
             currentUserLevel++;
         }
@@ -103,7 +108,7 @@ public class UserLevel : MonoBehaviour
         }
     }
 
-    public void UpdateExperienceBar()
+    void UpdateExperienceBar()
     {
         int totalStepsForPreviousLevel = CalculateTotalStepsForLevel(currentUserLevel);
         int differenceInSteps = totalStepsForNextLevel - totalStepsForPreviousLevel;
