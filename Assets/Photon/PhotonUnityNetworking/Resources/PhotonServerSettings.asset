@@ -46,6 +46,10 @@ MonoBehaviour:
   - Attack
   - Die
   - ShowWinPanelForAll
+  - EndGameWithTime
+  - UpdatePlayerCountDisplay
+  - UpdateTimerDisplay
+  - StartTimerForAll
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a359555bfc745164d8d91359f66cae2d, type: 3}
   m_Name: Headphones
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 0}
+  uiDisplay: {fileID: 1424205978, guid: b9179c868a7d9c146a6f15058463a47c, type: 3}
   characterDisplay: {fileID: 0}
   stackable: 0
   type: 1
@@ -20,7 +20,7 @@ MonoBehaviour:
     You feel like who owned this used it during days when they felt down.
   data:
     Name: Headphones
-    Id: -1
+    Id: 12
     buffs:
     - attribute: 1
       value: -2

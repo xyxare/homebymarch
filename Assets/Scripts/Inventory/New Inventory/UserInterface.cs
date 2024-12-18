@@ -91,10 +91,7 @@ public abstract class UserInterface : MonoBehaviour
                     Debug.LogError("Item data is null!");
                 }
             }
-            else
-            {
-                Debug.LogError("No item in the slot!");
-            }
+            
         }
     }
 

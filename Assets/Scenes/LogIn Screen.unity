@@ -460,7 +460,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: Enter username....
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 0}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1417,6 +1417,7 @@ GameObject:
   - component: {fileID: 1953494808}
   - component: {fileID: 1953494813}
   - component: {fileID: 1953494812}
+  - component: {fileID: 1953494814}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1534,6 +1535,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: New Player
+--- !u!114 &1953494814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953494807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 105cc998dfd2da64cbe0b27170f1bd96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: LogIn Screen
+  sceneAccessedKey: LogInScreen
 --- !u!1 &1960414770
 GameObject:
   m_ObjectHideFlags: 0

@@ -65,7 +65,13 @@ public class PlayerData : MonoBehaviour
 
     public void SubtractGold(int amount){
         gold -= amount;
+        SavePlayerData();
     }
+
+    public void GainGold(){
+            AddGold(1000);
+        }
+
 
     public void SavePlayerData(){
 
