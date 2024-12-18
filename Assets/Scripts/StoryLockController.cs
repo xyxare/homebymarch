@@ -92,14 +92,16 @@ public class StoryLockController : MonoBehaviour
                 // Hide the lock object if the story is unlocked
                 storyLock.lockObject.SetActive(false);
             }
-        }
+        }Screen
 
         PlayerPrefs.Save();
+
     }
 
     private bool CanUnlock(StoryLock storyLock)
     {
         return overallSteps >= storyLock.requiredSteps && storyLock.isPreviousStoryCompleted;
+
     }
 
     // Unlock a specific story lock
