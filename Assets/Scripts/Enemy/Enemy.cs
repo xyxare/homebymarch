@@ -157,6 +157,7 @@ namespace HomeByMarch
 
             if (currentHealth <= 0)
             {
+                 Destroy(healthBar);
                 gameController?.OnEnemyDefeated(); // Trigger defeat only once
                 stateMachine.SetState(new EnemyDeathState(this, animator, agent));  // Transition to death state
             }

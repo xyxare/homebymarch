@@ -76,7 +76,7 @@ public class IAPManager : MonoBehaviour
     TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
     if (buttonText != null)
     {
-        buttonText.text = product.metadata.localizedPriceString + " " + product.metadata.isoCurrencyCode;
+        buttonText.text = product.metadata.localizedPriceString;
     }
 }
 

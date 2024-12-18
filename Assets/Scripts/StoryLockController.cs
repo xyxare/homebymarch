@@ -5,14 +5,19 @@ using UnityEngine.UI;
 using HomeByMarch;
 using TMPro;
 using ExitGames.Client.Photon.StructWrapping;
+using System.IO;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 public class StoryLockController : MonoBehaviour
 {
     public Image images;
     public TMP_Text titleText;
     public TMP_Text bodyText;
 
+    int overallSteps;
 
-    int _stepCount;
     [System.Serializable]
     public class StoryLock
     {
@@ -20,23 +25,38 @@ public class StoryLockController : MonoBehaviour
         public int requiredSteps;
         public bool isPreviousStoryCompleted = false;
         public bool isUnlocked = false;
+
+        private string stepCountData;
     }
 
     public StoryLock[] storyLocks;
-    // public int steps;
-    [SerializeField] OverallStepCounter stepCount;
     private Sprite newImage;
+
+    private string stepJsonFilePath;
+    private string stepCountData;
+
+    void Awake()
+    {
+        stepJsonFilePath = Application.persistentDataPath + "/stepData.json";
+
+        // Check if the step data file exists before trying to read it
+        if (File.Exists(stepJsonFilePath))
+        {
+            stepCountData = File.ReadAllText(stepJsonFilePath);
+            StepData data = JsonUtility.FromJson<StepData>(stepCountData);
+            overallSteps = data.overallSteps;
+        }
+        else
+        {
+            Debug.LogWarning("Step data file not found. Creating a new file with default data.");
+            File.WriteAllText(stepJsonFilePath, JsonUtility.ToJson(new StepData()));
+            stepCountData = File.ReadAllText(stepJsonFilePath);
+        }
+    }
 
     private void Start()
     {
-        // stepCount = new OverallStepCounter();
-        _stepCount = stepCount.overallSteps; 
-        if (_stepCount == 0)
-        {
-            Debug.LogError("OverallStepCounter instance not found in the scene!");
-        }
-        
-        
+        Debug.Log(overallSteps);
         newImage = LoadSprite("stories/unknown");
 
         foreach (StoryLock storyLock in storyLocks)
@@ -46,32 +66,40 @@ public class StoryLockController : MonoBehaviour
                 storyLock.lockObject.SetActive(true);
             }
         }
-        Debug.Log("StoryLockController started with " + _stepCount + " steps.");
 
+        Debug.Log("StoryLockController started with " + overallSteps + " steps.");
     }
 
     void Update()
     {
-        if (_stepCount == 0) return;
+        if (overallSteps == 0) return;
 
         foreach (StoryLock storyLock in storyLocks)
         {
-            if (storyLock.isUnlocked && CanUnlock(storyLock))
+            // Check if the story can be unlocked
+            if (!storyLock.isUnlocked && overallSteps >= storyLock.requiredSteps && storyLock.isPreviousStoryCompleted)
             {
-                UnlockStoryLock(storyLock);
+                UnlockStoryLock(storyLock); // Unlock the story lock
+                UpdatePanelWithStoryInfo(storyLock); // Update the UI with the story info
+            }
+            else if (storyLock.lockObject != null && !storyLock.isUnlocked)
+            {
+                // Keep the lock object active if the story is still locked
+                storyLock.lockObject.SetActive(true);
             }
             else if (storyLock.lockObject != null && storyLock.isUnlocked)
             {
+                // Hide the lock object if the story is unlocked
                 storyLock.lockObject.SetActive(false);
             }
         }
+
+        PlayerPrefs.Save();
     }
 
     private bool CanUnlock(StoryLock storyLock)
     {
-        //int steps = stepCount.GetOverallSteps();
-        return _stepCount >= storyLock.requiredSteps && storyLock.isPreviousStoryCompleted;
-        PlayerPrefs.Save();
+        return overallSteps >= storyLock.requiredSteps && storyLock.isPreviousStoryCompleted;
     }
 
     // Unlock a specific story lock
@@ -89,11 +117,10 @@ public class StoryLockController : MonoBehaviour
         if (storyLockIndex >= 0 && storyLockIndex < storyLocks.Length)
         {
             storyLocks[storyLockIndex].isPreviousStoryCompleted = true;
-            //storyLocks[storyLockIndex].isUnlocked = true;
+            storyLocks[storyLockIndex].isUnlocked = true;
         }
     }
 
-    // lock infos: conditions
     private Sprite LoadSprite(string path)
     {
         Sprite sprite = Resources.Load<Sprite>(path);
@@ -104,21 +131,20 @@ public class StoryLockController : MonoBehaviour
         return sprite;
     }
 
-    // private string newTMPTexts = "Story is still lock. You must first finish the story of";
-
-    private string[] newTMPTitles = new string[]
+    // Array to hold the titles for the stories
+    private string[] newTMPTitles = new string[] 
     {
-        //The Beginning - "Compass"
+        // The Beginning - "Compass"
         "INERTIA",
         "POT OF KNOWLEDGE",
         "THE FIRST STEP",
 
-        //A THOUSAND MILES
+        // A THOUSAND MILES
         "AT EACH OTHER’S THROATS",
         "UNCROSSABLE WALL",
         "DREAM OF THE CELESTIAL CHAMBER",
 
-        //MARCH
+        // MARCH
         "A FUTURE UNCERTAIN",
         "A PAST ONE CANNOT RETURN TO",
         "WHEN ALL HOPE IS LOST"
@@ -129,7 +155,6 @@ public class StoryLockController : MonoBehaviour
         images.sprite = newImage;
         if (index >= 0 && index < storyLocks.Length)
         {
-            
             StoryLock storyLock = storyLocks[index];
 
             if (!storyLock.isUnlocked) // Check if the story is still locked
@@ -161,4 +186,40 @@ public class StoryLockController : MonoBehaviour
         }
         Debug.Log($"Button clicked while{CanUnlock(storyLocks[index])} ");
     }
+
+    // Method to update the panel with the story info when unlocked
+    private void UpdatePanelWithStoryInfo(StoryLock storyLock)
+    {
+        // Find the index of the unlocked story lock
+        int index = System.Array.IndexOf(storyLocks, storyLock);
+
+        if (index >= 0 && index < newTMPTitles.Length)
+        {
+            // Set the title and body text to indicate the story is unlocked
+            titleText.text = newTMPTitles[index];
+            bodyText.text = "This story is now unlocked!";
+        }
+        else
+        {
+            Debug.LogWarning($"Invalid index {index}. No title available for unlocked story.");
+        }
+    }
+
+    // Editor-only logic to auto-unlock story locks in the editor
+    #if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (Application.isPlaying) return;
+
+        // Simulate unlocking the story locks in the editor based on the steps
+        foreach (StoryLock storyLock in storyLocks)
+        {
+            if (!storyLock.isUnlocked && overallSteps >= storyLock.requiredSteps && storyLock.isPreviousStoryCompleted)
+            {
+                UnlockStoryLock(storyLock);
+                UpdatePanelWithStoryInfo(storyLock); // Update panel info when unlocked
+            }
+        }
+    }
+    #endif
 }

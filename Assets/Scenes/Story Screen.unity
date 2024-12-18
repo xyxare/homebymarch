@@ -749,7 +749,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Inertia
+  m_text: INERTIA
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4544,7 +4544,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -458, y: 10}
+  m_AnchoredPosition: {x: -458, y: 8}
   m_SizeDelta: {x: 1512.28, y: 777.42236}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1154201669
@@ -4622,7 +4622,7 @@ MonoBehaviour:
     isPreviousStoryCompleted: 1
     isUnlocked: 1
   - lockObject: {fileID: 5939474952712471986}
-    requiredSteps: 1000
+    requiredSteps: 1
     isPreviousStoryCompleted: 0
     isUnlocked: 0
   - lockObject: {fileID: 602976318}
@@ -4653,7 +4653,6 @@ MonoBehaviour:
     requiredSteps: 10000
     isPreviousStoryCompleted: 0
     isUnlocked: 0
-  stepCount: {fileID: 2125269451}
 --- !u!1 &1186276287
 GameObject:
   m_ObjectHideFlags: 0
@@ -5838,9 +5837,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "A common peasant picks up a compass\u2019 needle and is whisked away to
-    a land far from home.  \n\n\"When you are called for something greater, do you
-    answer? Or do you remain still, perpetuating your excuses?\"\r\n"
+  m_text: This story is now unlocked!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
