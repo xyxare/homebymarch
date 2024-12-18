@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 7645310993468664981}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: maxHealth
-      value: 300
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: wanderRadius
