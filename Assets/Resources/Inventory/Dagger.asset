@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Dagger
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 21300000, guid: f06b4fcc42f0a8740b448810e7c3ea24, type: 3}
-  characterDisplay: {fileID: 0}
+  characterDisplay: {fileID: 7676615874565401376, guid: d7e67ff5daed3494fbe6d1904e928589, type: 3}
   stackable: 0
   type: 2
   description: 
