@@ -65,13 +65,13 @@ public class StoryLockController : MonoBehaviour
                 storyLock.lockObject.SetActive(false);
             }
         }
-        PlayerPrefs.Save();
     }
 
     private bool CanUnlock(StoryLock storyLock)
     {
         //int steps = stepCount.GetOverallSteps();
-        return _stepCount <= storyLock.requiredSteps && storyLock.isPreviousStoryCompleted;
+        return _stepCount >= storyLock.requiredSteps && storyLock.isPreviousStoryCompleted;
+        PlayerPrefs.Save();
     }
 
     // Unlock a specific story lock
