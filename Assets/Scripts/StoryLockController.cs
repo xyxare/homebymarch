@@ -106,6 +106,7 @@ public class StoryLockController : MonoBehaviour
         }
 
         PlayerPrefs.Save();
+
     }
 
     private bool IsPreviousStoryCompleted(StoryLock storyLock)
