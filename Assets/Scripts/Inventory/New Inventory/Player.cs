@@ -17,20 +17,18 @@ public class Player : MonoBehaviour
     private Transform sword;
 
     public Transform weaponTransform;
+    public Transform headTransform;
     public Transform offhandWristTransform;
     public Transform offhandHandTransform;
 
     public SpellStrategy[] spells;
 
-    private BoneCombiner boneCombiner;
-     private HeadsUpDisplay headsUpDisplay;
+    private HeadsUpDisplay headsUpDisplay;
 
     private void Start()
     {
-
         headsUpDisplay = FindObjectOfType<HeadsUpDisplay>(); // Assuming there's only one HUD in the scene
         UpdateSpellButtonSprites();
-        boneCombiner = new BoneCombiner(gameObject);
 
         for (int i = 0; i < attributes.Length; i++)
         {
@@ -44,19 +42,19 @@ public class Player : MonoBehaviour
         }
     }
 
-
     public void OnAddItem(InventorySlot _slot)
     {
         if (_slot.ItemObject == null)
             return;
+
         switch (_slot.parent.inventory.type)
         {
             case InterfaceType.Inventory:
                 break;
             case InterfaceType.Equipment:
-                print(
-                    $"Placed {_slot.ItemObject}  on {_slot.parent.inventory.type}, Allowed Items: {string.Join(", ", _slot.AllowedItems)}");
+                print($"Placed {_slot.ItemObject} on {_slot.parent.inventory.type}, Allowed Items: {string.Join(", ", _slot.AllowedItems)}");
 
+                // Add buffs to attributes
                 for (int i = 0; i < _slot.item.buffs.Length; i++)
                 {
                     for (int j = 0; j < attributes.Length; j++)
@@ -71,8 +69,8 @@ public class Player : MonoBehaviour
                     switch (_slot.AllowedItems[0])
                     {
                         case ItemType.Helmet:
-                            helmet = boneCombiner.AddLimb(_slot.ItemObject.characterDisplay,
-                                _slot.ItemObject.boneNames);
+                            helmet = Instantiate(_slot.ItemObject.characterDisplay, headTransform).transform;
+                            AddSkillToSpells(_slot.ItemObject.skillData as SpellStrategy);
                             break;
                         case ItemType.Weapon:
                             sword = Instantiate(_slot.ItemObject.characterDisplay, weaponTransform).transform;
@@ -82,27 +80,24 @@ public class Player : MonoBehaviour
                             switch (_slot.ItemObject.type)
                             {
                                 case ItemType.Weapon:
-                                    offhand = Instantiate(_slot.ItemObject.characterDisplay, offhandHandTransform)
-                                        .transform;
+                                    offhand = Instantiate(_slot.ItemObject.characterDisplay, offhandHandTransform).transform;
                                     break;
                                 case ItemType.Shield:
-                                    offhand = Instantiate(_slot.ItemObject.characterDisplay, offhandWristTransform)
-                                        .transform;
+                                    offhand = Instantiate(_slot.ItemObject.characterDisplay, offhandWristTransform).transform;
                                     AddSkillToSpells(_slot.ItemObject.skillData as SpellStrategy);
                                     break;
                             }
-
                             break;
                         case ItemType.Boots:
-                            boots = boneCombiner.AddLimb(_slot.ItemObject.characterDisplay, _slot.ItemObject.boneNames);
+                            boots = Instantiate(_slot.ItemObject.characterDisplay, transform).transform;
+                            boots.SetParent(weaponTransform); // Adjust parent if needed
                             break;
                         case ItemType.Chest:
-                            chest = boneCombiner.AddLimb(_slot.ItemObject.characterDisplay, _slot.ItemObject.boneNames);
+                            chest = Instantiate(_slot.ItemObject.characterDisplay, transform).transform;
+                            chest.SetParent(weaponTransform); // Adjust parent if needed
                             break;
                     }
                 }
-
-
                 break;
             case InterfaceType.Chest:
                 break;
@@ -115,6 +110,7 @@ public class Player : MonoBehaviour
     {
         if (_slot.ItemObject == null)
             return;
+
         switch (_slot.parent.inventory.type)
         {
             case InterfaceType.Inventory:
@@ -122,6 +118,7 @@ public class Player : MonoBehaviour
             case InterfaceType.Equipment:
                 print($"Removed {_slot.ItemObject} on {_slot.parent.inventory.type}, Allowed Items: {string.Join(", ", _slot.AllowedItems)}");
 
+                // Remove buffs from attributes
                 for (int i = 0; i < _slot.item.buffs.Length; i++)
                 {
                     for (int j = 0; j < attributes.Length; j++)
@@ -140,6 +137,7 @@ public class Player : MonoBehaviour
                             {
                                 Destroy(helmet.gameObject);
                                 helmet = null;
+                                RemoveSkillFromSpells(_slot.ItemObject.skillData as SpellStrategy);
                             }
                             break;
                         case ItemType.Weapon:
@@ -182,30 +180,21 @@ public class Player : MonoBehaviour
         }
     }
 
-
     void OnEnable()
     {
-
         HeadsUpDisplay.OnButtonPressed += CastSpell;
     }
 
     void OnDisable()
     {
-
         HeadsUpDisplay.OnButtonPressed -= CastSpell;
     }
 
     void CastSpell(int index)
     {
-
         spells[index].CastSpell(transform);
-        Debug.Log("spellcasted");
-
+        Debug.Log("Spell casted");
     }
-
-   
-
-    
 
     private void AddSkillToSpells(SpellStrategy skillData)
     {
@@ -255,7 +244,6 @@ public class Player : MonoBehaviour
         }
     }
 
-
     public void OnTriggerEnter(Collider other)
     {
         var groundItem = other.GetComponent<GroundItem>();
@@ -289,7 +277,6 @@ public class Player : MonoBehaviour
     {
         Debug.Log(string.Concat(attribute.type, " was updated! Value is now ", attribute.value.ModifiedValue));
     }
-
 
     private void OnApplicationQuit()
     {
