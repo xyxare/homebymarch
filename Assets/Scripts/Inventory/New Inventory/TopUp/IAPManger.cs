@@ -24,31 +24,85 @@ public class IAPManager : MonoBehaviour
     [SerializeField]
     private Button coins1000Button;
 
+
+    void Start()
+    {
+        //    StartCoroutine(CheckInitialization());
+    }
+
+    // IEnumerator CheckInitialization()
+    // {
+    //     bool isInitialized = false;
+    //     while(!isInitialized){
+    //         if(CodelessIAPStoreListener.Instance != null){
+    //             isInitialized = true;
+    //             InitializePurchasing();
+    //         }
+    //     }
+    // }
+
+
+
     // Reference to the ShopController
-  
+
     // Called when a purchase is successfully completed
     public void OnPurchaseComplete(Product product)
     {
+
+        int quantity = GetPurchasedQuantity(product);
         if (product.definition.id == coins50)
         {
-            _shopController.Coin50Button();
+            for (int = 0; i < quantity; i++)
+            {
+                _shopController.Coin50Button();
+            }
+            // _shopController.Coin50Button();
         }
         else if (product.definition.id == coins100)
         {
-            _shopController.Coin100Button();
+            for (int = 0; i < quantity; i++)
+            {
+                _shopController.Coin100Button();
+            }
+
         }
         else if (product.definition.id == coins150)
         {
-            _shopController.Coin150Button();
+            for (int = 0; i < quantity; i++)
+            {
+                _shopController.Coin150Button();
+            }
+
         }
         else if (product.definition.id == coins1000)
         {
-            _shopController.Coin1000Button();
+            for (int = 0; i < quantity; i++)
+            {
+                _shopController.Coin1000Button();
+            }
+
         }
         else
         {
             Debug.LogWarning($"Unrecognized product ID: {product.definition.id}");
         }
+    }
+    private int GetPurchasedQuantity(Product product)
+    {
+        int quantity = 1;
+
+        if (product.hasReceipt)
+        {
+            var receipt = product.receipt;
+            ReceiptData receiptData = JsonUtility.FromJson<ReceiptData>(receipt);
+            if (data.Store != "fake")
+            {
+                Payload payload = JsonUtility.FromJson<Payload>(data.Payload);
+                PaymentData paymentData = JsonUtility.FromJson<PaymentData>(payload.json);
+                quantity = paymentData.quantity; // You can replace this with your own logic to get the purchased quantity
+            }
+        }
+        return quantity; // You can replace this with your own logic to get the purchased quantity
     }
 
     // Called when a purchase fails
@@ -56,28 +110,63 @@ public class IAPManager : MonoBehaviour
     {
         Debug.Log($"Purchase failed for product: {product.definition.id}. Reason: {failureDescription.reason}");
     }
-    public void OnProductFetched(Product product){
-        if(product.definition.id == coins50){
+    public void OnProductFetched(Product product)
+    {
+        if (product.definition.id == coins50)
+        {
             UpdateButtonPrice(coins50Button, product);
         }
-        else if(product.definition.id == coins100){
+        else if (product.definition.id == coins100)
+        {
             UpdateButtonPrice(coins100Button, product);
         }
-        else if(product.definition.id == coins150){
+        else if (product.definition.id == coins150)
+        {
             UpdateButtonPrice(coins150Button, product);
         }
-        else if(product.definition.id == coins1000){
+        else if (product.definition.id == coins1000)
+        {
             UpdateButtonPrice(coins1000Button, product);
         }
-        
+
     }
     private void UpdateButtonPrice(Button button, Product product)
-{
-    TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
-    if (buttonText != null)
     {
-        buttonText.text = product.metadata.localizedPriceString;
+        TextMeshProUGUI buttonText = button.GetComponentInChildren<TextMeshProUGUI>();
+        if (buttonText != null)
+        {
+            buttonText.text = product.metadata.localizedPriceString;
+        }
     }
+
 }
+
+[Serializable]
+public class ReceiptData
+{
+    public string Payload;
+    public string Store;
+    public string TransactionID;
+
+}
+[Serializable]
+public class Payload
+{
+    public string json;
+    public string signature;
+    public PaymentData paymentData;
+}
+
+[Serializable]
+public class PaymentData
+{
+    public string orderId;
+    public string productId;
+    public string packageName;
+    public string purchaseToken;
+    public int purchaseState;
+
+    public int quantity;
+    public bool acknowledged;
 
 }
