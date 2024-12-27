@@ -4441,6 +4441,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: New Player
+  health: 100
 --- !u!1 &528550991
 GameObject:
   m_ObjectHideFlags: 0
@@ -9138,6 +9139,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: New Player
+  health: 100
 --- !u!114 &1088589308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20858,6 +20860,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: New Player
+  health: 100
 --- !u!114 &2641626140972897864
 MonoBehaviour:
   m_ObjectHideFlags: 0

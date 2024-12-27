@@ -14,15 +14,18 @@ using System.Threading.Tasks;
 public class PlayerData : MonoBehaviour
 {
     public string playerName;
-    public int health{get; private set;}
-    public int attack{get; private set;}
-    public int defense{get; private set;}
-    public int gold{get; private set;}
-    public double attackSpeed{get; private set;}
+    public float health;
+
+    public int level;
+    public int attack { get; private set; }
+    public int defense { get; private set; }
+    public int gold { get; private set; }
+    public double attackSpeed { get; private set; }
 
     private string playerDataJsonFilePath;
     public PlayerDataSaver data;
 
+    public int lastSavedLevel;
 
     public PlayerData()
     {
@@ -33,47 +36,60 @@ public class PlayerData : MonoBehaviour
         defense = 5;
         gold = 0;
         attackSpeed = 2;
-        
+
     }
-    void Awake(){
+    void Awake()
+    {
         playerDataJsonFilePath = Application.persistentDataPath + "/playerData.json";
         LoadPlayerData();
-        
+
+        // Initialize lastSavedLevel to the current level if not already set
+        if (lastSavedLevel == 0)
+        {
+            lastSavedLevel = level;
+        }
     }
 
-    public void OnApplicationClose(){
+    public void OnApplicationClose()
+    {
         SavePlayerData();
     }
 
     // Method to level up the player
     public void LevelUp()
     {
+        Debug.Log("Leveling up...");
+        Debug.Log("Current health: " + health);
 
-        health += 10;
+        health = 10 * level;
         attack += 5;
         defense += 3;
         attackSpeed = attackSpeed / 0.995;
-        SavePlayerData();
-        
 
+        Debug.Log("New health: " + health);
+        SavePlayerData();
     }
 
-    public void AddGold(int amount){
+    public void AddGold(int amount)
+    {
         gold += amount;
         SavePlayerData();
     }
 
-    public void SubtractGold(int amount){
+    public void SubtractGold(int amount)
+    {
         gold -= amount;
         SavePlayerData();
     }
 
-    public void GainGold(){
-            AddGold(1000);
-        }
+    public void GainGold()
+    {
+        AddGold(1000);
+    }
 
 
-    public void SavePlayerData(){
+    public void SavePlayerData()
+    {
 
         data = new PlayerDataSaver();
         data.playerName = playerName;
@@ -83,7 +99,7 @@ public class PlayerData : MonoBehaviour
         data.gold = gold;
         data.attackSpeed = attackSpeed;
 
-        
+
         string playerDataJson = JsonUtility.ToJson(data);
         System.IO.File.WriteAllText(playerDataJsonFilePath, playerDataJson);
 
@@ -92,9 +108,11 @@ public class PlayerData : MonoBehaviour
 
     }
 
-    public void LoadPlayerData(){
+    public void LoadPlayerData()
+    {
 
-        if(System.IO.File.Exists(playerDataJsonFilePath)){
+        if (System.IO.File.Exists(playerDataJsonFilePath))
+        {
             string playerDataJson = System.IO.File.ReadAllText(playerDataJsonFilePath);
             data = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson);
 
@@ -107,25 +125,28 @@ public class PlayerData : MonoBehaviour
 
     }
 
-    public async void SavePlayerDataToCloud(){
+    public async void SavePlayerDataToCloud()
+    {
 
         CloudSaver.SaveDataToCloud("playerData", data);
-        
+
 
     }
 
-    public async void LoadPlayerDataFromCloud(){
+    public async void LoadPlayerDataFromCloud()
+    {
         string playerDataJson = await CloudSaver.LoadDataFromCloud("playerData");
         data = JsonUtility.FromJson<PlayerDataSaver>(playerDataJson);
         Debug.Log(data.playerName);
-        
+
 
         SetPlayerStats(data);
         SavePlayerData();
 
     }
 
-    public void SetPlayerStats(PlayerDataSaver playerData){
+    public void SetPlayerStats(PlayerDataSaver playerData)
+    {
         playerName = playerData.playerName;
         health = playerData.health;
         attack = playerData.attack;
@@ -136,7 +157,8 @@ public class PlayerData : MonoBehaviour
         Debug.Log("player stats set!");
     }
 
-    public void ChangePlayerName(string name){
+    public void ChangePlayerName(string name)
+    {
         playerName = name;
         SavePlayerData();
     }

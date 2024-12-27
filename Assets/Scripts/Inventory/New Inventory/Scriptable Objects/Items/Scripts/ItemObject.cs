@@ -32,7 +32,7 @@ public class ItemObject : ScriptableObject
     [TextArea(15, 20)]
     public string description;
     public Item data = new Item();
-     public ScriptableObject skillData;
+    public ScriptableObject skillData;
     
     public List<string> boneNames = new List<string>();
 
@@ -86,7 +86,7 @@ public class Item
         buffs = new ItemBuff[item.data.buffs.Length];
         for (int i = 0; i < buffs.Length; i++)
         {
-            buffs[i] = new ItemBuff(item.data.buffs[i].min, item.data.buffs[i].max)
+            buffs[i] = new ItemBuff(item.data.buffs[i].value)
             {
                 attribute = item.data.buffs[i].attribute
             };
@@ -101,11 +101,9 @@ public class ItemBuff : IModifier
     public int value;
     public int min;
     public int max;
-    public ItemBuff(int _min, int _max)
+    public ItemBuff(int _value)
     {
-        min = _min;
-        max = _max;
-        GenerateValue();
+        value = _value;
     }
 
     public void AddValue(ref int baseValue)
@@ -113,8 +111,8 @@ public class ItemBuff : IModifier
         baseValue += value;
     }
 
-    public void GenerateValue()
-    {
-        value = value;
-    }
+    // public void GenerateValue()
+    // {
+    //     // No need to generate value, it's directly assigned
+    // }
 }

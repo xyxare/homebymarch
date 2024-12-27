@@ -5,6 +5,8 @@ using UnityEngine.Purchasing;
 using UnityEngine.Purchasing.Extension;
 using UnityEngine.UI;
 using TMPro;
+using System;
+
 
 public class IAPManager : MonoBehaviour
 {
@@ -52,7 +54,7 @@ public class IAPManager : MonoBehaviour
         int quantity = GetPurchasedQuantity(product);
         if (product.definition.id == coins50)
         {
-            for (int = 0; i < quantity; i++)
+            for (int i = 0; i < quantity; i++)
             {
                 _shopController.Coin50Button();
             }
@@ -60,7 +62,7 @@ public class IAPManager : MonoBehaviour
         }
         else if (product.definition.id == coins100)
         {
-            for (int = 0; i < quantity; i++)
+            for (int i = 0; i < quantity; i++)
             {
                 _shopController.Coin100Button();
             }
@@ -68,7 +70,7 @@ public class IAPManager : MonoBehaviour
         }
         else if (product.definition.id == coins150)
         {
-            for (int = 0; i < quantity; i++)
+            for (int i = 0; i < quantity; i++)
             {
                 _shopController.Coin150Button();
             }
@@ -76,7 +78,7 @@ public class IAPManager : MonoBehaviour
         }
         else if (product.definition.id == coins1000)
         {
-            for (int = 0; i < quantity; i++)
+            for (int i = 0; i < quantity; i++)
             {
                 _shopController.Coin1000Button();
             }
@@ -95,9 +97,9 @@ public class IAPManager : MonoBehaviour
         {
             var receipt = product.receipt;
             ReceiptData receiptData = JsonUtility.FromJson<ReceiptData>(receipt);
-            if (data.Store != "fake")
+            if (receiptData.Store != "fake")
             {
-                Payload payload = JsonUtility.FromJson<Payload>(data.Payload);
+                Payload payload = JsonUtility.FromJson<Payload>(receiptData.Payload);
                 PaymentData paymentData = JsonUtility.FromJson<PaymentData>(payload.json);
                 quantity = paymentData.quantity; // You can replace this with your own logic to get the purchased quantity
             }

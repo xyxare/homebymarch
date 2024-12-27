@@ -44,7 +44,12 @@ public class DailyQuestProgress {
 
 public class PlayerDataSaver {
     public string playerName;
-    public int health;
+    public float health;
+
+    public int saveData;
+    public int level;
+
+    public int lastSavedLevel;
     public int attack;
     public int defense;
     public int gold;

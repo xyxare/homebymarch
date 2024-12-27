@@ -4,32 +4,32 @@ namespace HomeByMarch
 {
     public class Health : MonoBehaviour
     {
-        [SerializeField] private int maxHealth = 100;
         [SerializeField] private FloatEventChannel playerHealthChannel;
         [SerializeField] private GameObject deathPanel; // Reference to the death panel
-
-
 
         public delegate void DamageTaken();
         public event DamageTaken OnDamageTaken;
 
-        public int currentHealth;
+        public PlayerData playerData;
 
-        public int CurrentHealth
+        public float currentHealth;
+
+        public float CurrentHealth
         {
             get => currentHealth;
             set => currentHealth = value;
         }
-        public int MaxHealth => maxHealth;
+        public float MaxHealth => playerData.health;
         public bool IsDead => currentHealth <= 0;
 
         void Awake()
         {
-            currentHealth = maxHealth;
+            currentHealth = MaxHealth;
         }
 
         void Start()
         {
+            currentHealth = MaxHealth; // Set currentHealth to MaxHealth on start
             PublishHealthPercentage();
         }
 
@@ -37,7 +37,7 @@ namespace HomeByMarch
         {
             if (IsDead) return;
 
-            currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
+            currentHealth = Mathf.Clamp(currentHealth - damage, 0, MaxHealth);
             PublishHealthPercentage();
             OnDamageTaken?.Invoke();
 
@@ -52,7 +52,7 @@ namespace HomeByMarch
         {
             if (IsDead) return;
 
-            currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+            currentHealth = Mathf.Clamp(currentHealth + amount, 0, MaxHealth);
             PublishHealthPercentage();
         }
 
@@ -60,7 +60,7 @@ namespace HomeByMarch
         {
             if (playerHealthChannel != null)
             {
-                playerHealthChannel.Invoke(currentHealth / (float)maxHealth);
+                playerHealthChannel.Invoke(currentHealth / (float)MaxHealth);
             }
             else
             {
