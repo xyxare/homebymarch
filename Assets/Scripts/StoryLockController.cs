@@ -92,7 +92,7 @@ public class StoryLockController : MonoBehaviour
                 // Hide the lock object if the story is unlocked
                 storyLock.lockObject.SetActive(false);
             }
-        }Screen
+        }
 
         PlayerPrefs.Save();
 
