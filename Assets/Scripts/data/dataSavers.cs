@@ -52,6 +52,10 @@ public class PlayerDataSaver {
     public int lastSavedLevel;
     public int attack;
     public int defense;
+
+    public float cooldown;
+
+    public float movementSpeed;
     public int gold;
     public double attackSpeed;
 }

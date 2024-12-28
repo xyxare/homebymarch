@@ -114,7 +114,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &263087475854055310
 RectTransform:
   m_ObjectHideFlags: 0
@@ -205,6 +205,8 @@ MonoBehaviour:
   healthTextMeshPro: {fileID: 868705654711604611}
   attackTextMeshPro: {fileID: 1977049819360107786}
   defenseTextMeshPro: {fileID: 5928006066378739089}
+  cooldownTextMeshPro: {fileID: 5397494822350027917}
+  movementSpeedTextMeshPro: {fileID: 1840257737851932765}
 --- !u!1 &744865655889648365
 GameObject:
   m_ObjectHideFlags: 0

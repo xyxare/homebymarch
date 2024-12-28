@@ -6,7 +6,6 @@ using Utilities;
 using Photon.Pun;
 using System.Collections;
 
-
 namespace HomeByMarch
 {
     public class PlayerController : ValidatedMonoBehaviour
@@ -16,6 +15,7 @@ namespace HomeByMarch
         public FixedJoystick joystick;
         [SerializeField, Self] Animator animator;
         [SerializeField, Anywhere] InputReader input;
+        [SerializeField] PlayerData playerData; // Add reference to PlayerData
 
         [Header("Movement Settings")]
         [SerializeField] float moveSpeed = 6f;
@@ -42,7 +42,6 @@ namespace HomeByMarch
         [Header("Attack Settings")]
         [SerializeField] public float attackCooldown = 0.1f;
         [SerializeField] public float attackDistance = 30f;
-        [SerializeField] public int attackDamage = 10;
         [SerializeField] public int attackDelay = 2;
 
         [SerializeField] SpellStrategy[] spells;
@@ -266,16 +265,16 @@ namespace HomeByMarch
             // Define ray directions (center, left, right, up, down, and diagonals)
             Vector3[] rayDirections = new Vector3[10]
             {
-        transform.forward,                  // Straight ahead
-        transform.forward + transform.right, // Slightly to the right
-        transform.forward - transform.right, // Slightly to the left
-        transform.forward + transform.up,    // Slightly upwards
-        transform.forward - transform.up,    // Slightly downwards
-        transform.forward + transform.right + transform.up, // Diagonal up-right
-        transform.forward + transform.right - transform.up, // Diagonal down-right
-        transform.forward - transform.right + transform.up, // Diagonal up-left
-        transform.forward - transform.right - transform.up, // Diagonal down-left
-        transform.forward + transform.up * 2, // More upwards
+                transform.forward,                  // Straight ahead
+                transform.forward + transform.right, // Slightly to the right
+                transform.forward - transform.right, // Slightly to the left
+                transform.forward + transform.up,    // Slightly upwards
+                transform.forward - transform.up,    // Slightly downwards
+                transform.forward + transform.right + transform.up, // Diagonal up-right
+                transform.forward + transform.right - transform.up, // Diagonal down-right
+                transform.forward - transform.right + transform.up, // Diagonal up-left
+                transform.forward - transform.right - transform.up, // Diagonal down-left
+                transform.forward + transform.up * 2, // More upwards
             };
 
             // Debug the raycasts by drawing them in the scene view
@@ -296,6 +295,7 @@ namespace HomeByMarch
                     if (hit.transform.TryGetComponent<Enemy>(out Enemy enemyComponent))
                     {
                         // Apply damage to the enemy
+                        int attackDamage = playerData.currentAttack; // Use attackDamage from playerData
                         enemyComponent.TakeDamage(attackDamage);
                         Debug.Log($"Enemy {enemyComponent.name} took {attackDamage} damage.");
 
@@ -324,7 +324,6 @@ namespace HomeByMarch
                 }
             }
         }
-
 
         void HitTarget(Vector3 pos)
         {

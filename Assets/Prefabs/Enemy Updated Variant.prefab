@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 7645310993468664981}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: maxHealth
-      value: 100
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: wanderRadius
@@ -165,6 +165,10 @@ PrefabInstance:
     - target: {fileID: 4971209092809514421, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: m_Name
       value: Enemy Updated Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5184130876019211793, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
+      propertyPath: maxHealth
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6274512547739413320, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: attackRange

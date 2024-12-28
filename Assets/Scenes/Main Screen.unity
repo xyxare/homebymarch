@@ -1872,6 +1872,14 @@ PrefabInstance:
       propertyPath: playerData
       value: 
       objectReference: {fileID: 514910615}
+    - target: {fileID: 2144916573141213625, guid: d335f04f3e60c514e9762220e4d1085e, type: 3}
+      propertyPath: cooldownTextMeshPro
+      value: 
+      objectReference: {fileID: 1672435874}
+    - target: {fileID: 2144916573141213625, guid: d335f04f3e60c514e9762220e4d1085e, type: 3}
+      propertyPath: movementSpeedTextMeshPro
+      value: 
+      objectReference: {fileID: 1325932145}
     - target: {fileID: 5801628296644668033, guid: d335f04f3e60c514e9762220e4d1085e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -4406,6 +4414,7 @@ MonoBehaviour:
   offhandWristTransform: {fileID: 509673898}
   offhandHandTransform: {fileID: 1786673147}
   spells: []
+  playerData: {fileID: 514910615}
 --- !u!4 &514910614
 Transform:
   m_ObjectHideFlags: 0
@@ -4437,12 +4446,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: New Player
-  health: 100
   level: 0
+  health: 100
   attack: 10
   defense: 5
+  cooldown: 0
+  healthBuff: 0
+  attackBuff: 0
+  defenseBuff: 0
+  cooldownBuff: 0
+  movementSpeed: 6
+  movementSpeedBuff: 0
   gold: 0
   attackSpeed: 2
+  currentAttack: 0
+  currentDefense: 0
+  currentHealth: 0
+  currentCooldown: 0
+  currentMovementSpeed: 0
+  playerAttributes: {fileID: 514910613}
   lastSavedLevel: 0
 --- !u!1 &528550991
 GameObject:
@@ -9141,12 +9163,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: New Player
-  health: 100
   level: 0
+  health: 100
   attack: 10
   defense: 5
+  cooldown: 0
+  healthBuff: 0
+  attackBuff: 0
+  defenseBuff: 0
+  cooldownBuff: 0
+  movementSpeed: 6
+  movementSpeedBuff: 0
   gold: 0
   attackSpeed: 2
+  currentAttack: 0
+  currentDefense: 0
+  currentHealth: 0
+  currentCooldown: 0
+  currentMovementSpeed: 0
+  playerAttributes: {fileID: 514910613}
   lastSavedLevel: 0
 --- !u!114 &1088589308
 MonoBehaviour:
@@ -11424,6 +11459,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324452761}
   m_CullTransparentMesh: 1
+--- !u!114 &1325932145 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1840257737851932765, guid: d335f04f3e60c514e9762220e4d1085e, type: 3}
+  m_PrefabInstance: {fileID: 260962362}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1326007788
 GameObject:
   m_ObjectHideFlags: 0
@@ -14620,6 +14666,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1670552497}
   m_CullTransparentMesh: 1
+--- !u!114 &1672435874 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5397494822350027917, guid: d335f04f3e60c514e9762220e4d1085e, type: 3}
+  m_PrefabInstance: {fileID: 260962362}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1672483421
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20919,12 +20976,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerName: New Player
-  health: 100
   level: 0
+  health: 100
   attack: 10
   defense: 5
+  cooldown: 0
+  healthBuff: 0
+  attackBuff: 0
+  defenseBuff: 0
+  cooldownBuff: 0
+  movementSpeed: 6
+  movementSpeedBuff: 0
   gold: 0
   attackSpeed: 2
+  currentAttack: 0
+  currentDefense: 0
+  currentHealth: 0
+  currentCooldown: 0
+  currentMovementSpeed: 0
+  playerAttributes: {fileID: 514910613}
   lastSavedLevel: 0
 --- !u!114 &2641626140972897864
 MonoBehaviour:

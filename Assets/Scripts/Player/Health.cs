@@ -19,7 +19,7 @@ namespace HomeByMarch
             get => currentHealth;
             set => currentHealth = value;
         }
-        public float MaxHealth => playerData.health;
+        public float MaxHealth => playerData.currentHealth;
         public bool IsDead => currentHealth <= 0;
 
         void Awake()
@@ -37,7 +37,9 @@ namespace HomeByMarch
         {
             if (IsDead) return;
 
-            currentHealth = Mathf.Clamp(currentHealth - damage, 0, MaxHealth);
+            // Reduce damage based on player's defense percentage
+            float reducedDamage = damage * (1 - playerData.defense / 100f);
+            currentHealth = Mathf.Clamp(currentHealth - reducedDamage, 0, MaxHealth);
             PublishHealthPercentage();
             OnDamageTaken?.Invoke();
 

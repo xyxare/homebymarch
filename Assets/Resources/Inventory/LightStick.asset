@@ -19,15 +19,11 @@ MonoBehaviour:
   description: A pair of running shoes that have seen decades of the owner gallopping
     on.
   data:
-    Name: Torn Running Shoes
+    Name: LightStick
     Id: 31
     buffs:
-    - attribute: 0
-      value: 3
-      min: 0
-      max: 0
     - attribute: 3
-      value: -2
+      value: 20
       min: 0
       max: 0
   skillData: {fileID: 0}

@@ -23,161 +23,136 @@ public class Player : MonoBehaviour
 
     public SpellStrategy[] spells;
 
+    public PlayerData playerData;
+
     private HeadsUpDisplay headsUpDisplay;
 
     private void Start()
     {
-        headsUpDisplay = FindObjectOfType<HeadsUpDisplay>(); // Assuming there's only one HUD in the scene
-        UpdateSpellButtonSprites();
-
         for (int i = 0; i < attributes.Length; i++)
-        {
             attributes[i].SetParent(this);
-        }
 
         for (int i = 0; i < equipment.GetSlots.Length; i++)
         {
             equipment.GetSlots[i].OnBeforeUpdate += OnRemoveItem;
             equipment.GetSlots[i].OnAfterUpdate += OnAddItem;
         }
+
+        UpdatePlayerDataAttributes();
     }
+
+    private void UpdatePlayerDataAttributes()
+    {
+        playerData.healthBuff = 0;
+        playerData.attackBuff = 0;
+        playerData.defenseBuff = 0;
+        playerData.cooldownBuff = 0;
+
+        foreach (var attribute in attributes)
+        {
+            switch (attribute.type)
+            {
+                case Attributes.Health:
+                    playerData.healthBuff += attribute.value.ModifiedValue;
+                    break;
+                case Attributes.Attack:
+                    playerData.attackBuff += (int)attribute.value.ModifiedValue;
+                    break;
+                case Attributes.Defense:
+                    playerData.defenseBuff += (int)attribute.value.ModifiedValue;
+                    break;
+                case Attributes.Cooldown:
+                    playerData.cooldownBuff += attribute.value.ModifiedValue;
+                    break;
+            }
+        }
+
+        Debug.Log("PlayerData buffs updated incrementally.");
+    }
+
 
     public void OnAddItem(InventorySlot _slot)
     {
-        if (_slot.ItemObject == null)
-            return;
-
+        if (_slot.ItemObject == null) return;
         switch (_slot.parent.inventory.type)
         {
-            case InterfaceType.Inventory:
-                break;
             case InterfaceType.Equipment:
-                print($"Placed {_slot.ItemObject} on {_slot.parent.inventory.type}, Allowed Items: {string.Join(", ", _slot.AllowedItems)}");
-
-                // Add buffs to attributes
-                for (int i = 0; i < _slot.item.buffs.Length; i++)
+                // Add buffs
+                foreach (var buff in _slot.item.buffs)
                 {
-                    for (int j = 0; j < attributes.Length; j++)
+
+                    foreach (var attribute in attributes)
                     {
-                        if (attributes[j].type == _slot.item.buffs[i].attribute)
-                            attributes[j].value.AddModifier(_slot.item.buffs[i]);
+                        if (attribute.type == buff.attribute)
+                            attribute.value.AddModifier(buff);
                     }
                 }
 
+
+                // Add visuals
                 if (_slot.ItemObject.characterDisplay != null)
                 {
                     switch (_slot.AllowedItems[0])
                     {
                         case ItemType.Helmet:
                             helmet = Instantiate(_slot.ItemObject.characterDisplay, headTransform).transform;
-                            AddSkillToSpells(_slot.ItemObject.skillData as SpellStrategy);
                             break;
                         case ItemType.Weapon:
                             sword = Instantiate(_slot.ItemObject.characterDisplay, weaponTransform).transform;
-                            AddSkillToSpells(_slot.ItemObject.skillData as SpellStrategy);
                             break;
                         case ItemType.Shield:
-                            switch (_slot.ItemObject.type)
-                            {
-                                case ItemType.Weapon:
-                                    offhand = Instantiate(_slot.ItemObject.characterDisplay, offhandHandTransform).transform;
-                                    break;
-                                case ItemType.Shield:
-                                    offhand = Instantiate(_slot.ItemObject.characterDisplay, offhandWristTransform).transform;
-                                    AddSkillToSpells(_slot.ItemObject.skillData as SpellStrategy);
-                                    break;
-                            }
-                            break;
-                        case ItemType.Boots:
-                            boots = Instantiate(_slot.ItemObject.characterDisplay, transform).transform;
-                            boots.SetParent(weaponTransform); // Adjust parent if needed
-                            break;
-                        case ItemType.Chest:
-                            chest = Instantiate(_slot.ItemObject.characterDisplay, transform).transform;
-                            chest.SetParent(weaponTransform); // Adjust parent if needed
+                            offhand = Instantiate(_slot.ItemObject.characterDisplay, offhandHandTransform).transform;
                             break;
                     }
                 }
+
+
                 break;
-            case InterfaceType.Chest:
-                break;
-            default:
-                break;
+
         }
+
+        UpdatePlayerDataAttributes();
+        playerData.UpdateCurrentStats();
     }
 
     public void OnRemoveItem(InventorySlot _slot)
     {
-        if (_slot.ItemObject == null)
-            return;
+        if (_slot.ItemObject == null) return;
 
         switch (_slot.parent.inventory.type)
         {
-            case InterfaceType.Inventory:
-                break;
             case InterfaceType.Equipment:
-                print($"Removed {_slot.ItemObject} on {_slot.parent.inventory.type}, Allowed Items: {string.Join(", ", _slot.AllowedItems)}");
-
-                // Remove buffs from attributes
-                for (int i = 0; i < _slot.item.buffs.Length; i++)
+                // Remove buffs
+                foreach (var buff in _slot.item.buffs)
                 {
-                    for (int j = 0; j < attributes.Length; j++)
+
+                    foreach (var attribute in attributes)
                     {
-                        if (attributes[j].type == _slot.item.buffs[i].attribute)
-                            attributes[j].value.RemoveModifier(_slot.item.buffs[i]);
+                        if (attribute.type == buff.attribute)
+                            attribute.value.RemoveModifier(buff);
                     }
                 }
 
-                if (_slot.ItemObject.characterDisplay != null)
+
+                // Remove visuals
+                switch (_slot.AllowedItems[0])
                 {
-                    switch (_slot.AllowedItems[0])
-                    {
-                        case ItemType.Helmet:
-                            if (helmet != null)
-                            {
-                                Destroy(helmet.gameObject);
-                                helmet = null;
-                                RemoveSkillFromSpells(_slot.ItemObject.skillData as SpellStrategy);
-                            }
-                            break;
-                        case ItemType.Weapon:
-                            if (sword != null)
-                            {
-                                Destroy(sword.gameObject);
-                                sword = null;
-                                RemoveSkillFromSpells(_slot.ItemObject.skillData as SpellStrategy);
-                            }
-                            break;
-                        case ItemType.Shield:
-                            if (offhand != null)
-                            {
-                                Destroy(offhand.gameObject);
-                                offhand = null;
-                                RemoveSkillFromSpells(_slot.ItemObject.skillData as SpellStrategy);
-                            }
-                            break;
-                        case ItemType.Boots:
-                            if (boots != null)
-                            {
-                                Destroy(boots.gameObject);
-                                boots = null;
-                            }
-                            break;
-                        case ItemType.Chest:
-                            if (chest != null)
-                            {
-                                Destroy(chest.gameObject);
-                                chest = null;
-                            }
-                            break;
-                    }
+                    case ItemType.Helmet:
+                        if (helmet != null) { Destroy(helmet.gameObject); helmet = null; }
+                        break;
+                    case ItemType.Weapon:
+                        if (sword != null) { Destroy(sword.gameObject); sword = null; }
+                        break;
+                    case ItemType.Shield:
+                        if (offhand != null) { Destroy(offhand.gameObject); offhand = null; }
+                        break;
                 }
-                break;
-            case InterfaceType.Chest:
-                break;
-            default:
+
                 break;
         }
+
+        UpdatePlayerDataAttributes();
+        playerData.UpdateCurrentStats();
     }
 
     void OnEnable()
@@ -235,6 +210,8 @@ public class Player : MonoBehaviour
             }
         }
     }
+
+
 
     private void UpdateSpellButtonSprites()
     {

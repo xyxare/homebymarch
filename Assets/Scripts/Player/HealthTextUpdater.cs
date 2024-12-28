@@ -7,10 +7,12 @@ public class HealthTextUpdater : MonoBehaviour
     public TextMeshProUGUI healthTextMeshPro;
     public TextMeshProUGUI attackTextMeshPro;
     public TextMeshProUGUI defenseTextMeshPro;
+    public TextMeshProUGUI cooldownTextMeshPro;
+    public TextMeshProUGUI movementSpeedTextMeshPro;
 
     void Start()
     {
-        if (playerData == null || healthTextMeshPro == null || attackTextMeshPro == null || defenseTextMeshPro == null)
+        if (playerData == null || healthTextMeshPro == null || attackTextMeshPro == null || defenseTextMeshPro == null || cooldownTextMeshPro == null || movementSpeedTextMeshPro == null)
         {
             Debug.LogError("PlayerData or TextMeshProUGUI references are not assigned.");
             return;
@@ -18,21 +20,33 @@ public class HealthTextUpdater : MonoBehaviour
         UpdateHealthText();
         UpdateAttackText();
         UpdateDefenseText();
+        UpdateCooldownText();
+        UpdateMovementSpeedText();
     }
 
     public void UpdateHealthText()
     {
-        healthTextMeshPro.text = "Health: " + playerData.health.ToString();
+        healthTextMeshPro.text = "Health: " + playerData.currentHealth.ToString();
     }
 
     public void UpdateAttackText()
     {
-        attackTextMeshPro.text = "Attack: " + playerData.attack.ToString();
+        attackTextMeshPro.text = "Attack: " + playerData.currentAttack.ToString();
     }
 
     public void UpdateDefenseText()
     {
-        defenseTextMeshPro.text = "Defense: " + playerData.defense.ToString();
+        defenseTextMeshPro.text = "Defense: " + playerData.currentDefense.ToString();
+    }
+
+    public void UpdateCooldownText()
+    {
+        cooldownTextMeshPro.text = "Cooldown: " + playerData.cooldown.ToString()+"%";
+    }
+
+    public void UpdateMovementSpeedText()
+    {
+        movementSpeedTextMeshPro.text = "Movement Speed: " + playerData.currentMovementSpeed.ToString();
     }
 
     void Update()
@@ -41,5 +55,7 @@ public class HealthTextUpdater : MonoBehaviour
         UpdateHealthText();
         UpdateAttackText();
         UpdateDefenseText();
+        UpdateCooldownText();
+        UpdateMovementSpeedText();
     }
 }
