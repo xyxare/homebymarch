@@ -17,10 +17,10 @@ public class PlayerData : MonoBehaviour
     public float health;
 
     public int level;
-    public int attack { get; private set; }
-    public int defense { get; private set; }
-    public int gold { get; private set; }
-    public double attackSpeed { get; private set; }
+    public int attack;
+    public int defense;
+    public int gold;
+    public double attackSpeed;
 
     private string playerDataJsonFilePath;
     public PlayerDataSaver data;
@@ -62,8 +62,8 @@ public class PlayerData : MonoBehaviour
         Debug.Log("Current health: " + health);
 
         health = 10 * level;
-        attack += 5;
-        defense += 3;
+        attack = 5 * level;
+        defense = 3 * level;
         attackSpeed = attackSpeed / 0.995;
 
         Debug.Log("New health: " + health);
