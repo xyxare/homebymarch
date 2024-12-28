@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using System.IO;
+using System;
 
 public class HealthTextUpdater : MonoBehaviour
 {
@@ -9,6 +11,12 @@ public class HealthTextUpdater : MonoBehaviour
     public TextMeshProUGUI defenseTextMeshPro;
     public TextMeshProUGUI cooldownTextMeshPro;
     public TextMeshProUGUI movementSpeedTextMeshPro;
+
+    public TextMeshProUGUI healthBuff;
+    public TextMeshProUGUI attackBuff;
+    public TextMeshProUGUI defenseBuff;
+    public TextMeshProUGUI cooldownBuff;
+    public TextMeshProUGUI movementSpeedBuff;
 
     void Start()
     {
@@ -26,27 +34,32 @@ public class HealthTextUpdater : MonoBehaviour
 
     public void UpdateHealthText()
     {
-        healthTextMeshPro.text = "Health: " + playerData.currentHealth.ToString();
+        healthTextMeshPro.text = playerData.health.ToString();
+        healthBuff.text = "+"+playerData.healthBuff.ToString();
     }
 
     public void UpdateAttackText()
     {
-        attackTextMeshPro.text = "Attack: " + playerData.currentAttack.ToString();
+        attackTextMeshPro.text = playerData.attack.ToString();
+        attackBuff.text = "+"+playerData.attackBuff.ToString();
     }
 
     public void UpdateDefenseText()
     {
-        defenseTextMeshPro.text = "Defense: " + playerData.currentDefense.ToString();
+        defenseTextMeshPro.text = playerData.defense.ToString();
+        defenseBuff.text = "+"+playerData.defenseBuff.ToString();
     }
 
     public void UpdateCooldownText()
     {
-        cooldownTextMeshPro.text = "Cooldown: " + playerData.cooldown.ToString()+"%";
+        cooldownTextMeshPro.text = playerData.cooldown.ToString() + "%";
+        cooldownBuff.text = "+"+playerData.cooldownBuff.ToString();
     }
 
     public void UpdateMovementSpeedText()
     {
-        movementSpeedTextMeshPro.text = "Movement Speed: " + playerData.currentMovementSpeed.ToString();
+        movementSpeedTextMeshPro.text = Math.Round(playerData.currentMovementSpeed).ToString();
+        movementSpeedBuff.text = "+"+playerData.movementSpeedBuff.ToString();
     }
 
     void Update()

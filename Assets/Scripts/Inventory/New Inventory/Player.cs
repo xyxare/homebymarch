@@ -29,6 +29,12 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        headsUpDisplay = FindObjectOfType<HeadsUpDisplay>();
+        if (headsUpDisplay == null)
+        {
+            Debug.LogError("HeadsUpDisplay not found! Ensure it is assigned in the scene.");
+        }
+
         for (int i = 0; i < attributes.Length; i++)
             attributes[i].SetParent(this);
 
@@ -70,24 +76,22 @@ public class Player : MonoBehaviour
         Debug.Log("PlayerData buffs updated incrementally.");
     }
 
-
     public void OnAddItem(InventorySlot _slot)
     {
         if (_slot.ItemObject == null) return;
+
         switch (_slot.parent.inventory.type)
         {
             case InterfaceType.Equipment:
                 // Add buffs
                 foreach (var buff in _slot.item.buffs)
                 {
-
                     foreach (var attribute in attributes)
                     {
                         if (attribute.type == buff.attribute)
                             attribute.value.AddModifier(buff);
                     }
                 }
-
 
                 // Add visuals
                 if (_slot.ItemObject.characterDisplay != null)
@@ -99,16 +103,15 @@ public class Player : MonoBehaviour
                             break;
                         case ItemType.Weapon:
                             sword = Instantiate(_slot.ItemObject.characterDisplay, weaponTransform).transform;
+                            AddSkillToSpells(_slot.ItemObject.skillData as SpellStrategy);
                             break;
                         case ItemType.Shield:
                             offhand = Instantiate(_slot.ItemObject.characterDisplay, offhandHandTransform).transform;
+                            AddSkillToSpells(_slot.ItemObject.skillData as SpellStrategy);
                             break;
                     }
                 }
-
-
                 break;
-
         }
 
         UpdatePlayerDataAttributes();
@@ -125,14 +128,12 @@ public class Player : MonoBehaviour
                 // Remove buffs
                 foreach (var buff in _slot.item.buffs)
                 {
-
                     foreach (var attribute in attributes)
                     {
                         if (attribute.type == buff.attribute)
                             attribute.value.RemoveModifier(buff);
                     }
                 }
-
 
                 // Remove visuals
                 switch (_slot.AllowedItems[0])
@@ -141,13 +142,12 @@ public class Player : MonoBehaviour
                         if (helmet != null) { Destroy(helmet.gameObject); helmet = null; }
                         break;
                     case ItemType.Weapon:
-                        if (sword != null) { Destroy(sword.gameObject); sword = null; }
+                        if (sword != null) { Destroy(sword.gameObject); sword = null; RemoveSkillFromSpells(_slot.ItemObject.skillData as SpellStrategy); }
                         break;
                     case ItemType.Shield:
-                        if (offhand != null) { Destroy(offhand.gameObject); offhand = null; }
+                        if (offhand != null) { Destroy(offhand.gameObject); offhand = null; RemoveSkillFromSpells(_slot.ItemObject.skillData as SpellStrategy); }
                         break;
                 }
-
                 break;
         }
 
@@ -155,17 +155,17 @@ public class Player : MonoBehaviour
         playerData.UpdateCurrentStats();
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
         HeadsUpDisplay.OnButtonPressed += CastSpell;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         HeadsUpDisplay.OnButtonPressed -= CastSpell;
     }
 
-    void CastSpell(int index)
+    private void CastSpell(int index)
     {
         spells[index].CastSpell(transform);
         Debug.Log("Spell casted");
@@ -199,25 +199,26 @@ public class Player : MonoBehaviour
                 spells = spellList.ToArray();
 
                 Debug.Log("Updated spells list after removal:");
-                Debug.Log("----------------------------------------------------------------");
                 foreach (var spell in spells)
                 {
                     Debug.Log(spell);
                 }
-                Debug.Log("----------------------------------------------------------------");
 
                 UpdateSpellButtonSprites(); // Update button sprites after removing a skill
             }
         }
     }
 
-
-
     private void UpdateSpellButtonSprites()
     {
         if (headsUpDisplay != null)
         {
+            Debug.Log("Updating button sprites with current spells.");
             headsUpDisplay.UpdateButtonSprites(spells);
+        }
+        else
+        {
+            Debug.LogWarning("HeadsUpDisplay is null. Skipping sprite update.");
         }
     }
 
