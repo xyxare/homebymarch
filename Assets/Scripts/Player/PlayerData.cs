@@ -1,5 +1,3 @@
-
-
 using System;
 using UnityEngine;
 using System.Collections;
@@ -155,7 +153,7 @@ public class PlayerData : MonoBehaviour
         string playerDataJson = JsonUtility.ToJson(data);
         System.IO.File.WriteAllText(playerDataJsonFilePath, playerDataJson);
 
-        Debug.Log("Saved Player Data" + data.playerName);
+        // Debug.Log("Saved Player Data" + data.playerName);
 
 
     }

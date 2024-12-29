@@ -25,14 +25,21 @@ public class Player : MonoBehaviour
 
     public PlayerData playerData;
 
-    private HeadsUpDisplay headsUpDisplay;
+    public HeadsUpDisplay headsUpDisplay;
+    public InventorySkillDisplay inventorySkillDisplay;  // Added reference to InventorySkillDisplay
 
     private void Start()
     {
-        headsUpDisplay = FindObjectOfType<HeadsUpDisplay>();
+        // Get reference to InventorySkillDisplay
+
         if (headsUpDisplay == null)
         {
-            Debug.LogError("HeadsUpDisplay not found! Ensure it is assigned in the scene.");
+            Debug.LogWarning("HeadsUpDisplay not found! Ensure it is assigned in the scene.");
+        }
+
+        if (inventorySkillDisplay == null)
+        {
+            Debug.LogError("InventorySkillDisplay not found! Ensure it is assigned in the scene.");
         }
 
         for (int i = 0; i < attributes.Length; i++)
@@ -213,12 +220,17 @@ public class Player : MonoBehaviour
     {
         if (headsUpDisplay != null)
         {
-            Debug.Log("Updating button sprites with current spells.");
+            Debug.Log(" Updating HeadsUp button sprites with current spells.");
             headsUpDisplay.UpdateButtonSprites(spells);
+        }
+        if (inventorySkillDisplay != null)
+        {
+            Debug.Log("Updating button sprites with current spells.");
+            inventorySkillDisplay.UpdateButtonSprites(spells);
         }
         else
         {
-            Debug.LogWarning("HeadsUpDisplay is null. Skipping sprite update.");
+            Debug.LogWarning("InventorySkillDisplay is null. Skipping sprite update.");
         }
     }
 
@@ -262,6 +274,7 @@ public class Player : MonoBehaviour
         equipment.Clear();
     }
 }
+
 
 [System.Serializable]
 public class Attribute
