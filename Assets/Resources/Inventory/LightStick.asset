@@ -16,8 +16,10 @@ MonoBehaviour:
   characterDisplay: {fileID: 5833902336740347248, guid: 49cf26b647e3e6c4ba3c81ce6343b314, type: 3}
   stackable: 0
   type: 2
-  description: A pair of running shoes that have seen decades of the owner gallopping
-    on.
+  description: Forged by a wandering craftsman who sought to bring hope to a realm
+    shrouded in eternal twilight, the Radiant Lightstick is said to shine brighter
+    the more it is used, as though feeding off the determination of its wielder.
+    Some claim it hums softly with an ancient melody when wielded with purpose.
   data:
     Name: LightStick
     Id: 31
@@ -26,5 +28,5 @@ MonoBehaviour:
       value: 20
       min: 0
       max: 0
-  skillData: {fileID: 0}
+  skillData: {fileID: 11400000, guid: 210c6b873e3eee74c8f0eed521635f64, type: 2}
   boneNames: []

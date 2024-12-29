@@ -13,12 +13,16 @@ public class ShopUI : MonoBehaviour
     public GameObject itemDetailPanel;         // The panel to show item details
     public TMP_Text itemDescriptionText;       // Text to display the item description
 
-    public TMP_Text itemName;
+    public TMP_Text itemSkillDescriptionText; // Text to display the item skill description
+
+    public TMP_Text itemName;               // Text to display the item name
+    public TMP_Text itemSkillName;           // Text to display the item Skillname
     public TMP_Text itemStats;
     public TMP_Text itemPriceText;             // Text to display the item price
     public Image itemImage;                    // UI Image to display the item's image
-
-    public InventoryObject inventory;
+    public Image itemSkillImage;                // UI Image to display the item's Skillimage
+    public GameObject skillInfo; // Reference to the skillInfo object
+    public InventoryObject inventory; // Reference to the inventory object
     public PlayerData playerData;              // Reference to the PlayerData object
 
     public GameObject confirmPurchasePanel;    // Panel to confirm the purchase
@@ -85,6 +89,14 @@ public class ShopUI : MonoBehaviour
         confirmButton.onClick.AddListener(OnConfirmButtonClick);
     }
 
+    private void OnEnable()
+    {
+        if (shopItems.Count > 0 && slots.Length > 0)
+        {
+            OnSlotClick(slots[0], shopItems[0]);
+        }
+    }
+
     private void AddEvent(GameObject slot, EventTriggerType triggerType, UnityEngine.Events.UnityAction<BaseEventData> action)
     {
         EventTrigger trigger = slot.GetComponent<EventTrigger>();
@@ -121,7 +133,7 @@ public class ShopUI : MonoBehaviour
     private void OnSlotClick(GameObject slot, ShopItem shopItem)
     {
         Debug.Log("Slot Clicked: " + slot.name);
-        
+
         if (shopItem?.item != null)
         {
             Debug.Log("Item Name: " + shopItem.item.name);
@@ -169,6 +181,20 @@ public class ShopUI : MonoBehaviour
             itemDescriptionText.text = shopItem.item.description;
             itemName.text = shopItem.item.name;
             itemPriceText.text = $"Price: {shopItem.price}";
+
+            // Check if skillData is of type SpellStrategy and display its description
+            // Check if skillData is null
+            if (shopItem.item.skillData == null)
+            {
+                skillInfo.SetActive(false);
+            }
+            else if (shopItem.item.skillData is SpellStrategy spell)
+            {
+                skillInfo.SetActive(true);
+                itemSkillDescriptionText.text = $"{spell.description}";
+                itemSkillImage.sprite = spell.uiDisplay;
+                itemSkillName.text = spell.spellName;
+            }
         }
         else
         {
