@@ -44,6 +44,8 @@ namespace HomeByMarch
         [SerializeField] public float attackDistance = 30f;
         [SerializeField] public int attackDelay = 2;
 
+        [SerializeField] BlueSlash[] blueSlashSpells;
+
         [SerializeField] SpellStrategy[] spells;
         public LayerMask attackLayer;
 
@@ -219,11 +221,11 @@ namespace HomeByMarch
             Time.timeScale = 0f; // Set Time.timeScale after the delay
         }
 
-        void CastSpell(int index)
-        {
-            // spells[index].CastSpell(transform);
-            Debug.Log("spellcasted");
-        }
+        // void CastSpell(int index)
+        // {
+        //     // spells[index].CastSpell(transform);
+        //     Debug.Log("spellcasted");
+        // }
 
         void OnAttack()
         {
@@ -245,8 +247,22 @@ namespace HomeByMarch
             // Call the raycast to check for enemies and deal damage
             AttackRayCast();
 
+            // Activate BlueSlash spell(s)
+            ActivateBlueSlash();
+
             // Reset the attack state after the attack cooldown
             Invoke(nameof(ResetAttack), attackCooldown);
+        }
+
+        void ActivateBlueSlash()
+        {
+            foreach (var slash in blueSlashSpells)
+            {
+                if (slash != null)
+                {
+                    slash.CastSpell(transform); // Use the player's transform as the origin
+                }
+            }
         }
 
         void ResetAttack()
