@@ -6,6 +6,7 @@ namespace HomeByMarch
     {
         [SerializeField] private FloatEventChannel playerHealthChannel;
         [SerializeField] private GameObject deathPanel; // Reference to the death panel
+        [SerializeField] private BloodParticle bloodParticle; // Reference to the BloodParticle scriptable object
 
         public delegate void DamageTaken();
         public event DamageTaken OnDamageTaken;
@@ -43,6 +44,9 @@ namespace HomeByMarch
             PublishHealthPercentage();
             OnDamageTaken?.Invoke();
 
+            // Activate BloodParticle effect
+            ActivateBloodParticle();
+
             if (IsDead)
             {
                 Debug.Log("Player is dead!");
@@ -67,6 +71,19 @@ namespace HomeByMarch
             else
             {
                 Debug.LogWarning("PlayerHealthChannel is not assigned.");
+            }
+        }
+
+        // Activate the BloodParticle effect
+        private void ActivateBloodParticle()
+        {
+            if (bloodParticle != null)
+            {
+                bloodParticle.CastSpell(transform); // Cast the BloodParticle spell
+            }
+            else
+            {
+                Debug.LogWarning("BloodParticle is not assigned.");
             }
         }
 
