@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b8d3c93c5e3c544292ceb59fa6782c2, type: 3}
   m_Name: BloodParticle
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 0}
+  uiDisplay: {fileID: 21300000, guid: 60c1d42986dc0094c808b9e135f31ba2, type: 3}
   spellName: 
   description: 
-  BloodParticlePrefab: {fileID: 0}
-  duration: 5
+  BloodParticlePrefab: {fileID: 1639086506678902, guid: 631d19474f303c2438dd37274b631d4c, type: 3}
+  duration: 1

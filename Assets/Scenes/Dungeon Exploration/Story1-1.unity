@@ -11656,7 +11656,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &398227039
 Transform:
   m_ObjectHideFlags: 0
@@ -49553,6 +49553,10 @@ PrefabInstance:
       propertyPath: playerData
       value: 
       objectReference: {fileID: 1807051853}
+    - target: {fileID: 971675740344223386, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
+      propertyPath: bloodParticle
+      value: 
+      objectReference: {fileID: 11400000, guid: d6d851bdd0c09b64380d88e313f54263, type: 2}
     - target: {fileID: 3150206743697036887, guid: d5903b36ec59b8a40b78c969b9900926, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0311
