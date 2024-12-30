@@ -26024,6 +26024,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069746653}
   m_CullTransparentMesh: 1
+--- !u!114 &2094862439 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6270957955404917845, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+  m_PrefabInstance: {fileID: 5682978448280700697}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56239cc63be9de44c810d5e5e4652098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2106492522
 GameObject:
   m_ObjectHideFlags: 0
@@ -31307,6 +31318,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 514910615}
+    - target: {fileID: 932618297102849855, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5035718
+      objectReference: {fileID: 0}
+    - target: {fileID: 932618297102849855, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5035718
+      objectReference: {fileID: 0}
+    - target: {fileID: 932618297102849855, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5035718
+      objectReference: {fileID: 0}
     - target: {fileID: 2690781821468313902, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
       propertyPath: m_Name
       value: First Reward Panel
@@ -31400,9 +31423,37 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 514910615}
     - target: {fileID: 5161648560993858573, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5161648560993858573, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5161648560993858573, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1088589300}
+    - target: {fileID: 5161648560993858573, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 2094862439}
+    - target: {fileID: 5161648560993858573, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5161648560993858573, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: UpdateSteps
+      objectReference: {fileID: 0}
+    - target: {fileID: 5161648560993858573, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: RewardChecker, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5161648560993858573, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5883319477301966604, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
       propertyPath: playerData
       value: 
@@ -31417,6 +31468,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8901927286846712800, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+    - {fileID: 3895469192859348629, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
