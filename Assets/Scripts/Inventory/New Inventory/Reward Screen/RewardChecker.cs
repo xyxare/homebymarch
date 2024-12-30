@@ -39,8 +39,23 @@ public class RewardChecker : MonoBehaviour
 
     void Update()
     {
-        // Continuously check and update the button state based on steps
+        // Continuously update the overallSteps and button state
+        UpdateStepData();
         UpdateButtonState();
+    }
+    private void UpdateStepData()
+    {
+        // Re-read the step data file to get the latest steps
+        if (File.Exists(stepJsonFilePath))
+        {
+            stepCountData = File.ReadAllText(stepJsonFilePath);
+            StepData data = JsonUtility.FromJson<StepData>(stepCountData);
+            overallSteps = data.overallSteps; // Update the overallSteps dynamically
+        }
+        else
+        {
+            Debug.LogWarning("Step data file not found during update.");
+        }
     }
 
     private void UpdateButtonState()
@@ -49,7 +64,7 @@ public class RewardChecker : MonoBehaviour
         {
             // Make the button interactable if the steps are sufficient
             unlockButton.interactable = true;
-          
+
         }
         else
         {
@@ -71,9 +86,5 @@ public class RewardChecker : MonoBehaviour
         }
     }
 
-    [System.Serializable]
-    private class StepData
-    {
-        public int overallSteps;
-    }
+
 }

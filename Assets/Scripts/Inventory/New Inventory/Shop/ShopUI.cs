@@ -6,80 +6,112 @@ using UnityEngine.EventSystems;
 
 public class ShopUI : MonoBehaviour
 {
-    public GameObject[] slots;                  // Array of UI slots for each shop item
-    public Button claimButtonPrefab;           // Prefab for the claim button
-    public Transform shopPanel;                // Parent object to hold all the items
-    public List<ShopItem> shopItems;           // List of all ShopItems in your shop
-    public GameObject itemDetailPanel;         // The panel to show item details
-    public TMP_Text itemDescriptionText;       // Text to display the item description
+    public GameObject[] helmetSlots;
+    public GameObject[] chestSlots;
+    public GameObject[] weaponSlots;
+    public GameObject[] shieldSlots;
+    public GameObject[] bootsSlots;
 
-    public TMP_Text itemSkillDescriptionText; // Text to display the item skill description
+    public Button claimButtonPrefab;
+    public Transform shopPanel;
+    public List<ShopItem> helmetItems;
+    public List<ShopItem> chestItems;
+    public List<ShopItem> weaponItems;
+    public List<ShopItem> shieldItems;
+    public List<ShopItem> bootsItems;
 
-    public TMP_Text itemName;               // Text to display the item name
-    public TMP_Text itemSkillName;           // Text to display the item Skillname
+    public GameObject itemDetailPanel;
+    public TMP_Text itemDescriptionText;
+    public TMP_Text itemSkillDescriptionText;
+    public TMP_Text itemName;
+    public TMP_Text itemSkillName;
     public TMP_Text itemStats;
-    public TMP_Text itemPriceText;             // Text to display the item price
-    public Image itemImage;                    // UI Image to display the item's image
-    public Image itemSkillImage;                // UI Image to display the item's Skillimage
-    public GameObject skillInfo; // Reference to the skillInfo object
-    public InventoryObject inventory; // Reference to the inventory object
-    public PlayerData playerData;              // Reference to the PlayerData object
+    public TMP_Text itemPriceText;
+    public Image itemImage;
+    public Image itemSkillImage;
+    public GameObject skillInfo;
+    public InventoryObject inventory;
+    public PlayerData playerData;
 
-    public GameObject confirmPurchasePanel;    // Panel to confirm the purchase
-    public Button confirmButton;               // Button to confirm the purchase
-    public GameObject insufficientGoldPanel;   // Panel to show insufficient gold message
-    private ShopItem currentShopItem;          // The current shop item being claimed
+    public GameObject confirmPurchasePanel;
+    public Button confirmButton;
+    public GameObject insufficientGoldPanel;
+    private ShopItem currentShopItem;
 
     private Dictionary<GameObject, ShopItem> slotsOnInterface;
+
+    public GameObject helmetPanel;
+    public GameObject chestPanel;
+    public GameObject weaponPanel;
+    public GameObject shieldPanel;
+    public GameObject bootsPanel;
+
+    // Function to switch between panels
+    public void SwitchPanel(string panelName)
+    {
+        helmetPanel.SetActive(false);
+        chestPanel.SetActive(false);
+        weaponPanel.SetActive(false);
+        shieldPanel.SetActive(false);
+        bootsPanel.SetActive(false);
+
+        switch (panelName)
+        {
+            case "Helmet":
+                helmetPanel.SetActive(true);
+                InitializeSlots(helmetSlots, helmetItems);
+                break;
+            case "Chest":
+                chestPanel.SetActive(true);
+                InitializeSlots(chestSlots, chestItems);
+                break;
+            case "Weapon":
+                weaponPanel.SetActive(true);
+                InitializeSlots(weaponSlots, weaponItems);
+                break;
+            case "Shield":
+                shieldPanel.SetActive(true);
+                InitializeSlots(shieldSlots, shieldItems);
+                break;
+            case "Boots":
+                bootsPanel.SetActive(true);
+                InitializeSlots(bootsSlots, bootsItems);
+                break;
+        }
+    }
+
+    // Button click event handlers
+    public void OnHelmetButtonClick()
+    {
+        SwitchPanel("Helmet");
+    }
+
+    public void OnChestButtonClick()
+    {
+        SwitchPanel("Chest");
+    }
+
+    public void OnWeaponButtonClick()
+    {
+        SwitchPanel("Weapon");
+    }
+
+    public void OnShieldButtonClick()
+    {
+        SwitchPanel("Shield");
+    }
+
+    public void OnBootsButtonClick()
+    {
+        SwitchPanel("Boots");
+    }
 
     void Start()
     {
         slotsOnInterface = new Dictionary<GameObject, ShopItem>();
 
-        for (int i = 0; i < shopItems.Count; i++)
-        {
-            var shopItem = shopItems[i];
-            var slot = slots[i];
-
-            if (slot == null || shopItem == null)
-            {
-                Debug.LogError("Slot or ShopItem is null!");
-                continue;
-            }
-
-            // Set up only the click event for the slot (OnClick)
-            AddEvent(slot, EventTriggerType.PointerClick, delegate { OnSlotClick(slot, shopItem); });
-
-            // Set up claim button
-            Button claimButton = Instantiate(claimButtonPrefab, slot.transform);
-            claimButton.onClick.AddListener(() => OnClaimButtonClick(shopItem));
-
-            // Optionally, set the position manually in the script (if you want a default setting):
-            RectTransform claimButtonRect = claimButton.GetComponent<RectTransform>();
-            claimButtonRect.anchoredPosition = new Vector2(1, -70);
-            claimButtonRect.localScale = new Vector3(0.5f, 0.5f, 0.4f);
-
-            // Update the image inside the slot
-            Transform childImage = slot.transform.Find("Image");
-            if (childImage != null)
-            {
-                Image slotImage = childImage.GetComponent<Image>();
-                if (slotImage != null && shopItem.item != null && shopItem.item.uiDisplay != null)
-                {
-                    slotImage.sprite = shopItem.item.uiDisplay;
-                }
-                else
-                {
-                    slotImage.sprite = slotImage.sprite;
-                }
-            }
-            else
-            {
-                Debug.LogError("Child object 'Image' not found under slot.");
-            }
-
-            slotsOnInterface.Add(slot, shopItem);
-        }
+        // Initialize the default panel (e.g., Helmet)
+        SwitchPanel("Helmet");
 
         // Hide the confirm purchase panel and insufficient gold panel initially
         confirmPurchasePanel.SetActive(false);
@@ -91,9 +123,9 @@ public class ShopUI : MonoBehaviour
 
     private void OnEnable()
     {
-        if (shopItems.Count > 0 && slots.Length > 0)
+        if (helmetItems.Count > 0 && helmetSlots.Length > 0)
         {
-            OnSlotClick(slots[0], shopItems[0]);
+            OnSlotClick(helmetSlots[0], helmetItems[0]);
         }
     }
 
@@ -220,10 +252,59 @@ public class ShopUI : MonoBehaviour
 
             if (inventory.AddItem(_item, 1))
             {
-
                 inventory.Save();
                 playerData.SubtractGold(shopItem.price);
             }
+        }
+    }
+
+    private void InitializeSlots(GameObject[] slots, List<ShopItem> items)
+    {
+        slotsOnInterface.Clear();
+
+        for (int i = 0; i < items.Count; i++)
+        {
+            var shopItem = items[i];
+            var slot = slots[i];
+
+            if (slot == null || shopItem == null)
+            {
+                Debug.LogError("Slot or ShopItem is null!");
+                continue;
+            }
+
+            // Set up only the click event for the slot (OnClick)
+            AddEvent(slot, EventTriggerType.PointerClick, delegate { OnSlotClick(slot, shopItem); });
+
+            // Set up claim button
+            Button claimButton = Instantiate(claimButtonPrefab, slot.transform);
+            claimButton.onClick.AddListener(() => OnClaimButtonClick(shopItem));
+
+            // Optionally, set the position manually in the script (if you want a default setting):
+            RectTransform claimButtonRect = claimButton.GetComponent<RectTransform>();
+            claimButtonRect.anchoredPosition = new Vector2(1, -70);
+            claimButtonRect.localScale = new Vector3(0.5f, 0.5f, 0.4f);
+
+            // Update the image inside the slot
+            Transform childImage = slot.transform.Find("Image");
+            if (childImage != null)
+            {
+                Image slotImage = childImage.GetComponent<Image>();
+                if (slotImage != null && shopItem.item != null && shopItem.item.uiDisplay != null)
+                {
+                    slotImage.sprite = shopItem.item.uiDisplay;
+                }
+                else
+                {
+                    slotImage.sprite = slotImage.sprite;
+                }
+            }
+            else
+            {
+                Debug.LogError("Child object 'Image' not found under slot.");
+            }
+
+            slotsOnInterface.Add(slot, shopItem);
         }
     }
 }
