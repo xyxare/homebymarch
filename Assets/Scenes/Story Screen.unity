@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &24390722 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2046283993579461766, guid: b558aed2a208bf24fa81a6bcb505c01d, type: 3}
+  m_PrefabInstance: {fileID: 602976317}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &31160413
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,6 +466,11 @@ RectTransform:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7638723567073660448, guid: b558aed2a208bf24fa81a6bcb505c01d, type: 3}
   m_PrefabInstance: {fileID: 1844610685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &235729360 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2046283993579461766, guid: b558aed2a208bf24fa81a6bcb505c01d, type: 3}
+  m_PrefabInstance: {fileID: 1446411736}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &246060397 stripped
 RectTransform:
@@ -3489,6 +3499,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7638723567073660448, guid: b558aed2a208bf24fa81a6bcb505c01d, type: 3}
   m_PrefabInstance: {fileID: 2123561096}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &948813829 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2046283993579461766, guid: b558aed2a208bf24fa81a6bcb505c01d, type: 3}
+  m_PrefabInstance: {fileID: 1065982254}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &949590680
 GameObject:
   m_ObjectHideFlags: 0
@@ -4656,39 +4671,30 @@ MonoBehaviour:
   storyLocks:
   - lockObject: {fileID: 1993920330}
     requiredSteps: 0
-    isPreviousStoryCompleted: 1
     isUnlocked: 1
   - lockObject: {fileID: 5939474952712471986}
     requiredSteps: 1000
-    isPreviousStoryCompleted: 0
     isUnlocked: 0
-  - lockObject: {fileID: 602976318}
+  - lockObject: {fileID: 24390722}
     requiredSteps: 2000
-    isPreviousStoryCompleted: 0
     isUnlocked: 0
-  - lockObject: {fileID: 1844610686}
+  - lockObject: {fileID: 1360524430}
     requiredSteps: 3000
-    isPreviousStoryCompleted: 0
     isUnlocked: 0
-  - lockObject: {fileID: 1065982255}
+  - lockObject: {fileID: 948813829}
     requiredSteps: 4000
-    isPreviousStoryCompleted: 0
     isUnlocked: 0
-  - lockObject: {fileID: 1446411737}
+  - lockObject: {fileID: 235729360}
     requiredSteps: 5000
-    isPreviousStoryCompleted: 0
     isUnlocked: 0
-  - lockObject: {fileID: 1336950666}
+  - lockObject: {fileID: 1451942365}
     requiredSteps: 7000
-    isPreviousStoryCompleted: 0
     isUnlocked: 0
-  - lockObject: {fileID: 1600239876}
+  - lockObject: {fileID: 1200360518}
     requiredSteps: 9000
-    isPreviousStoryCompleted: 0
     isUnlocked: 0
-  - lockObject: {fileID: 2123561097}
+  - lockObject: {fileID: 0}
     requiredSteps: 10000
-    isPreviousStoryCompleted: 0
     isUnlocked: 0
 --- !u!1 &1186276287
 GameObject:
@@ -4835,6 +4841,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1186276287}
   m_CullTransparentMesh: 1
+--- !u!1 &1200360518 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2046283993579461766, guid: b558aed2a208bf24fa81a6bcb505c01d, type: 3}
+  m_PrefabInstance: {fileID: 1600239875}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1201095302
 GameObject:
   m_ObjectHideFlags: 0
@@ -5285,6 +5296,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b558aed2a208bf24fa81a6bcb505c01d, type: 3}
+--- !u!1 &1360524430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2046283993579461766, guid: b558aed2a208bf24fa81a6bcb505c01d, type: 3}
+  m_PrefabInstance: {fileID: 1844610685}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1362898911
 GameObject:
   m_ObjectHideFlags: 0
@@ -5567,6 +5583,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b558aed2a208bf24fa81a6bcb505c01d, type: 3}
+--- !u!1 &1451942365 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2046283993579461766, guid: b558aed2a208bf24fa81a6bcb505c01d, type: 3}
+  m_PrefabInstance: {fileID: 1336950665}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1461955810 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 655564170860974580, guid: e893207ca5da72246be1ba47d8375926, type: 3}

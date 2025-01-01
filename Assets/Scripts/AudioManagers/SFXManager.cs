@@ -19,10 +19,10 @@ public class SFXManager : MonoBehaviour
             sfxSource = GetComponent<AudioSource>();
             Debug.Log("SFXManager Start called. Current SFX Volume: " + sfxSource.volume);
         }
-        if (Application.isPlaying)
-        {
-            DontDestroyOnLoad(gameObject);
-        }
+        // if (Application.isPlaying)
+        // {
+        //     DontDestroyOnLoad(gameObject);
+        // }
     }
 
     public static void PlaySFX(SoundTypes sfx, int index = -1)

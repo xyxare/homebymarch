@@ -2227,9 +2227,17 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 567505013384191921, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1972924473}
+    - target: {fileID: 567505013384191921, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 135324863}
+    - target: {fileID: 567505013384191921, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
     - target: {fileID: 567505013384191921, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
       value: ChangeScene
@@ -3816,6 +3824,7 @@ GameObject:
   - component: {fileID: 135324861}
   - component: {fileID: 135324862}
   - component: {fileID: 135324863}
+  - component: {fileID: 135324864}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -4100,6 +4109,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59b4fd652f7b2404a9041dc66dc27282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &135324864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135324849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0ffef9cc1e7d5469a2c2de35f0e300, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  images: {fileID: 0}
+  titleText: {fileID: 0}
+  bodyText: {fileID: 0}
+  storyLocks: []
 --- !u!1001 &136580942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27310,7 +27335,10 @@ MonoBehaviour:
   challengePanel: {fileID: 1767224436}
   goldRewardPanel: {fileID: 2073638236}
   useTimeLimit: 1
+  storyLockController: {fileID: 135324864}
+  dungeonIndex: 0
   itemClaimedKey: Story1-1Reward
+  sfxManager: {fileID: 2071480588}
 --- !u!1001 &965007597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29788,18 +29816,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3500069346048301828, guid: 9c7f5f8ce3cfb9746b8b4967ceec48b4, type: 3}
-      propertyPath: soundList.Array.data[3].sfx.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3500069346048301828, guid: 9c7f5f8ce3cfb9746b8b4967ceec48b4, type: 3}
-      propertyPath: soundList.Array.data[3].sfx.Array.data[0]
-      value: 
-      objectReference: {fileID: 8300000, guid: df88be6159b3d6c49ab1a5210fc7d8ab, type: 3}
-    - target: {fileID: 3500069346048301828, guid: 9c7f5f8ce3cfb9746b8b4967ceec48b4, type: 3}
-      propertyPath: soundList.Array.data[3].sfx.Array.data[1]
-      value: 
-      objectReference: {fileID: 8300000, guid: b019f24ce7839684dacc629e5943f734, type: 3}
     - target: {fileID: 5826620444368698380, guid: 9c7f5f8ce3cfb9746b8b4967ceec48b4, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

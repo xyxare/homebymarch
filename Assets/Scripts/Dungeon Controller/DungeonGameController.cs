@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;  // Add the TextMesh Pro namespace
 using UnityEngine;
 using UnityEngine.UI;  // Add the UI namespace for Button
+using HomeByMarch;
 
 public class DungeonGameController : MonoBehaviour
 {
@@ -27,8 +28,13 @@ public class DungeonGameController : MonoBehaviour
     // New boolean to choose between time limit or defeating enemies
     public bool useTimeLimit = true;    // Toggle for time limit or not (set in Editor)
 
+    public StoryLockController storyLockController;
+
+    public int dungeonIndex; // Dungeon identifier for story completion 
+
     public string itemClaimedKey = "RewardClaimed"; // Key for PlayerPrefs
 
+    public SFXManager sfxManager;  // Reference to the SFXManager
     void Start()
     {
         // Add listener to the start button to start the game
@@ -109,7 +115,10 @@ public class DungeonGameController : MonoBehaviour
 
         if (won)
         {
-            Debug.Log("You win! All enemies defeated.");
+         
+
+            // Mark the dungeon story as completed
+            storyLockController.SetStoryCompletionStatus(dungeonIndex,true); // Replace 'dungeonIndex' with the appropriate dungeon identifier.
 
             // Check PlayerPrefs for the itemClaimedKey
             int claimedStatus = PlayerPrefs.GetInt(itemClaimedKey, 0);
@@ -136,7 +145,15 @@ public class DungeonGameController : MonoBehaviour
         while (gameActive && enemiesSpawned < totalEnemiesToDefeat)
         {
             int spawnIndex = Random.Range(0, spawnPoints.Length);  // Random spawn point
-            Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);  // Spawn enemy at chosen point
+            GameObject enemy = Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);  // Spawn enemy
+
+            // Assign the SFXManager to the enemy's Enemy script
+            Enemy enemyScript = enemy.GetComponent<Enemy>();
+            if (enemyScript != null && sfxManager != null)
+            {
+                enemyScript.SFXManager = sfxManager;  // Assign the SFXManager to the enemy script
+            }
+
             enemiesSpawned++;  // Increment the spawn count
             yield return new WaitForSeconds(2f);  // Wait before spawning the next enemy (adjust as needed)
         }
