@@ -34,6 +34,8 @@ namespace HomeByMarch
         CountdownTimer attackTimer;
         CountdownTimer onHitTimer;
 
+        [SerializeField] public SFXManager SFXManager;
+
         public Image healthBar;
         bool isHit;
 
@@ -167,6 +169,7 @@ namespace HomeByMarch
             else
             {
                 OnHit();
+                SFXManager.PlaySFX(SoundTypes.Damage, 1);
                 ActivateBloodParticle(); // Trigger blood particle effect when damage is taken
             }
         }
