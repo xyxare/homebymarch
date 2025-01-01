@@ -22,16 +22,20 @@ public class DungeonGameController : MonoBehaviour
     public Button startButton;          // Reference to the start button
     public GameObject winPanel;         // Reference to the Win Panel (UI)
     public GameObject challengePanel;   // Reference to the Dungeon Challenge Panel (UI)
+    public GameObject goldRewardPanel;  // Reference to the Gold Reward Panel (UI)
 
     // New boolean to choose between time limit or defeating enemies
     public bool useTimeLimit = true;    // Toggle for time limit or not (set in Editor)
+
+    public string itemClaimedKey = "RewardClaimed"; // Key for PlayerPrefs
 
     void Start()
     {
         // Add listener to the start button to start the game
         startButton.onClick.AddListener(StartGame);
-        winPanel.SetActive(false); // Make sure the win panel is hidden at the start
+        winPanel.SetActive(false);        // Make sure the win panel is hidden at the start
         challengePanel.SetActive(false); // Make sure the challenge panel is hidden at the start
+        goldRewardPanel.SetActive(false); // Make sure the gold reward panel is hidden at the start
     }
 
     // This method is called when the Start button is clicked
@@ -90,6 +94,8 @@ public class DungeonGameController : MonoBehaviour
     public void OnEnemyDefeated()
     {
         enemiesDefeated++;
+        UpdateUI();  // Update the UI immediately after incrementing the count
+
         if (enemiesDefeated >= totalEnemiesToDefeat)
         {
             EndGame(true);  // Player has defeated all enemies, game won
@@ -100,16 +106,28 @@ public class DungeonGameController : MonoBehaviour
     void EndGame(bool won)
     {
         gameActive = false;
+
         if (won)
         {
             Debug.Log("You win! All enemies defeated.");
-            winPanel.SetActive(true); // Show the win panel
+
+            // Check PlayerPrefs for the itemClaimedKey
+            int claimedStatus = PlayerPrefs.GetInt(itemClaimedKey, 0);
+            if (claimedStatus == 1)
+            {
+                Debug.Log("Opening Gold Reward Panel");
+                goldRewardPanel.SetActive(true); // Show the Gold Reward Panel
+            }
+            else
+            {
+                Debug.Log("Opening Win Panel");
+                winPanel.SetActive(true); // Show the Win Panel
+            }
         }
         else
         {
             Debug.Log("Game over! Time's up or enemies not defeated.");
         }
-        // Additional game end logic (e.g., stop gameplay, show end screen)
     }
 
     // Coroutine to spawn enemies at random spawn points
