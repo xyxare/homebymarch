@@ -7,7 +7,7 @@ namespace HomeByMarch
         [SerializeField] private FloatEventChannel playerHealthChannel;
         [SerializeField] private GameObject deathPanel; // Reference to the death panel
         [SerializeField] private BloodParticle bloodParticle; // Reference to the BloodParticle scriptable object
-
+        [SerializeField] public SFXManager SFXManager;
         public delegate void DamageTaken();
         public event DamageTaken OnDamageTaken;
 
@@ -46,6 +46,7 @@ namespace HomeByMarch
 
             // Activate BloodParticle effect
             ActivateBloodParticle();
+            SFXManager.PlaySFX(SoundTypes.Damage);
 
             if (IsDead)
             {

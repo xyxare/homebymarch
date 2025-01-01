@@ -24,6 +24,8 @@ namespace HomeByMarch
         [SerializeField] bool useCharacterForward = false;
         [SerializeField] float turnSpeed = 10f;
         [SerializeField] private Health health;
+        [Header("SFX")]
+        [SerializeField] public SFXManager SFXManager;
 
         Vector3 networkPosition;
         Quaternion networkRotation;
@@ -249,6 +251,10 @@ namespace HomeByMarch
 
             // Activate BlueSlash spell(s)
             ActivateBlueSlash();
+
+            //Activate Sound effects
+
+            SFXManager.PlaySFX(SoundTypes.SwordSwing);
 
             // Reset the attack state after the attack cooldown
             Invoke(nameof(ResetAttack), attackCooldown);
