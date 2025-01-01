@@ -25,6 +25,8 @@ public class DungeonGameController : MonoBehaviour
     public GameObject challengePanel;   // Reference to the Dungeon Challenge Panel (UI)
     public GameObject goldRewardPanel;  // Reference to the Gold Reward Panel (UI)
 
+    public GameObject StoryPanelEnd;
+
     // New boolean to choose between time limit or defeating enemies
     public bool useTimeLimit = true;    // Toggle for time limit or not (set in Editor)
 
@@ -125,11 +127,13 @@ public class DungeonGameController : MonoBehaviour
             if (claimedStatus == 1)
             {
                 Debug.Log("Opening Gold Reward Panel");
+                StoryPanelEnd.SetActive(true);
                 goldRewardPanel.SetActive(true); // Show the Gold Reward Panel
             }
             else
             {
                 Debug.Log("Opening Win Panel");
+                StoryPanelEnd.SetActive(true);
                 winPanel.SetActive(true); // Show the Win Panel
             }
         }
