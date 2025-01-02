@@ -1555,6 +1555,10 @@ PrefabInstance:
       propertyPath: itemClaimedKey
       value: Story1-1Reward
       objectReference: {fileID: 0}
+    - target: {fileID: 5070538045840379643, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
+      propertyPath: item
+      value: 
+      objectReference: {fileID: 11400000, guid: a5f4778ff4fd57d429905aeead2397c0, type: 2}
     - target: {fileID: 5883319477301966604, guid: 3a8776587bbf74a47b35452446634f2a, type: 3}
       propertyPath: itemName
       value: 
@@ -9069,7 +9073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &525903444
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9084,9 +9088,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1159313719}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 264.70752, y: -122}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &525903445
@@ -12110,7 +12114,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -150.7, y: 0}
+  m_AnchoredPosition: {x: -146, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &713749680
@@ -16124,10 +16128,10 @@ MonoBehaviour:
   challengePanel: {fileID: 1767224436}
   goldRewardPanel: {fileID: 2073638236}
   StoryPanelEnd: {fileID: 2057181058}
-  useTimeLimit: 0
+  useTimeLimit: 1
   storyLockController: {fileID: 135324864}
   dungeonIndex: 2
-  itemClaimedKey: Story1-1Reward
+  itemClaimedKey: Story1-2Reward
   sfxManager: {fileID: 2071480588}
 --- !u!1001 &965007597
 PrefabInstance:
@@ -18838,7 +18842,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 857, y: 244}
+  m_SizeDelta: {x: 644.8301, y: 244}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1159313720
 MonoBehaviour:
@@ -18891,7 +18895,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 0
+    m_Left: 138
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
@@ -35123,7 +35127,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 59919410453650586, guid: 6d1e6d569229e0547b617bd1f2b8e5d5, type: 3}
       propertyPath: far clip plane
-      value: 243.6
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 59919410453650586, guid: 6d1e6d569229e0547b617bd1f2b8e5d5, type: 3}
       propertyPath: near clip plane
@@ -35131,7 +35135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 59919410453650586, guid: 6d1e6d569229e0547b617bd1f2b8e5d5, type: 3}
       propertyPath: orthographic size
-      value: 81.7
+      value: 103.85573
       objectReference: {fileID: 0}
     - target: {fileID: 1927120051133533070, guid: 6d1e6d569229e0547b617bd1f2b8e5d5, type: 3}
       propertyPath: m_LocalPosition.x

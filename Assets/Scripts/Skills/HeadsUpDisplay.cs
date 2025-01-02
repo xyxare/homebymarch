@@ -11,11 +11,15 @@ public class HeadsUpDisplay : MonoBehaviour
 
     void Awake()
     {
+        // Initialize button listeners
         for (int i = 0; i < buttons.Length; i++)
         {
             int index = i;
             buttons[i].onClick.AddListener(() => HandleButtonPress(index));
         }
+
+        // Ensure buttons are set correctly on start
+        UpdateButtonSprites(new SpellStrategy[buttons.Length]);
     }
 
     public void UpdateButtonSprites(SpellStrategy[] spells)
