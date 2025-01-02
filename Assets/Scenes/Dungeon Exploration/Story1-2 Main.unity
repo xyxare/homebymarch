@@ -16115,7 +16115,7 @@ MonoBehaviour:
   - {fileID: 147381887}
   - {fileID: 1547466767}
   timeLimit: 120
-  totalEnemiesToDefeat: 10
+  totalEnemiesToDefeat: 1
   timerText: {fileID: 525903445}
   enemiesDefeatedText: {fileID: 450888955}
   enemiesRemainingText: {fileID: 1538875641}
@@ -16126,7 +16126,7 @@ MonoBehaviour:
   StoryPanelEnd: {fileID: 2057181058}
   useTimeLimit: 0
   storyLockController: {fileID: 135324864}
-  dungeonIndex: 1
+  dungeonIndex: 2
   itemClaimedKey: Story1-1Reward
   sfxManager: {fileID: 2071480588}
 --- !u!1001 &965007597
@@ -20122,10 +20122,9 @@ MonoBehaviour:
   panel: {fileID: 2057181058}
   dungeonChallengePanel: {fileID: 592013137}
   storySprites:
-  - {fileID: 21300000, guid: d9b20bbbd8fa5c447a5e8ba561a7956d, type: 3}
-  - {fileID: 21300000, guid: 2f8da75f3d341c64fb8121d4ebf0ad56, type: 3}
-  - {fileID: 21300000, guid: 9d116a4d38651434881ef998bcd61cbb, type: 3}
-  - {fileID: 21300000, guid: af22a60b6425837479af8c9c8c04c7d7, type: 3}
+  - {fileID: 21300000, guid: 082093d0f86cb6548a0a8461d82491c4, type: 3}
+  - {fileID: 21300000, guid: 2ee0572cdc546064389a47d9b435ac46, type: 3}
+  - {fileID: 21300000, guid: ddef9724ca7a8b44b92c47836a1a7377, type: 3}
 --- !u!114 &1232821615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20146,7 +20145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d9b20bbbd8fa5c447a5e8ba561a7956d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 082093d0f86cb6548a0a8461d82491c4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -23222,7 +23221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 839940281795550734, guid: 091fd7783f2074549ae5ec3c2367d13c, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2.2231452
+      value: 2.3731854
       objectReference: {fileID: 0}
     - target: {fileID: 839940281795550734, guid: 091fd7783f2074549ae5ec3c2367d13c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -23234,7 +23233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 839940281795550734, guid: 091fd7783f2074549ae5ec3c2367d13c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.6009
+      value: 0.30814
       objectReference: {fileID: 0}
     - target: {fileID: 1910374277572623487, guid: 091fd7783f2074549ae5ec3c2367d13c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -33375,9 +33374,9 @@ MonoBehaviour:
   panel: {fileID: 1381297249}
   dungeonChallengePanel: {fileID: 1767224436}
   storySprites:
-  - {fileID: 21300000, guid: 5636b561311dd144496a5c5948f62c68, type: 3}
-  - {fileID: 21300000, guid: 8f344726c98700c4dadc5b946b481987, type: 3}
-  - {fileID: 21300000, guid: 931cd058f3935ef4c960f96496491e66, type: 3}
+  - {fileID: 21300000, guid: bef99cc06ffcbba45a20d3e338e6734a, type: 3}
+  - {fileID: 21300000, guid: ebd6403e3b6ccae4784c6280d74bd6a1, type: 3}
+  - {fileID: 21300000, guid: e7e5e30829c761647a0005f14c8d465c, type: 3}
 --- !u!114 &2041409647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33398,7 +33397,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5636b561311dd144496a5c5948f62c68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bef99cc06ffcbba45a20d3e338e6734a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
