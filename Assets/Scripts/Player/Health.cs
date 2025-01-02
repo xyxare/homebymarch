@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro; // Required for TextMeshPro
 
 namespace HomeByMarch
 {
@@ -8,6 +9,8 @@ namespace HomeByMarch
         [SerializeField] private GameObject deathPanel; // Reference to the death panel
         [SerializeField] private BloodParticle bloodParticle; // Reference to the BloodParticle scriptable object
         [SerializeField] public SFXManager SFXManager;
+        [SerializeField] private TextMeshProUGUI healthText; // Reference to TextMeshPro for health display
+
         public delegate void DamageTaken();
         public event DamageTaken OnDamageTaken;
 
@@ -32,6 +35,7 @@ namespace HomeByMarch
         {
             currentHealth = MaxHealth; // Set currentHealth to MaxHealth on start
             PublishHealthPercentage();
+            UpdateHealthText(); // Update health display on start
         }
 
         public void TakeDamage(int damage)
@@ -39,9 +43,10 @@ namespace HomeByMarch
             if (IsDead) return;
 
             // Reduce damage based on player's defense percentage
-            float reducedDamage = damage * (1 - playerData.defense / 100f);
+            float reducedDamage = damage * Mathf.RoundToInt(1 - playerData.defense / 100f);
             currentHealth = Mathf.Clamp(currentHealth - reducedDamage, 0, MaxHealth);
             PublishHealthPercentage();
+            UpdateHealthText(); // Update health display
             OnDamageTaken?.Invoke();
 
             // Activate BloodParticle effect
@@ -61,6 +66,7 @@ namespace HomeByMarch
 
             currentHealth = Mathf.Clamp(currentHealth + amount, 0, MaxHealth);
             PublishHealthPercentage();
+            UpdateHealthText(); // Update health display
         }
 
         private void PublishHealthPercentage()
@@ -107,6 +113,19 @@ namespace HomeByMarch
             if (deathPanel != null)
             {
                 deathPanel.SetActive(false); // Hide the death panel
+            }
+        }
+
+        // Update the TextMeshPro health display
+        private void UpdateHealthText()
+        {
+            if (healthText != null)
+            {
+                healthText.text = $"{currentHealth}/{MaxHealth}"; // Display in format 100/100
+            }
+            else
+            {
+                Debug.LogWarning("HealthText is not assigned.");
             }
         }
     }

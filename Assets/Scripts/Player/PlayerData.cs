@@ -102,7 +102,7 @@ public class PlayerData : MonoBehaviour
         Debug.Log("Leveling up...");
         Debug.Log("Current health: " + health);
 
-        health = 10 * level;
+        health = 100 + (10 * level);
         attack = 5 * level;
         defense = 3 * level;
         attackSpeed = attackSpeed / 0.995;

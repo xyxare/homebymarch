@@ -162,15 +162,18 @@ namespace HomeByMarch
 
             if (currentHealth <= 0)
             {
+                SFXManager.PlaySFX(SoundTypes.Damage, 1);
+                ActivateBloodParticle();
                 Destroy(healthBar);
                 gameController?.OnEnemyDefeated(); // Trigger defeat only once
                 stateMachine.SetState(new EnemyDeathState(this, animator, agent));  // Transition to death state
             }
             else
             {
-                OnHit();
                 SFXManager.PlaySFX(SoundTypes.Damage, 1);
-                ActivateBloodParticle(); // Trigger blood particle effect when damage is taken
+                ActivateBloodParticle(); 
+                OnHit();
+                // Trigger blood particle effect when damage is taken
             }
         }
 

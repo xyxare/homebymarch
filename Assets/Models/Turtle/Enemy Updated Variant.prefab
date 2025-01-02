@@ -394,7 +394,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a359932ea1553ce4fabc77b43f878d94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 300
+  maxHealth: 20
   playerDetector: {fileID: 8194880563178115001}
   agent: {fileID: 4373102061928706448}
   animator: {fileID: 8177407444417357571}
@@ -404,11 +404,13 @@ MonoBehaviour:
   wanderRadius: 50.56
   healthBarPrefab: {fileID: 1224032117765719054}
   attackDistance: 10
-  attackDamage: 10
+  attackDamage: 1
   attackLayer:
     serializedVersion: 2
     m_Bits: 0
+  SFXManager: {fileID: 0}
   healthBar: {fileID: 6660053159335580024}
+  bloodParticle: {fileID: 0}
 --- !u!114 &8194880563178115001
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -453,9 +455,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4605d691dc304e41a829b3dd324f333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
   playerHealthChannel: {fileID: 11400000, guid: 18e133ff9499a2e4d9591cf6d9188b7d, type: 2}
   deathPanel: {fileID: 0}
+  bloodParticle: {fileID: 0}
+  SFXManager: {fileID: 0}
+  playerData: {fileID: 0}
+  currentHealth: 0
 --- !u!114 &7204390593218704887
 MonoBehaviour:
   m_ObjectHideFlags: 0

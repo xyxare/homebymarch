@@ -25,13 +25,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429583177773880984}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29879177, y: -0.58951575, z: 0.708028, w: 0.24877894}
-  m_LocalPosition: {x: 0.34306946, y: 4.6684546, z: 0.3292056}
-  m_LocalScale: {x: 0.68956846, y: 0.6895684, z: 0.68956834}
+  m_LocalRotation: {x: 0.33860278, y: -0.62889147, z: 0.6420504, w: 0.27859473}
+  m_LocalPosition: {x: -0.45, y: 14.01, z: 0.52}
+  m_LocalScale: {x: 0.88561356, y: 0.8856135, z: 0.88561344}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4426863891895979664}
-  m_LocalEulerAnglesHint: {x: 100.43701, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 94.979004, y: -76.466, z: 51.729004}
 --- !u!212 &8654631149910951520
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -232,7 +232,7 @@ PrefabInstance:
       objectReference: {fileID: 7645310993468664981}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: maxHealth
-      value: 400
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: attackDamage
@@ -248,7 +248,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: d6d851bdd0c09b64380d88e313f54263, type: 2}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: attackDistance
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: healthBarPrefab
