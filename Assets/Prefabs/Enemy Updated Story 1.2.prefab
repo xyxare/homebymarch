@@ -25,13 +25,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429583177773880984}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.33860278, y: -0.62889147, z: 0.6420504, w: 0.27859473}
-  m_LocalPosition: {x: -0.45, y: 14.01, z: 0.52}
-  m_LocalScale: {x: 0.88561356, y: 0.8856135, z: 0.88561344}
+  m_LocalRotation: {x: 0.33385986, y: -0.6396219, z: 0.63136125, w: 0.2842613}
+  m_LocalPosition: {x: -3.1, y: 59.4, z: 2.3}
+  m_LocalScale: {x: 1.9844085, y: 1.9844085, z: 1.9844083}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4426863891895979664}
-  m_LocalEulerAnglesHint: {x: 94.979004, y: -76.466, z: 51.729004}
+  m_LocalEulerAnglesHint: {x: 94.07501, y: -54.60901, z: 73.521}
 --- !u!212 &8654631149910951520
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -232,11 +232,11 @@ PrefabInstance:
       objectReference: {fileID: 7645310993468664981}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: maxHealth
-      value: 80
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: attackDamage
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: wanderRadius
@@ -255,12 +255,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1426678965927270202}
     - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
+      propertyPath: timeBetweenAttack
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664960851236030227, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: bloodParticlePrefab
       value: 
       objectReference: {fileID: 11400000, guid: d6d851bdd0c09b64380d88e313f54263, type: 2}
     - target: {fileID: 4971209092809514421, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: m_Name
-      value: Enemy Updated Variant
+      value: Enemy Updated Story 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 5184130876019211793, guid: 7801dd4be3f727e44b74dd7ded574c4e, type: 3}
       propertyPath: maxHealth

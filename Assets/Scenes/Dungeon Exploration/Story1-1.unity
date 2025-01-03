@@ -16004,7 +16004,7 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 671680702}
   timeLimit: 120
-  totalEnemiesToDefeat: 3
+  totalEnemiesToDefeat: 8
   timerText: {fileID: 525903445}
   enemiesDefeatedText: {fileID: 450888955}
   enemiesRemainingText: {fileID: 1538875641}
@@ -16017,6 +16017,7 @@ MonoBehaviour:
   storyLockController: {fileID: 135324864}
   dungeonIndex: 0
   itemClaimedKey: Story1-1Reward
+  spawnInterval: 6
   sfxManager: {fileID: 2071480588}
 --- !u!1001 &965007597
 PrefabInstance:

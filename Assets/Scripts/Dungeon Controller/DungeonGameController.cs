@@ -36,6 +36,8 @@ public class DungeonGameController : MonoBehaviour
 
     public string itemClaimedKey = "RewardClaimed"; // Key for PlayerPrefs
 
+    public float spawnInterval = 2f;    // Interval between enemy spawns
+
     public SFXManager sfxManager;  // Reference to the SFXManager
     void Start()
     {
@@ -159,7 +161,7 @@ public class DungeonGameController : MonoBehaviour
             }
 
             enemiesSpawned++;  // Increment the spawn count
-            yield return new WaitForSeconds(2f);  // Wait before spawning the next enemy (adjust as needed)
+            yield return new WaitForSeconds(spawnInterval);  // Wait before spawning the next enemy (adjust as needed)
         }
     }
 
