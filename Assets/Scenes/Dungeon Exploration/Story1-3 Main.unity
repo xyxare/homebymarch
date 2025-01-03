@@ -8014,10 +8014,10 @@ MonoBehaviour:
   panel: {fileID: 2057181058}
   dungeonChallengePanel: {fileID: 592013137}
   storySprites:
-  - {fileID: 21300000, guid: d9b20bbbd8fa5c447a5e8ba561a7956d, type: 3}
-  - {fileID: 21300000, guid: 2f8da75f3d341c64fb8121d4ebf0ad56, type: 3}
-  - {fileID: 21300000, guid: 9d116a4d38651434881ef998bcd61cbb, type: 3}
-  - {fileID: 21300000, guid: af22a60b6425837479af8c9c8c04c7d7, type: 3}
+  - {fileID: 21300000, guid: d268a9b21dd985f48924dba328362214, type: 3}
+  - {fileID: 21300000, guid: e6f962b26338ef74cb6fccac5c56ecda, type: 3}
+  - {fileID: 21300000, guid: 0ce6d492acb7eb04b988b0aadcaf044e, type: 3}
+  - {fileID: 21300000, guid: 7f755d07d92a97b459d65ac6286c9985, type: 3}
 --- !u!114 &1232821615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8038,7 +8038,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d9b20bbbd8fa5c447a5e8ba561a7956d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d268a9b21dd985f48924dba328362214, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13370,9 +13370,9 @@ MonoBehaviour:
   panel: {fileID: 1381297249}
   dungeonChallengePanel: {fileID: 1767224436}
   storySprites:
-  - {fileID: 21300000, guid: 5636b561311dd144496a5c5948f62c68, type: 3}
-  - {fileID: 21300000, guid: 8f344726c98700c4dadc5b946b481987, type: 3}
-  - {fileID: 21300000, guid: 931cd058f3935ef4c960f96496491e66, type: 3}
+  - {fileID: 21300000, guid: b7bc2800979dd354e91bae305cb5096a, type: 3}
+  - {fileID: 21300000, guid: cef1a2e9d771c944a8e2ba2fc654723f, type: 3}
+  - {fileID: 21300000, guid: bed3c2635fd4c774eb854537a1239e43, type: 3}
 --- !u!114 &2041409647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13393,7 +13393,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5636b561311dd144496a5c5948f62c68, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b7bc2800979dd354e91bae305cb5096a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
