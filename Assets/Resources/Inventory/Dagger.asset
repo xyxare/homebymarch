@@ -18,7 +18,7 @@ MonoBehaviour:
   type: 2
   description: 
   data:
-    Name: 
+    Name: Dagger
     Id: 30
     buffs: []
   skillData: {fileID: 0}

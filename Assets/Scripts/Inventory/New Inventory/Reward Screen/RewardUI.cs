@@ -5,99 +5,98 @@ using TMPro;
 
 public class RewardUI : MonoBehaviour
 {
-    public GameObject[] slots;                  // Array of UI slots for each shop item (you may not need this anymore)
-    public Button claimButtonPrefab;            // Prefab for the claim button
-    public Transform shopPanel;                 // Parent object to hold all the items
-    public List<RewardItem> shopItems;         // List of all ShopItems in your shop
-    public GameObject itemDetailPanel;         // The panel to show item details
-    public TMP_Text itemDescriptionText;       // Text to display the item description
+    public GameObject[] slots;
+    public Button claimButtonPrefab;
+    public Transform shopPanel;
+    public List<RewardItem> shopItems;
+    public GameObject itemDetailPanel;
+    public TMP_Text itemDescriptionText;
 
     public TMP_Text itemName;
     public TMP_Text itemStats;
-    public TMP_Text itemQuantityText;          // Text to display the item quantity
-    public Image itemImage;                    // UI Image to display the item's image
+    public TMP_Text itemQuantityText;
+    public Image itemImage;
 
     public InventoryObject inventory;
-    public PlayerData playerData;              // Reference to the PlayerData object
+    public PlayerData playerData;
 
-    public GameObject confirmPurchasePanel;    // Panel to confirm the purchase
-    public Button confirmButton;               // Button to confirm the purchase
-    public GameObject insufficientGoldPanel;   // Panel to show insufficient gold message
-    private RewardItem currentShopItem;        // The current shop item being claimed
+    public GameObject confirmPurchasePanel;
+    public Button confirmButton;
+    public GameObject insufficientGoldPanel;
+    private RewardItem currentShopItem;
+
+    public delegate void ClaimResultHandler(bool success, string message);
+    public event ClaimResultHandler OnClaimResult;
+
+    public ResultHandler resultHandler;
 
     void Start()
     {
-        // Check if shopItems is null or empty
         if (shopItems == null || shopItems.Count == 0)
         {
             Debug.LogError("Shop items list is empty or not assigned!");
             return;
         }
 
-        // Set up the claim button to claim all items
         claimButtonPrefab.onClick.AddListener(OnClaimButtonClick);
-        // Button claimButton = Instantiate(claimButtonPrefab, shopPanel);
-
-        // // Optionally, set up the button's position or appearance
-        // RectTransform claimButtonRect = claimButton.GetComponent<RectTransform>();
-        // claimButtonRect.anchoredPosition = new Vector2(0, -100);  // Example position, adjust as needed
-        // claimButtonRect.localScale = new Vector3(1, 1, 1);          // Scale the button
-
-        // Update all slot images
         UpdateSlotImages();
 
-        // Display the name and description of the first item
         if (shopItems.Count > 0 && shopItems[0].item != null)
         {
             itemName.text = shopItems[0].item.name;
             itemDescriptionText.text = shopItems[0].item.description;
         }
+
+        OnClaimResult += HandleClaimResult;
     }
 
-    // Called when the claim button is clicked
     private void OnClaimButtonClick()
     {
-        // Proceed with claiming all items
         ClaimAllItems();
-
-        // Hide the confirm purchase panel
         confirmPurchasePanel.SetActive(false);
     }
 
-    // Claims all the items and adds them to the player's inventory
     private void ClaimAllItems()
     {
+        bool allItemsClaimed = true;
+        string resultMessage = "";
+
         foreach (var shopItem in shopItems)
         {
             if (shopItem != null && shopItem.item != null)
             {
-                inventory.Load();  // Load the current inventory
+                inventory.Load();
 
                 Item _item = new Item(shopItem.item);
 
-                // Add the specified quantity of the item to the inventory
                 if (inventory.AddItem(_item, shopItem.quantity))
                 {
-                    // Save the inventory after the item is added
                     inventory.Save();
-                    Debug.Log("Claimed " + shopItem.quantity + " of item: " + shopItem.item.name);
+                    string itemMessage = "Claimed " + shopItem.quantity + " " + shopItem.item.name;
+                    resultMessage += itemMessage + "\n";
+                    Debug.Log(itemMessage);
                 }
                 else
                 {
-                    Debug.LogWarning("Failed to add item to inventory: " + shopItem.item.name);
+                    string itemMessage = "Failed to add item to inventory: " + shopItem.item.name;
+                    resultMessage += itemMessage + "\n";
+                    Debug.LogWarning(itemMessage);
+                    allItemsClaimed = false;
                 }
             }
             else
             {
-                Debug.LogWarning("Shop item or item is null.");
+                string itemMessage = "Shop item or item is null.";
+                resultMessage += itemMessage + "\n";
+                Debug.LogWarning(itemMessage);
+                allItemsClaimed = false;
             }
         }
 
-        // After claiming the items, update the slot images
         UpdateSlotImages();
+        OnClaimResult?.Invoke(allItemsClaimed, resultMessage.Trim());
     }
 
-    // Updates the slot images to match the items in the shop
     private void UpdateSlotImages()
     {
         for (int i = 0; i < shopItems.Count; i++)
@@ -105,31 +104,44 @@ public class RewardUI : MonoBehaviour
             var shopItem = shopItems[i];
             var slot = slots[i];
 
-            if (slot == null || shopItem == null || shopItem.item == null || shopItem.item.uiDisplay == null)
+            if (slot == null)
             {
-                Debug.LogWarning("Slot or ShopItem or item image is null.");
+                Debug.LogWarning("Slot is null at index: " + i);
                 continue;
             }
 
-            // Find the child image component in the slot
+            if (shopItem == null || shopItem.item == null || shopItem.item.uiDisplay == null)
+            {
+                Debug.LogWarning("ShopItem or item or item image is null at index: " + i);
+                continue;
+            }
+
             Transform childImage = slot.transform.Find("Image");
             if (childImage != null)
             {
                 Image slotImage = childImage.GetComponent<Image>();
                 if (slotImage != null)
                 {
-                    // Update the image to match the item
-                    slotImage.sprite = shopItem.item.uiDisplay;  // Set the image sprite
+                    slotImage.sprite = shopItem.item.uiDisplay;
+                    Debug.Log("Updated slot image at index: " + i + " with sprite: " + shopItem.item.uiDisplay.name);
                 }
                 else
                 {
-                    Debug.LogWarning("Slot image component is missing.");
+                    Debug.LogWarning("Slot image component is missing at index: " + i);
                 }
             }
             else
             {
-                Debug.LogError("Child object 'Image' not found under slot.");
+                Debug.LogError("Child object 'Image' not found under slot at index: " + i);
             }
+        }
+    }
+
+    private void HandleClaimResult(bool success, string message)
+    {
+        if (resultHandler != null)
+        {
+            resultHandler.ShowResult(success ? shopItems[0].item.uiDisplay : null, message);
         }
     }
 }

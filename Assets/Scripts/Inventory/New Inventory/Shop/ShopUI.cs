@@ -46,7 +46,11 @@ public class ShopUI : MonoBehaviour
     public GameObject shieldPanel;
     public GameObject bootsPanel;
 
-    // Function to switch between panels
+    public delegate void ClaimResultHandler(bool success, string message);
+    public event ClaimResultHandler OnClaimResult;
+
+    public ResultHandler resultHandler;
+
     public void SwitchPanel(string panelName)
     {
         helmetPanel.SetActive(false);
@@ -80,7 +84,6 @@ public class ShopUI : MonoBehaviour
         }
     }
 
-    // Button click event handlers
     public void OnHelmetButtonClick()
     {
         SwitchPanel("Helmet");
@@ -110,15 +113,14 @@ public class ShopUI : MonoBehaviour
     {
         slotsOnInterface = new Dictionary<GameObject, ShopItem>();
 
-        // Initialize the default panel (e.g., Helmet)
         SwitchPanel("Helmet");
 
-        // Hide the confirm purchase panel and insufficient gold panel initially
         confirmPurchasePanel.SetActive(false);
         insufficientGoldPanel.SetActive(false);
 
-        // Add listener to the confirm button
         confirmButton.onClick.AddListener(OnConfirmButtonClick);
+
+        OnClaimResult += HandleClaimResult;
     }
 
     private void OnEnable()
@@ -144,58 +146,39 @@ public class ShopUI : MonoBehaviour
 
     private void OnClaimButtonClick(ShopItem shopItem)
     {
-        // Check if player has enough gold
         if (playerData.gold >= shopItem.price)
         {
             currentShopItem = shopItem;
-            confirmPurchasePanel.SetActive(true); // Show the confirmation panel
+            confirmPurchasePanel.SetActive(true);
         }
         else
         {
-            insufficientGoldPanel.SetActive(true); // Show the insufficient gold panel
+            insufficientGoldPanel.SetActive(true);
         }
     }
 
     private void OnConfirmButtonClick()
     {
         OnClaim(currentShopItem);
-        confirmPurchasePanel.SetActive(false); // Hide the confirmation panel
+        confirmPurchasePanel.SetActive(false);
     }
 
     private void OnSlotClick(GameObject slot, ShopItem shopItem)
     {
-        Debug.Log("Slot Clicked: " + slot.name);
-
         if (shopItem?.item != null)
         {
-            Debug.Log("Item Name: " + shopItem.item.name);
-            Debug.Log("Item Type: " + shopItem.item.type);
-            Debug.Log("Is Stackable: " + shopItem.item.stackable);
-
             if (shopItem.item.data != null)
             {
                 Item data = shopItem.item.data;
-                Debug.Log("Item Data:");
-                Debug.Log("  Name: " + data.Name);
-                Debug.Log("  ID: " + data.Id);
-
                 if (data.buffs != null && data.buffs.Length > 0)
                 {
-                    Debug.Log("  Buffs:");
                     foreach (var buff in data.buffs)
                     {
-                        Debug.Log("    Attribute: " + buff.attribute);
-                        Debug.Log("    Value: " + buff.value);
-
                         if (itemStats != null)
                             itemStats.text = $"Attribute: {buff.attribute} Value: {buff.value}";
                         else
                             Debug.LogError("itemStats is not assigned!");
                     }
-                }
-                else
-                {
-                    Debug.Log("  No Buffs");
                 }
             }
             else
@@ -214,8 +197,6 @@ public class ShopUI : MonoBehaviour
             itemName.text = shopItem.item.name;
             itemPriceText.text = $"Price: {shopItem.price}";
 
-            // Check if skillData is of type SpellStrategy and display its description
-            // Check if skillData is null
             if (shopItem.item.skillData == null)
             {
                 skillInfo.SetActive(false);
@@ -245,6 +226,9 @@ public class ShopUI : MonoBehaviour
 
     public void OnClaim(ShopItem shopItem)
     {
+        bool success = false;
+        string resultMessage = "";
+
         if (shopItem != null)
         {
             inventory.Load();
@@ -254,8 +238,20 @@ public class ShopUI : MonoBehaviour
             {
                 inventory.Save();
                 playerData.SubtractGold(shopItem.price);
+                success = true;
+                resultMessage = "Claimed " + shopItem.item.name;
+            }
+            else
+            {
+                resultMessage = "Failed to add item to inventory: " + shopItem.item.name;
             }
         }
+        else
+        {
+            resultMessage = "Shop item is null.";
+        }
+
+        OnClaimResult?.Invoke(success, resultMessage);
     }
 
     private void InitializeSlots(GameObject[] slots, List<ShopItem> items)
@@ -273,19 +269,15 @@ public class ShopUI : MonoBehaviour
                 continue;
             }
 
-            // Set up only the click event for the slot (OnClick)
             AddEvent(slot, EventTriggerType.PointerClick, delegate { OnSlotClick(slot, shopItem); });
 
-            // Set up claim button
             Button claimButton = Instantiate(claimButtonPrefab, slot.transform);
             claimButton.onClick.AddListener(() => OnClaimButtonClick(shopItem));
 
-            // Optionally, set the position manually in the script (if you want a default setting):
             RectTransform claimButtonRect = claimButton.GetComponent<RectTransform>();
             claimButtonRect.anchoredPosition = new Vector2(1, -70);
             claimButtonRect.localScale = new Vector3(0.5f, 0.5f, 0.4f);
 
-            // Update the image inside the slot
             Transform childImage = slot.transform.Find("Image");
             if (childImage != null)
             {
@@ -305,6 +297,14 @@ public class ShopUI : MonoBehaviour
             }
 
             slotsOnInterface.Add(slot, shopItem);
+        }
+    }
+
+    private void HandleClaimResult(bool success, string message)
+    {
+        if (resultHandler != null)
+        {
+            resultHandler.ShowResult(success ? currentShopItem.item.uiDisplay : null, message);
         }
     }
 }
