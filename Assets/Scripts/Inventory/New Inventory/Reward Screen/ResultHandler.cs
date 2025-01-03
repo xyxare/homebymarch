@@ -4,11 +4,13 @@ using TMPro;
 using System.IO;
 using System;
 using System.Collections;
+
 public class ResultHandler : MonoBehaviour
 {
     public GameObject resultPanel;
     public Image resultIcon;
-        public TextMeshProUGUI resultCount;
+    public TextMeshProUGUI resultCount;
+    public GameObject confetti; // Add confetti object
 
     private void Awake()
     {
@@ -25,6 +27,7 @@ public class ResultHandler : MonoBehaviour
             resultPanel.GetComponent<Animator>().Play("clip");
         }
         StartCoroutine(HideResultAfterDelay(3.3f));
+        StartCoroutine(ShowConfettiAfterDelay(1.5f)); // Start coroutine to show confetti
     }
 
     private IEnumerator HideResultAfterDelay(float delay)
@@ -32,11 +35,22 @@ public class ResultHandler : MonoBehaviour
         yield return new WaitForSeconds(delay);
         HideResult();
     }
+
+    private IEnumerator ShowConfettiAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (confetti)
+        {
+            confetti.SetActive(true);
+        }
+    }
+
     public void HideResult()
     {
         if (resultPanel)
         {
             resultPanel.SetActive(false);
+            confetti.SetActive(false);
         }
     }
 }
