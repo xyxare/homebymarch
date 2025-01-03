@@ -5,5 +5,6 @@ public enum SoundTypes
     Footsteps,
     SwordSwing,
     Damage,
-    Death
+    Death,
+    Rerwards
 }

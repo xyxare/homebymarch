@@ -12,6 +12,8 @@ public class ResultHandler : MonoBehaviour
     public TextMeshProUGUI resultCount;
     public GameObject confetti; // Add confetti object
 
+    public SFXManager SFXManager;
+
     private void Awake()
     {
         // Initialization if needed
@@ -26,8 +28,10 @@ public class ResultHandler : MonoBehaviour
             resultCount.text = countText;
             resultPanel.GetComponent<Animator>().Play("clip");
         }
+         // Play sound effect
         StartCoroutine(HideResultAfterDelay(3.3f));
-        StartCoroutine(ShowConfettiAfterDelay(1.5f)); // Start coroutine to show confetti
+        StartCoroutine(ShowConfettiAfterDelay(1.5f));
+        StartCoroutine(PlaySFX(1f)); // Start coroutine to show confetti
     }
 
     private IEnumerator HideResultAfterDelay(float delay)
@@ -35,12 +39,18 @@ public class ResultHandler : MonoBehaviour
         yield return new WaitForSeconds(delay);
         HideResult();
     }
+     private IEnumerator PlaySFX(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SFXManager.PlaySFX(SoundTypes.Rerwards, 0);
+    }
 
     private IEnumerator ShowConfettiAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         if (confetti)
         {
+            
             confetti.SetActive(true);
         }
     }

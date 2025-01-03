@@ -6,10 +6,13 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
+
+
 public abstract class UserInterface : MonoBehaviour
 {
     public InventoryObject inventory;
     public Dictionary<GameObject, InventorySlot> slotsOnInterface = new Dictionary<GameObject, InventorySlot>();
+    public Canvas uiCanvas;
 
     public void Start()
     {
@@ -91,7 +94,7 @@ public abstract class UserInterface : MonoBehaviour
                     Debug.LogError("Item data is null!");
                 }
             }
-            
+
         }
     }
 
@@ -167,8 +170,44 @@ public abstract class UserInterface : MonoBehaviour
     public void OnDrag(GameObject obj)
     {
         if (MouseData.tempItemBeingDragged != null)
-            MouseData.tempItemBeingDragged.GetComponent<RectTransform>().position = Input.mousePosition;
+        {
+            RectTransform tempItemRect = MouseData.tempItemBeingDragged.GetComponent<RectTransform>();
+
+            if (uiCanvas.renderMode == RenderMode.ScreenSpaceCamera && uiCanvas.worldCamera != null)
+            {
+                // For Screen Space - Camera
+                Vector3 mousePosition = Input.mousePosition;
+                Vector3 worldPosition = uiCanvas.worldCamera.ScreenToWorldPoint(new Vector3(
+                    mousePosition.x,
+                    mousePosition.y,
+                    uiCanvas.planeDistance // Use plane distance for proper depth calculation
+                ));
+
+                tempItemRect.position = worldPosition;
+
+                // Set smaller size for Screen Space - Camera
+                tempItemRect.sizeDelta = new Vector2(5, 5); // Adjust this size as needed
+            }
+            else
+            {
+                // For Screen Space - Overlay or other render modes
+                Vector3 mousePosition = Input.mousePosition;
+                tempItemRect.position = mousePosition;
+
+                // Set larger size for Screen Space - Overlay
+                tempItemRect.sizeDelta = new Vector2(200, 200); // Adjust this size as needed
+
+                // Ensure the dragged item is under the UI canvas
+                if (tempItemRect.parent == null || tempItemRect.parent != uiCanvas.transform)
+                {
+                    tempItemRect.SetParent(uiCanvas.transform, false);
+                }
+            }
+        }
     }
+
+
+
 }
 
 public static class MouseData
