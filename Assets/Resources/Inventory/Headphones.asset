@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a359555bfc745164d8d91359f66cae2d, type: 3}
   m_Name: Headphones
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 1424205978, guid: b9179c868a7d9c146a6f15058463a47c, type: 3}
+  uiDisplay: {fileID: 21300000, guid: 47ccb2726d8b9874d9d4d3e598ef1534, type: 3}
   characterDisplay: {fileID: 767631062272737557, guid: 0483b84b368d68a429d67666a0f9d5d6, type: 3}
   stackable: 0
   type: 1
