@@ -170,4 +170,7 @@ MonoBehaviour:
     - {fileID: 8300000, guid: b019f24ce7839684dacc629e5943f734, type: 3}
   - name: Death
     sfx: []
+  - name: Rerwards
+    sfx:
+    - {fileID: 8300000, guid: 91b619300bcc5754cbbbf1a7e87706db, type: 3}
   sfxSource: {fileID: 3058526890336698773}

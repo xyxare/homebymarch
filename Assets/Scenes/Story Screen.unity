@@ -4673,10 +4673,10 @@ MonoBehaviour:
     requiredSteps: 0
     isUnlocked: 1
   - lockObject: {fileID: 5939474952712471986}
-    requiredSteps: 1000
+    requiredSteps: 100
     isUnlocked: 0
   - lockObject: {fileID: 24390722}
-    requiredSteps: 2000
+    requiredSteps: 200
     isUnlocked: 0
   - lockObject: {fileID: 1360524430}
     requiredSteps: 3000

@@ -36,6 +36,8 @@ namespace CoppraGames
         public int requiredDailySteps;
         public PlayerData playerData;
 
+        public GameObject confetti; // Add confetti object
+
 
         void Awake()
         {
@@ -46,19 +48,23 @@ namespace CoppraGames
         }
 
         public void Init()
-        { 
+        {
             dailyQuestJsonFilePath = Application.persistentDataPath + "/playerDailyQuestData.json";
 
 
 
 
 
-            if (System.IO.File.Exists(dailyQuestJsonFilePath)){
+            if (System.IO.File.Exists(dailyQuestJsonFilePath))
+            {
                 LoadDailyQuestData();
-            } else {
+            }
+            else
+            {
                 dailyQuestProgress = new DailyQuestProgress(rewards.Length);
             }
-            if(!IsYesterdayRewardCollected() | GetDaysSinceLastReset() >= 7){
+            if (!IsYesterdayRewardCollected() | GetDaysSinceLastReset() >= 7)
+            {
                 ResetDailyRewards();
             }
 
@@ -97,7 +103,8 @@ namespace CoppraGames
             RefreshClaimButton();
         }
 
-        public void ResetDailyRewards(){        
+        public void ResetDailyRewards()
+        {
 
             DateTime resetTime;
 
@@ -105,7 +112,8 @@ namespace CoppraGames
             dailyQuestProgress.lastResetDate = resetTime.ToString();
             // PlayerPrefs.SetString("last_reset_time", resetTime.ToString());
 
-            for (int i = 0; i < rewards.Length; i++){
+            for (int i = 0; i < rewards.Length; i++)
+            {
                 string key = "reward_claimed_" + (i + 1);
                 // PlayerPrefs.SetInt(key, 0);
                 dailyQuestProgress.areDailyQuestsClaimed[i] = false;
@@ -113,13 +121,15 @@ namespace CoppraGames
 
         }
 
-        public void LoadDailyStepCount(){
+        public void LoadDailyStepCount()
+        {
             StepCounterRequest request = new StepCounterRequest();
             request.Since(DateTime.Today).OnQuerySuccess((stepCount) => currentDailySteps = stepCount).Execute();
             UpdateDailyQuestProgress();
         }
 
-        public void UpdateDailyQuestProgress(){
+        public void UpdateDailyQuestProgress()
+        {
             progressText.text = $"{currentDailySteps} / {requiredDailySteps} steps";
         }
 
@@ -147,15 +157,19 @@ namespace CoppraGames
             return timeSpan.Days;
         }
 
-        public bool IsYesterdayRewardCollected(){
+        public bool IsYesterdayRewardCollected()
+        {
             int lastReset = GetDaysSinceLastReset();
             // string key = "reward_claimed_" + (lastReset); // key for yesterday's claim
             Debug.Log("days since last reset:" + lastReset);
 
-            if (lastReset == 0){
+            if (lastReset == 0)
+            {
                 return true;
-            } else {
-            return(dailyQuestProgress.areDailyQuestsClaimed[lastReset - 1]);
+            }
+            else
+            {
+                return (dailyQuestProgress.areDailyQuestsClaimed[lastReset - 1]);
             }
 
             // return(PlayerPrefs.GetInt(key, 0) == 1 | lastReset == 0);
@@ -186,17 +200,20 @@ namespace CoppraGames
 
 
 
-            if(reward.itemSO != null){
+            if (reward.itemSO != null)
+            {
                 Debug.Log(reward.itemSO.data.Name);
 
                 playerInventory.AddItem(reward.itemSO.data, reward.count);
                 playerInventory.Save();
-            } else {
+            }
+            else
+            {
                 playerData.AddGold(reward.count);
             }
             SaveDailyQuestData();
             // PlayerPrefs.SetInt(key, 1);
-            
+
 
             // QuestManager.instance.OnAchieveQuestGoal(QuestManager.QuestGoals.COLLECT_DAILY_REWARDS);
         }
@@ -204,8 +221,20 @@ namespace CoppraGames
         public void ShowResult(int resultIndex)
         {
             StartCoroutine(_ShowResult(resultIndex));
+            StartCoroutine(ShowConfettiAfterDelay(1.5f));// Start coroutine to show confetti
+            StartCoroutine(PlaySFX(1f)); 
             // SoundController.instance.PlaySoundEffect("collection", false, 1);
         }
+
+            private IEnumerator ShowConfettiAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (confetti)
+        {
+            
+            confetti.SetActive(true);
+        }
+    }
 
 
         private IEnumerator _ShowResult(int resultIndex)
@@ -228,6 +257,12 @@ namespace CoppraGames
             }
             yield return new WaitForSeconds(3.3f);
             HideResult();
+        }
+
+        private IEnumerator PlaySFX(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            SFXManager.PlaySFX(SoundTypes.Rerwards, 0);
         }
 
         public void HideResult()
@@ -261,7 +296,7 @@ namespace CoppraGames
                 bool isClaimed = IsDailyRewardClaimed(day);
                 bool isReadyToCollect = IsDailyRewardReadyToCollect(day);
 
-                
+
 
                 this.ClaimButton.interactable = !isClaimed && isReadyToCollect;
             }
@@ -274,52 +309,59 @@ namespace CoppraGames
             this.Close();
         }
 
-        public void SaveDailyQuestData(){
+        public void SaveDailyQuestData()
+        {
 
             string dailyQuestJson = JsonUtility.ToJson(dailyQuestProgress);
-            
+
             System.IO.File.WriteAllText(dailyQuestJsonFilePath, dailyQuestJson);
             Debug.Log("daily quest data saved");
 
         }
 
-        public void LoadDailyQuestData(){
+        public void LoadDailyQuestData()
+        {
 
-        string dailyQuestJson = System.IO.File.ReadAllText(dailyQuestJsonFilePath);
-        dailyQuestProgress = new DailyQuestProgress(rewards.Length);
-
-        Debug.Log(dailyQuestJson);
-
-        if(dailyQuestJson != ""){
-
-        Debug.Log("json utilty stuff: " + JsonUtility.FromJson<DailyQuestProgress>(dailyQuestJson).areDailyQuestsClaimed[0]);
-
-        dailyQuestProgress.areDailyQuestsClaimed = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestJson).areDailyQuestsClaimed;
-        dailyQuestProgress.lastResetDate = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestJson).lastResetDate;
-        } else {
+            string dailyQuestJson = System.IO.File.ReadAllText(dailyQuestJsonFilePath);
             dailyQuestProgress = new DailyQuestProgress(rewards.Length);
+
+            Debug.Log(dailyQuestJson);
+
+            if (dailyQuestJson != "")
+            {
+
+                Debug.Log("json utilty stuff: " + JsonUtility.FromJson<DailyQuestProgress>(dailyQuestJson).areDailyQuestsClaimed[0]);
+
+                dailyQuestProgress.areDailyQuestsClaimed = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestJson).areDailyQuestsClaimed;
+                dailyQuestProgress.lastResetDate = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestJson).lastResetDate;
+            }
+            else
+            {
+                dailyQuestProgress = new DailyQuestProgress(rewards.Length);
+            }
+
+            Debug.Log("daily quest data loaded");
+
+
         }
 
-        Debug.Log("daily quest data loaded");
+        public async void SaveDailyQuestProgressToCloud()
+        {
 
-            
+            CloudSaver.SaveDataToCloud("dailyQuestProgress", dailyQuestProgress);
+
         }
 
-    public async void SaveDailyQuestProgressToCloud(){
+        public async void LoadPlayerDataFromCloud()
+        {
+            string dailyQuestProgressJson = await CloudSaver.LoadDataFromCloud("dailyQuestProgress");
+            dailyQuestProgress.areDailyQuestsClaimed = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestProgressJson).areDailyQuestsClaimed;
 
-        CloudSaver.SaveDataToCloud("dailyQuestProgress", dailyQuestProgress);
-    
-    }
 
-    public async void LoadPlayerDataFromCloud(){
-        string dailyQuestProgressJson = await CloudSaver.LoadDataFromCloud("dailyQuestProgress");
-        dailyQuestProgress.areDailyQuestsClaimed = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestProgressJson).areDailyQuestsClaimed;
-        
+            dailyQuestProgress.lastResetDate = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestProgressJson).lastResetDate;
+            SaveDailyQuestData();
 
-        dailyQuestProgress.lastResetDate = JsonUtility.FromJson<DailyQuestProgress>(dailyQuestProgressJson).lastResetDate;
-        SaveDailyQuestData();
+        }
 
-    }
-        
     }
 }
