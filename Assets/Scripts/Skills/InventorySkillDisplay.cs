@@ -61,7 +61,7 @@ public class InventorySkillDisplay : MonoBehaviour
         {
             // Show the panel and update the text fields with the spell's name and description
             panel.SetActive(true);
-            spellNameText.text = currentSpells[index].name;
+            spellNameText.text = currentSpells[index].spellName;
             spellDescriptionText.text = currentSpells[index].description;
             itemImage.sprite = currentSpells[index].uiDisplay;
             Debug.Log($"Button {index} pressed, panel shown with spell name and description.");

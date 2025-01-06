@@ -107,6 +107,7 @@ public class Player : MonoBehaviour
                     {
                         case ItemType.Helmet:
                             helmet = Instantiate(_slot.ItemObject.characterDisplay, headTransform).transform;
+                            AddSkillToSpells(_slot.ItemObject.skillData as SpellStrategy);
                             break;
                         case ItemType.Weapon:
                             sword = Instantiate(_slot.ItemObject.characterDisplay, weaponTransform).transform;
@@ -146,7 +147,7 @@ public class Player : MonoBehaviour
                 switch (_slot.AllowedItems[0])
                 {
                     case ItemType.Helmet:
-                        if (helmet != null) { Destroy(helmet.gameObject); helmet = null; }
+                        if (helmet != null) { Destroy(helmet.gameObject); helmet = null; RemoveSkillFromSpells(_slot.ItemObject.skillData as SpellStrategy); }
                         break;
                     case ItemType.Weapon:
                         if (sword != null) { Destroy(sword.gameObject); sword = null; RemoveSkillFromSpells(_slot.ItemObject.skillData as SpellStrategy); }

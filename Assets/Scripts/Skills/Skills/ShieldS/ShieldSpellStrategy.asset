@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: ShieldSpellStrategy
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 21300000, guid: c4e5acfe60140a34f9c55aff4c584ca6, type: 3}
+  spellName: Hue Shield
+  description: Gain +10 Defense and summon a radiant blue shield to absorb damage.
+    As it fades, it inspires allies with renewed courage.
   shieldPrefab: {fileID: 1289543790355709915, guid: b99922c2f59b1a542bdd06ae8bee47ae, type: 3}
   duration: 5
+  defense: 10
