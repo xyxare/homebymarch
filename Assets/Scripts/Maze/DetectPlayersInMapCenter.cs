@@ -17,7 +17,7 @@ public class DetectPlayersInMapCenter : MonoBehaviour{
         }
 
         if(playersInCenter == 2){
-            Debug.Log("You are win!");
+            
         }
 
         Debug.Log(playersInCenter);
@@ -26,7 +26,7 @@ public class DetectPlayersInMapCenter : MonoBehaviour{
     void OnTriggerExit(Collider player){
         if(player.tag == "Player"){
             playersInCenter--;
-            Debug.Log("player exited center");
+
         }
     }
 }

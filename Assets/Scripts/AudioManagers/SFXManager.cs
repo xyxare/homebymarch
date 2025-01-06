@@ -13,39 +13,44 @@ public class SFXManager : MonoBehaviour
 
     private void Awake()
     {
-        if(!Instance)
+        if (!Instance)
         {
             Instance = this;
             sfxSource = GetComponent<AudioSource>();
-            Debug.Log("SFXManager Start called. Current SFX Volume: " + sfxSource.volume); 
+            Debug.Log("SFXManager Start called. Current SFX Volume: " + sfxSource.volume);
         }
-        if (Application.isPlaying)
-        {
-            DontDestroyOnLoad(gameObject);
-        }
+        // if (Application.isPlaying)
+        // {
+        //     DontDestroyOnLoad(gameObject);
+        // }
     }
 
-    public static void PlaySFX(SoundTypes sfx)
+    public static void PlaySFX(SoundTypes sfx, int index = -1)
     {
         if (Instance != null && Application.isPlaying)
         {
             AudioClip[] clips = Instance.soundList[(int)sfx].Sounds;
-            AudioClip randomClip = clips[UnityEngine.Random.Range(0, clips.Length)];
-            Instance.sfxSource.PlayOneShot(randomClip);
+
+            // If a valid index is provided, play that specific sound
+            AudioClip selectedClip = index >= 0 && index < clips.Length
+                ? clips[index]
+                : clips[UnityEngine.Random.Range(0, clips.Length)];
+
+            Instance.sfxSource.PlayOneShot(selectedClip);
         }
     }
 
-//for uicontrollers
+    //for uicontrollers
     public void MuteSFX()
     {
-         if (sfxSource != null)
+        if (sfxSource != null)
         {
             sfxSource.mute = !sfxSource.mute;
         }
     }
     public void SFXVolume(float volume)
     {
-       if (sfxSource != null)
+        if (sfxSource != null)
         {
             sfxSource.volume = volume;
         }
@@ -66,7 +71,7 @@ public class SFXManager : MonoBehaviour
     [Serializable]
     public struct SoundList
     {
-        public AudioClip[] Sounds => sfx; 
+        public AudioClip[] Sounds => sfx;
         [HideInInspector] public string name;
         [SerializeField] public AudioClip[] sfx;
     }

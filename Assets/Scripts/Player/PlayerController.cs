@@ -6,7 +6,6 @@ using Utilities;
 using Photon.Pun;
 using System.Collections;
 
-
 namespace HomeByMarch
 {
     public class PlayerController : ValidatedMonoBehaviour
@@ -16,6 +15,7 @@ namespace HomeByMarch
         public FixedJoystick joystick;
         [SerializeField, Self] Animator animator;
         [SerializeField, Anywhere] InputReader input;
+        [SerializeField] PlayerData playerData; // Add reference to PlayerData
 
         [Header("Movement Settings")]
         [SerializeField] float moveSpeed = 6f;
@@ -24,6 +24,8 @@ namespace HomeByMarch
         [SerializeField] bool useCharacterForward = false;
         [SerializeField] float turnSpeed = 10f;
         [SerializeField] private Health health;
+        [Header("SFX")]
+        [SerializeField] public SFXManager SFXManager;
 
         Vector3 networkPosition;
         Quaternion networkRotation;
@@ -42,8 +44,9 @@ namespace HomeByMarch
         [Header("Attack Settings")]
         [SerializeField] public float attackCooldown = 0.1f;
         [SerializeField] public float attackDistance = 30f;
-        [SerializeField] public int attackDamage = 10;
         [SerializeField] public int attackDelay = 2;
+
+        [SerializeField] BlueSlash[] blueSlashSpells;
 
         [SerializeField] SpellStrategy[] spells;
         public LayerMask attackLayer;
@@ -220,11 +223,11 @@ namespace HomeByMarch
             Time.timeScale = 0f; // Set Time.timeScale after the delay
         }
 
-        void CastSpell(int index)
-        {
-            // spells[index].CastSpell(transform);
-            Debug.Log("spellcasted");
-        }
+        // void CastSpell(int index)
+        // {
+        //     // spells[index].CastSpell(transform);
+        //     Debug.Log("spellcasted");
+        // }
 
         void OnAttack()
         {
@@ -246,8 +249,26 @@ namespace HomeByMarch
             // Call the raycast to check for enemies and deal damage
             AttackRayCast();
 
+            // Activate BlueSlash spell(s)
+            ActivateBlueSlash();
+
+            //Activate Sound effects
+
+            SFXManager.PlaySFX(SoundTypes.SwordSwing);
+
             // Reset the attack state after the attack cooldown
             Invoke(nameof(ResetAttack), attackCooldown);
+        }
+
+        void ActivateBlueSlash()
+        {
+            foreach (var slash in blueSlashSpells)
+            {
+                if (slash != null)
+                {
+                    slash.CastSpell(transform); // Use the player's transform as the origin
+                }
+            }
         }
 
         void ResetAttack()
@@ -266,16 +287,16 @@ namespace HomeByMarch
             // Define ray directions (center, left, right, up, down, and diagonals)
             Vector3[] rayDirections = new Vector3[10]
             {
-        transform.forward,                  // Straight ahead
-        transform.forward + transform.right, // Slightly to the right
-        transform.forward - transform.right, // Slightly to the left
-        transform.forward + transform.up,    // Slightly upwards
-        transform.forward - transform.up,    // Slightly downwards
-        transform.forward + transform.right + transform.up, // Diagonal up-right
-        transform.forward + transform.right - transform.up, // Diagonal down-right
-        transform.forward - transform.right + transform.up, // Diagonal up-left
-        transform.forward - transform.right - transform.up, // Diagonal down-left
-        transform.forward + transform.up * 2, // More upwards
+                transform.forward,                  // Straight ahead
+                transform.forward + transform.right, // Slightly to the right
+                transform.forward - transform.right, // Slightly to the left
+                transform.forward + transform.up,    // Slightly upwards
+                transform.forward - transform.up,    // Slightly downwards
+                transform.forward + transform.right + transform.up, // Diagonal up-right
+                transform.forward + transform.right - transform.up, // Diagonal down-right
+                transform.forward - transform.right + transform.up, // Diagonal up-left
+                transform.forward - transform.right - transform.up, // Diagonal down-left
+                transform.forward + transform.up * 2, // More upwards
             };
 
             // Debug the raycasts by drawing them in the scene view
@@ -296,6 +317,7 @@ namespace HomeByMarch
                     if (hit.transform.TryGetComponent<Enemy>(out Enemy enemyComponent))
                     {
                         // Apply damage to the enemy
+                        int attackDamage = playerData.currentAttack; // Use attackDamage from playerData
                         enemyComponent.TakeDamage(attackDamage);
                         Debug.Log($"Enemy {enemyComponent.name} took {attackDamage} damage.");
 
@@ -324,7 +346,6 @@ namespace HomeByMarch
                 }
             }
         }
-
 
         void HitTarget(Vector3 pos)
         {

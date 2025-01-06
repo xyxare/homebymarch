@@ -1,45 +1,57 @@
 using UnityEngine;
+using TMPro; // Required for TextMeshPro
 
 namespace HomeByMarch
 {
     public class Health : MonoBehaviour
     {
-        [SerializeField] private int maxHealth = 100;
         [SerializeField] private FloatEventChannel playerHealthChannel;
         [SerializeField] private GameObject deathPanel; // Reference to the death panel
-
-
+        [SerializeField] private BloodParticle bloodParticle; // Reference to the BloodParticle scriptable object
+        [SerializeField] public SFXManager SFXManager;
+        [SerializeField] private TextMeshProUGUI healthText; // Reference to TextMeshPro for health display
 
         public delegate void DamageTaken();
         public event DamageTaken OnDamageTaken;
 
-        public int currentHealth;
+        public PlayerData playerData;
 
-        public int CurrentHealth
+        public float currentHealth;
+
+        public float CurrentHealth
         {
             get => currentHealth;
             set => currentHealth = value;
         }
-        public int MaxHealth => maxHealth;
+        public float MaxHealth => playerData.currentHealth;
         public bool IsDead => currentHealth <= 0;
 
         void Awake()
         {
-            currentHealth = maxHealth;
+            currentHealth = MaxHealth;
         }
 
         void Start()
         {
+            currentHealth = MaxHealth; // Set currentHealth to MaxHealth on start
             PublishHealthPercentage();
+            UpdateHealthText(); // Update health display on start
         }
 
         public void TakeDamage(int damage)
         {
             if (IsDead) return;
 
-            currentHealth = Mathf.Clamp(currentHealth - damage, 0, maxHealth);
+            // Reduce damage based on player's defense percentage
+            float reducedDamage = damage * Mathf.RoundToInt(1 - playerData.defense / 100f);
+            currentHealth = Mathf.Clamp(currentHealth - reducedDamage, 0, MaxHealth);
             PublishHealthPercentage();
+            UpdateHealthText(); // Update health display
             OnDamageTaken?.Invoke();
+
+            // Activate BloodParticle effect
+            ActivateBloodParticle();
+            SFXManager.PlaySFX(SoundTypes.Damage);
 
             if (IsDead)
             {
@@ -52,19 +64,33 @@ namespace HomeByMarch
         {
             if (IsDead) return;
 
-            currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+            currentHealth = Mathf.Clamp(currentHealth + amount, 0, MaxHealth);
             PublishHealthPercentage();
+            UpdateHealthText(); // Update health display
         }
 
         private void PublishHealthPercentage()
         {
             if (playerHealthChannel != null)
             {
-                playerHealthChannel.Invoke(currentHealth / (float)maxHealth);
+                playerHealthChannel.Invoke(currentHealth / (float)MaxHealth);
             }
             else
             {
                 Debug.LogWarning("PlayerHealthChannel is not assigned.");
+            }
+        }
+
+        // Activate the BloodParticle effect
+        private void ActivateBloodParticle()
+        {
+            if (bloodParticle != null)
+            {
+                bloodParticle.CastSpell(transform); // Cast the BloodParticle spell
+            }
+            else
+            {
+                Debug.LogWarning("BloodParticle is not assigned.");
             }
         }
 
@@ -87,6 +113,19 @@ namespace HomeByMarch
             if (deathPanel != null)
             {
                 deathPanel.SetActive(false); // Hide the death panel
+            }
+        }
+
+        // Update the TextMeshPro health display
+        private void UpdateHealthText()
+        {
+            if (healthText != null)
+            {
+                healthText.text = $"{currentHealth}/{MaxHealth}"; // Display in format 100/100
+            }
+            else
+            {
+                Debug.LogWarning("HealthText is not assigned.");
             }
         }
     }

@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: HealSpellStrategy
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 21300000, guid: 2ef5fcbf5097b8f4491838bd966d5c13, type: 3}
+  spellName: Heal
+  description: Heal 20% of your max HP, enveloping yourself in a soothing blue aura.
+    The light lingers briefly, revitalizing your character.
   HealPrefab: {fileID: 9017484664307500583, guid: 1245b8d2997d5b34fb1637be70a7eb05, type: 3}
   duration: 5
   healPercentage: 0.2

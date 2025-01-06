@@ -23,9 +23,7 @@ public class StoryLockController : MonoBehaviour
     {
         public GameObject lockObject;
         public int requiredSteps;
-        public bool isPreviousStoryCompleted = false;
         public bool isUnlocked = false;
-
         private string stepCountData;
     }
 
@@ -52,8 +50,23 @@ public class StoryLockController : MonoBehaviour
             File.WriteAllText(stepJsonFilePath, JsonUtility.ToJson(new StepData()));
             stepCountData = File.ReadAllText(stepJsonFilePath);
         }
+
+        // Load previous story completion statuses from PlayerPrefs
+        LoadStoryCompletionStatuses();
     }
 
+    private void LoadStoryCompletionStatuses()
+    {
+        for (int i = 0; i < storyLocks.Length; i++)
+        {
+            // Load the completion status of each story from PlayerPrefs
+            bool isCompleted = PlayerPrefs.GetInt("StoryCompleted_" + i, 0) == 1;
+            storyLocks[i].isUnlocked = isCompleted;
+
+            // Log the completion status for debugging
+            Debug.Log($"Story {i} completion status loaded from PlayerPrefs: {isCompleted}");
+        }
+    }
     private void Start()
     {
         Debug.Log(overallSteps);
@@ -72,36 +85,51 @@ public class StoryLockController : MonoBehaviour
 
     void Update()
     {
-        if (overallSteps == 0) return;
+        // Check if the "Q" key is pressed
+        // if (Input.GetKeyDown(KeyCode.Q))
+        // {
+        //     // Set the completion status for Story 0 to true
+        //     SetStoryCompletionStatus(0, true);
 
-        foreach (StoryLock storyLock in storyLocks)
+        //     // Optionally, unlock the story lock if it's not already unlocked
+        //     storyLocks[0].isUnlocked = true;
+
+        //     // Log the change
+        //     Debug.Log("Story 0 completion status set to true.");
+        // }
+
+        // The rest of your Update logic
+        for (int i = 0; i < storyLocks.Length; i++)
         {
             // Check if the story can be unlocked
-            if (!storyLock.isUnlocked && overallSteps >= storyLock.requiredSteps && storyLock.isPreviousStoryCompleted)
+            if (!storyLocks[i].isUnlocked && overallSteps >= storyLocks[i].requiredSteps && IsPreviousStoryCompleted(storyLocks[i]))
             {
-                UnlockStoryLock(storyLock); // Unlock the story lock
-                UpdatePanelWithStoryInfo(storyLock); // Update the UI with the story info
+                UnlockStoryLock(storyLocks[i]); // Unlock the story lock
+                UpdatePanelWithStoryInfo(storyLocks[i]); // Update the UI with the story info
             }
-            else if (storyLock.lockObject != null && !storyLock.isUnlocked)
+            else if (storyLocks[i].lockObject != null && !storyLocks[i].isUnlocked)
             {
                 // Keep the lock object active if the story is still locked
-                storyLock.lockObject.SetActive(true);
+                storyLocks[i].lockObject.SetActive(true);
             }
-            else if (storyLock.lockObject != null && storyLock.isUnlocked)
+            else if (storyLocks[i].lockObject != null && storyLocks[i].isUnlocked)
             {
                 // Hide the lock object if the story is unlocked
-                storyLock.lockObject.SetActive(false);
+                storyLocks[i].lockObject.SetActive(false);
             }
         }
 
         PlayerPrefs.Save();
-
     }
 
-    private bool CanUnlock(StoryLock storyLock)
+    private bool IsPreviousStoryCompleted(StoryLock storyLock)
     {
-        return overallSteps >= storyLock.requiredSteps && storyLock.isPreviousStoryCompleted;
-
+        int index = System.Array.IndexOf(storyLocks, storyLock);
+        if (index > 0) // Ensure there is a previous story
+        {
+            return PlayerPrefs.GetInt("StoryCompleted_" + (index - 1), 0) == 1;
+        }
+        return true; // No previous story for the first story
     }
 
     // Unlock a specific story lock
@@ -118,9 +146,15 @@ public class StoryLockController : MonoBehaviour
     {
         if (storyLockIndex >= 0 && storyLockIndex < storyLocks.Length)
         {
-            storyLocks[storyLockIndex].isPreviousStoryCompleted = true;
+            SetStoryCompletionStatus(storyLockIndex, true);
             storyLocks[storyLockIndex].isUnlocked = true;
         }
+    }
+
+    public void SetStoryCompletionStatus(int index, bool isComplete)
+    {
+        PlayerPrefs.SetInt("StoryCompleted_" + index, isComplete ? 1 : 0);
+        PlayerPrefs.Save();
     }
 
     private Sprite LoadSprite(string path)
@@ -134,7 +168,7 @@ public class StoryLockController : MonoBehaviour
     }
 
     // Array to hold the titles for the stories
-    private string[] newTMPTitles = new string[] 
+    private string[] newTMPTitles = new string[]
     {
         // The Beginning - "Compass"
         "INERTIA",
@@ -186,7 +220,9 @@ public class StoryLockController : MonoBehaviour
         {
             Debug.LogWarning($"Invalid index {index}. No story lock found.");
         }
-        Debug.Log($"Button clicked while{CanUnlock(storyLocks[index])} ");
+
+        // Removed the call to CanUnlock here as it's unnecessary. 
+        // Unlock and show info based on the current story lock logic.
     }
 
     // Method to update the panel with the story info when unlocked
@@ -208,7 +244,7 @@ public class StoryLockController : MonoBehaviour
     }
 
     // Editor-only logic to auto-unlock story locks in the editor
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
     private void OnValidate()
     {
         if (Application.isPlaying) return;
@@ -216,12 +252,12 @@ public class StoryLockController : MonoBehaviour
         // Simulate unlocking the story locks in the editor based on the steps
         foreach (StoryLock storyLock in storyLocks)
         {
-            if (!storyLock.isUnlocked && overallSteps >= storyLock.requiredSteps && storyLock.isPreviousStoryCompleted)
+            if (!storyLock.isUnlocked && overallSteps >= storyLock.requiredSteps && IsPreviousStoryCompleted(storyLock))
             {
                 UnlockStoryLock(storyLock);
                 UpdatePanelWithStoryInfo(storyLock); // Update panel info when unlocked
             }
         }
     }
-    #endif
+#endif
 }

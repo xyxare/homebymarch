@@ -6,10 +6,13 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.Events;
 
+
+
 public abstract class UserInterface : MonoBehaviour
 {
     public InventoryObject inventory;
     public Dictionary<GameObject, InventorySlot> slotsOnInterface = new Dictionary<GameObject, InventorySlot>();
+    public Canvas uiCanvas;
 
     public void Start()
     {
@@ -59,6 +62,17 @@ public abstract class UserInterface : MonoBehaviour
         trigger.triggers.Add(eventTrigger);
     }
 
+    public GameObject itemDetailPanel;
+    public TMP_Text itemDescriptionText;
+    public TMP_Text itemSkillDescriptionText;
+    public TMP_Text itemName;
+    public TMP_Text itemSkillName;
+    public TMP_Text itemStats;
+    public TMP_Text itemPriceText;
+    public Image itemImage;
+    public Image itemSkillImage;
+    public GameObject skillInfo;
+
     // Handle clicking on a slot
     public void OnSlotClick(GameObject obj)
     {
@@ -70,9 +84,32 @@ public abstract class UserInterface : MonoBehaviour
 
             if (inventorySlot?.ItemObject != null)
             {
-                Debug.Log("Item Name: " + inventorySlot.ItemObject.name);
-                Debug.Log("Item Type: " + inventorySlot.ItemObject.type);
-                Debug.Log("Is Stackable: " + inventorySlot.ItemObject.stackable);
+                itemDetailPanel.SetActive(true);
+
+                itemName.text = inventorySlot.ItemObject.name;
+                itemDescriptionText.text = inventorySlot.ItemObject.description;
+                itemImage.sprite = inventorySlot.ItemObject.uiDisplay;
+                if (inventorySlot.ItemObject.data.buffs != null && inventorySlot.ItemObject.data.buffs.Length > 0)
+                {
+                    foreach (var buff in inventorySlot.ItemObject.data.buffs)
+                    {
+                        if (itemStats != null)
+                            itemStats.text = $"Attribute: {buff.attribute} Value: {buff.value}";
+                        else
+                            Debug.LogError("itemStats is not assigned!");
+                    }
+                }
+                if (inventorySlot.ItemObject.skillData == null)
+                {
+                    skillInfo.SetActive(false);
+                }
+                else if (inventorySlot.ItemObject.skillData is SpellStrategy spell)
+                {
+                    skillInfo.SetActive(true);
+                    itemSkillDescriptionText.text = $"{spell.description}";
+                    itemSkillImage.sprite = spell.uiDisplay;
+                    itemSkillName.text = spell.spellName;
+                }
 
                 if (inventorySlot.ItemObject.data != null)
                 {
@@ -91,10 +128,7 @@ public abstract class UserInterface : MonoBehaviour
                     Debug.LogError("Item data is null!");
                 }
             }
-            else
-            {
-                Debug.LogError("No item in the slot!");
-            }
+
         }
     }
 
@@ -170,8 +204,44 @@ public abstract class UserInterface : MonoBehaviour
     public void OnDrag(GameObject obj)
     {
         if (MouseData.tempItemBeingDragged != null)
-            MouseData.tempItemBeingDragged.GetComponent<RectTransform>().position = Input.mousePosition;
+        {
+            RectTransform tempItemRect = MouseData.tempItemBeingDragged.GetComponent<RectTransform>();
+
+            if (uiCanvas.renderMode == RenderMode.ScreenSpaceCamera && uiCanvas.worldCamera != null)
+            {
+                // For Screen Space - Camera
+                Vector3 mousePosition = Input.mousePosition;
+                Vector3 worldPosition = uiCanvas.worldCamera.ScreenToWorldPoint(new Vector3(
+                    mousePosition.x,
+                    mousePosition.y,
+                    uiCanvas.planeDistance // Use plane distance for proper depth calculation
+                ));
+
+                tempItemRect.position = worldPosition;
+
+                // Set smaller size for Screen Space - Camera
+                tempItemRect.sizeDelta = new Vector2(5, 5); // Adjust this size as needed
+            }
+            else
+            {
+                // For Screen Space - Overlay or other render modes
+                Vector3 mousePosition = Input.mousePosition;
+                tempItemRect.position = mousePosition;
+
+                // Set larger size for Screen Space - Overlay
+                tempItemRect.sizeDelta = new Vector2(200, 200); // Adjust this size as needed
+
+                // Ensure the dragged item is under the UI canvas
+                if (tempItemRect.parent == null || tempItemRect.parent != uiCanvas.transform)
+                {
+                    tempItemRect.SetParent(uiCanvas.transform, false);
+                }
+            }
+        }
     }
+
+
+
 }
 
 public static class MouseData

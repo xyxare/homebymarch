@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;  // Add the TextMesh Pro namespace
 using UnityEngine;
 using UnityEngine.UI;  // Add the UI namespace for Button
+using HomeByMarch;
 
 public class DungeonGameController : MonoBehaviour
 {
@@ -22,16 +23,29 @@ public class DungeonGameController : MonoBehaviour
     public Button startButton;          // Reference to the start button
     public GameObject winPanel;         // Reference to the Win Panel (UI)
     public GameObject challengePanel;   // Reference to the Dungeon Challenge Panel (UI)
+    public GameObject goldRewardPanel;  // Reference to the Gold Reward Panel (UI)
+
+    public GameObject StoryPanelEnd;
 
     // New boolean to choose between time limit or defeating enemies
     public bool useTimeLimit = true;    // Toggle for time limit or not (set in Editor)
 
+    public StoryLockController storyLockController;
+
+    public int dungeonIndex; // Dungeon identifier for story completion 
+
+    public string itemClaimedKey = "RewardClaimed"; // Key for PlayerPrefs
+
+    public float spawnInterval = 2f;    // Interval between enemy spawns
+
+    public SFXManager sfxManager;  // Reference to the SFXManager
     void Start()
     {
         // Add listener to the start button to start the game
         startButton.onClick.AddListener(StartGame);
-        winPanel.SetActive(false); // Make sure the win panel is hidden at the start
+        winPanel.SetActive(false);        // Make sure the win panel is hidden at the start
         challengePanel.SetActive(false); // Make sure the challenge panel is hidden at the start
+        goldRewardPanel.SetActive(false); // Make sure the gold reward panel is hidden at the start
     }
 
     // This method is called when the Start button is clicked
@@ -90,6 +104,8 @@ public class DungeonGameController : MonoBehaviour
     public void OnEnemyDefeated()
     {
         enemiesDefeated++;
+        UpdateUI();  // Update the UI immediately after incrementing the count
+
         if (enemiesDefeated >= totalEnemiesToDefeat)
         {
             EndGame(true);  // Player has defeated all enemies, game won
@@ -100,16 +116,33 @@ public class DungeonGameController : MonoBehaviour
     void EndGame(bool won)
     {
         gameActive = false;
+
         if (won)
         {
-            Debug.Log("You win! All enemies defeated.");
-            winPanel.SetActive(true); // Show the win panel
+         
+
+            // Mark the dungeon story as completed
+            storyLockController.SetStoryCompletionStatus(dungeonIndex,true); // Replace 'dungeonIndex' with the appropriate dungeon identifier.
+
+            // Check PlayerPrefs for the itemClaimedKey
+            int claimedStatus = PlayerPrefs.GetInt(itemClaimedKey, 0);
+            if (claimedStatus == 1)
+            {
+                Debug.Log("Opening Gold Reward Panel");
+                StoryPanelEnd.SetActive(true);
+                goldRewardPanel.SetActive(true); // Show the Gold Reward Panel
+            }
+            else
+            {
+                Debug.Log("Opening Win Panel");
+                StoryPanelEnd.SetActive(true);
+                winPanel.SetActive(true); // Show the Win Panel
+            }
         }
         else
         {
             Debug.Log("Game over! Time's up or enemies not defeated.");
         }
-        // Additional game end logic (e.g., stop gameplay, show end screen)
     }
 
     // Coroutine to spawn enemies at random spawn points
@@ -118,9 +151,17 @@ public class DungeonGameController : MonoBehaviour
         while (gameActive && enemiesSpawned < totalEnemiesToDefeat)
         {
             int spawnIndex = Random.Range(0, spawnPoints.Length);  // Random spawn point
-            Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);  // Spawn enemy at chosen point
+            GameObject enemy = Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);  // Spawn enemy
+
+            // Assign the SFXManager to the enemy's Enemy script
+            Enemy enemyScript = enemy.GetComponent<Enemy>();
+            if (enemyScript != null && sfxManager != null)
+            {
+                enemyScript.SFXManager = sfxManager;  // Assign the SFXManager to the enemy script
+            }
+
             enemiesSpawned++;  // Increment the spawn count
-            yield return new WaitForSeconds(2f);  // Wait before spawning the next enemy (adjust as needed)
+            yield return new WaitForSeconds(spawnInterval);  // Wait before spawning the next enemy (adjust as needed)
         }
     }
 

@@ -5,34 +5,38 @@ namespace HomeByMarch
 {
     public class PlayerHealth : MonoBehaviour
     {
-        public float health;
+        public PlayerData playerData;
         public float maxHealth;
         public Image healthBar;
 
         void Start()
         {
-            health = maxHealth;
+            if (playerData == null)
+            {
+                playerData = GetComponent<PlayerData>();
+            }
+            playerData.health = maxHealth;
         }
 
         void Update()
         {
             // Update the health bar based on the current health
-            healthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0.0f, 1.0f);
-            Debug.Log("Current Health: " + health);
+            healthBar.fillAmount = Mathf.Clamp(playerData.health / maxHealth, 0.0f, 1.0f);
+            Debug.Log("Current Health: " + playerData.health);
         }
 
         // Method to take damage
         public void TakeDamage(float damageAmount)
         {
-            health -= damageAmount;
+            playerData.health -= damageAmount;
 
             // Ensure health doesn't drop below zero
-            health = Mathf.Clamp(health, 0.0f, maxHealth);
+            playerData.health = Mathf.Clamp(playerData.health, 0.0f, maxHealth);
 
             // Check if the player is dead
-            if (health <= 0)
+            if (playerData.health <= 0)
             {
-               Debug.Log("enemy died");
+                Die();
             }
         }
 

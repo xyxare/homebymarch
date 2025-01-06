@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Entry Screen.unity
+    guid: 6fc7239f655a387498601acf6c9b45bb
+  - enabled: 1
     path: Assets/Scenes/LogIn Screen.unity
     guid: 4c3b8c6923a1dbe4f8f9fa5d67ba7a1b
   - enabled: 1
@@ -30,9 +33,15 @@ EditorBuildSettings:
     path: Assets/Scenes/Dungeon Exploration/Story1-1.unity
     guid: 1d4790877f8e91c48af8a2fb357cdfbc
   - enabled: 1
+    path: Assets/Scenes/Dungeon Exploration/Story1-2 Main.unity
+    guid: 860f94c3a98e4d44faefd36e64b86d5c
+  - enabled: 1
+    path: Assets/Scenes/Dungeon Exploration/Story1-3 Main.unity
+    guid: 5c4d579ebe0ae974fae3cb7b712c318c
+  - enabled: 0
     path: Assets/Scenes/Dungeon Exploration/Story1-2.unity
     guid: 79e46dad28ad6b8439b1b13643940eda
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Dungeon Exploration/Story1-3.unity
     guid: c77b8e722881d924494f87db443c9157
   - enabled: 0

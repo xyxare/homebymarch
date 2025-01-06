@@ -53,20 +53,20 @@ public class ActivatePaneOnLevelRequirement : MonoBehaviour
 
     void CheckLevelRequirement()
     {
-        if (userLevel != null)
+        if (userLevel != null && userLevel.playerData != null)
         {
             // Debugging the current level and comparing it
-            Debug.Log("Current Level: " + userLevel.currentUserLevel);
+            Debug.Log("Current Level: " + userLevel.playerData.level);
             Debug.Log("Required Level: " + requiredLevel);
 
-            if (userLevel.currentUserLevel >= requiredLevel)
+            if (userLevel.playerData.level >= requiredLevel)
             {
                 UnlockPane(); // If level is met, unlock the pane
             }
         }
         else
         {
-            Debug.LogError("UserLevel is not assigned in the inspector.");
+            Debug.LogError("UserLevel or PlayerData is not assigned in the inspector.");
         }
     }
 
@@ -90,9 +90,9 @@ public class ActivatePaneOnLevelRequirement : MonoBehaviour
     {
         Debug.Log("ShowUnlockInfo called!"); // Confirm button click is registered
 
-        if (userLevel != null && unlockInfoPanel != null && infoText != null)
+        if (userLevel != null && userLevel.playerData != null && unlockInfoPanel != null && infoText != null)
         {
-            int currentLevel = userLevel.currentUserLevel;
+            int currentLevel = userLevel.playerData.level;
             int remainingLevels = requiredLevel - currentLevel;
 
             // Debugging the current level vs required level for button click

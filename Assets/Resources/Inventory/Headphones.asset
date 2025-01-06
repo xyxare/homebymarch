@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a359555bfc745164d8d91359f66cae2d, type: 3}
   m_Name: Headphones
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 0}
-  characterDisplay: {fileID: 0}
+  uiDisplay: {fileID: 21300000, guid: 47ccb2726d8b9874d9d4d3e598ef1534, type: 3}
+  characterDisplay: {fileID: 767631062272737557, guid: 0483b84b368d68a429d67666a0f9d5d6, type: 3}
   stackable: 0
   type: 1
-  description: You do not know what this does. They fit your head quite snugly, though.
-    You feel like who owned this used it during days when they felt down.
+  description: "Crafted by an eccentric maestro, these Headphones are said to carry
+    the melodies of a thousand worlds. Placing them on unleashes a symphony that
+    resonates with the heart, inspiring creativity and focus. It\u2019s whispered
+    that they tune out not just noise but also doubt, leaving only the rhythm of
+    determination."
   data:
     Name: Headphones
-    Id: -1
+    Id: 12
     buffs:
     - attribute: 1
       value: -2

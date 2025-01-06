@@ -34,8 +34,13 @@ namespace HomeByMarch
         CountdownTimer attackTimer;
         CountdownTimer onHitTimer;
 
+        [SerializeField] public SFXManager SFXManager;
+
         public Image healthBar;
         bool isHit;
+
+        // Reference to the BloodParticle effect
+        [SerializeField] private BloodParticle bloodParticle;
 
         void Awake()
         {
@@ -157,13 +162,18 @@ namespace HomeByMarch
 
             if (currentHealth <= 0)
             {
-                 Destroy(healthBar);
+                SFXManager.PlaySFX(SoundTypes.Damage, 1);
+                ActivateBloodParticle();
+                Destroy(healthBar);
                 gameController?.OnEnemyDefeated(); // Trigger defeat only once
                 stateMachine.SetState(new EnemyDeathState(this, animator, agent));  // Transition to death state
             }
             else
             {
+                SFXManager.PlaySFX(SoundTypes.Damage, 1);
+                ActivateBloodParticle(); 
                 OnHit();
+                // Trigger blood particle effect when damage is taken
             }
         }
 
@@ -204,6 +214,19 @@ namespace HomeByMarch
                 {
                     Debug.Log("No object hit by ray.");
                 }
+            }
+        }
+
+        // Method to activate the BloodParticle effect
+        private void ActivateBloodParticle()
+        {
+            if (bloodParticle != null)
+            {
+                bloodParticle.CastSpell(transform); // Cast the blood particle effect on the enemy
+            }
+            else
+            {
+                Debug.LogWarning("BloodParticle is not assigned.");
             }
         }
     }

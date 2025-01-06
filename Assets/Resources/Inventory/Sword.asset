@@ -19,11 +19,11 @@ MonoBehaviour:
   description: 
   data:
     Name: 
-    Id: 11
+    Id: 25
     buffs:
     - attribute: 3
       value: 10
-      min: 20
+      min: 5
       max: 30
   skillData: {fileID: 11400000, guid: 210c6b873e3eee74c8f0eed521635f64, type: 2}
   boneNames: []
