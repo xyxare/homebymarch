@@ -209,6 +209,22 @@ PrefabInstance:
       propertyPath: skinnedMeshRenderer
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8031799274853100699, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.4474788
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031799274853100699, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.4474788
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031799274853100699, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.4474783
+      objectReference: {fileID: 0}
+    - target: {fileID: 8031799274853100699, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 39
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5358841414327294333, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}

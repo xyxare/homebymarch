@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class ShakeDetector : MonoBehaviour
 {
@@ -39,9 +40,22 @@ public class ShakeDetector : MonoBehaviour
 
             // Trigger shake event
             OnShakeDetected?.Invoke();
+
+            // Trigger phone vibration
+            VibratePhone();
         }
 
         // Update last acceleration
         lastAcceleration = currentAcceleration;
+    }
+
+    void VibratePhone()
+    {
+        // Check if the device supports vibration
+        if (SystemInfo.supportsVibration)
+        {
+            // Vibrate the phone for a short duration
+            Handheld.Vibrate();
+        }
     }
 }
