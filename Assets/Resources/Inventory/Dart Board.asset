@@ -16,7 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: 33f656d0a91162a40bc02c9122ed38c2, type: 3}
   stackable: 0
   type: 3
-  description: 
+  description: Crafted by a mischievous inventor, this Dart Board is said to test
+    not only accuracy but also determination. Its vibrant rings seem to shift subtly,
+    challenging players to aim true and stay focused. Whispers tell of it granting
+    a spark of luck to those who refuse to give up, making every throw feel like
+    a destined strike.
   data:
     Name: Dart Board
     Id: 47

@@ -16,7 +16,10 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: f4b5036e06a9cb244af6c434cad9e2b8, type: 3}
   stackable: 0
   type: 2
-  description: 
+  description: Crafted by a spirited competitor, this Table Tennis Racket hums with
+    the rhythm of swift exchanges. Its surface seems to glow faintly when matched
+    against a worthy opponent. Tales speak of it amplifying focus and agility, its
+    every strike echoing with the thrill of competition and camaraderie.
   data:
     Name: 
     Id: 37

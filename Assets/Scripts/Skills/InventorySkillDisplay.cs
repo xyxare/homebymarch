@@ -9,7 +9,7 @@ public class InventorySkillDisplay : MonoBehaviour
     [SerializeField] private GameObject panel; // Panel to show when a button is pressed
     [SerializeField] private TextMeshProUGUI spellNameText; // TextMeshPro for spell name
     [SerializeField] private TextMeshProUGUI spellDescriptionText; // TextMeshPro for spell description
-
+    [SerializeField] private Image itemImage;
     private SpellStrategy[] currentSpells;
 
     void Awake()
@@ -63,6 +63,7 @@ public class InventorySkillDisplay : MonoBehaviour
             panel.SetActive(true);
             spellNameText.text = currentSpells[index].name;
             spellDescriptionText.text = currentSpells[index].description;
+            itemImage.sprite = currentSpells[index].uiDisplay;
             Debug.Log($"Button {index} pressed, panel shown with spell name and description.");
         }
     }

@@ -16,7 +16,10 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: 183ab91559cb5034697c2b76635f9d40, type: 3}
   stackable: 0
   type: 2
-  description: 
+  description: "Twisted together by a jester with dreams of heroism, this Balloon
+    Sword wobbles with playful defiance. Though light as air, it\u2019s said to spark
+    courage in even the smallest of hands. Legends tell of it making laughter a formidable
+    shield, transforming any battle into a whimsical dance of joy."
   data:
     Name: 
     Id: 34

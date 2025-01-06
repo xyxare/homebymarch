@@ -16,7 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: 3ecbe8fbabb2c90499ef2ad3ae364cbf, type: 3}
   stackable: 0
   type: 3
-  description: 
+  description: Fashioned from a metal imbued with the essence of compassion, the
+    Pink Shield gleams with a soft yet resolute light. Its surface bears intricate
+    floral engravings, said to bloom brighter when protecting others. Legends tell
+    of its ability to reflect not just strikes, but also fear, turning hostility
+    into harmony with each unwavering stance.
   data:
     Name: Pink Shield
     Id: 46

@@ -16,7 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: bdd5a75dfaacc72459253d4804f5b904, type: 3}
   stackable: 0
   type: 1
-  description: 
+  description: Born of courage and relentless spirit, the Football Helmet is a symbol
+    of unyielding determination. Its surface bears the scuffs and marks of countless
+    battles, each a testament to the indomitable will of its wearer. Some say it
+    resonates with the echoes of roaring crowds, filling the heart with resolve and
+    reminding all who don it of the power of teamwork and grit.
   data:
     Name: 
     Id: 43

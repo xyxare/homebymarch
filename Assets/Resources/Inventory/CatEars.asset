@@ -16,7 +16,12 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: 9371f340743b52d408f84411ee53ed1d, type: 3}
   stackable: 0
   type: 1
-  description: 
+  description: Fashioned by a whimsical artisan inspired by the mysterious grace
+    of feline companions, these enchanted Cat Ears are said to amplify their wearer's
+    curiosity and agility. Whispers tell of their soft glow under the moonlight,
+    as if channeling the watchful gaze of a thousand nocturnal hunters. Those who
+    wear them often feel an uncanny connection to the shadows, moving with quiet
+    confidence and a playful spirit.
   data:
     Name: CatEars
     Id: 39

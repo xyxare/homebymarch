@@ -16,8 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 2697956436583258001, guid: 6fd001569222b894da8b0406221c46d2, type: 3}
   stackable: 0
   type: 3
-  description: Protected its owner when they're asleep, now protects you while you're
-    awake. Say "Thank you, Teddy."
+  description: "Lovingly stitched together with the thread of childhood memories,
+    this Teddy Bear holds the warmth of countless hugs. Its button eyes seem to twinkle
+    with understanding, as though guarding its owner\u2019s secrets. Some say its
+    presence soothes even the most restless hearts, offering quiet courage and unwavering
+    comfort."
   data:
     Name: Teddy Bear
     Id: 28

@@ -16,7 +16,12 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: 8ebc13c332452234d98dafcc801edd08, type: 3}
   stackable: 0
   type: 1
-  description: 
+  description: Forged from the dreams of a star-bound visionary, this Astronaut Helmet
+    carries the essence of boundless exploration. Legends say it shields its wearer
+    not only from the void of space but also from the weight of doubt, filling their
+    soul with the courage to venture into the unknown. Its visor, shimmering like
+    the Aurora Borealis, is rumored to reveal fleeting glimpses of far-off galaxies
+    to those brave enough to gaze into its depths.
   data:
     Name: AstronautHelmet
     Id: 40

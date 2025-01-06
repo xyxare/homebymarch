@@ -16,7 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: 01a0613371c0cf9429c02df3a5588b71, type: 3}
   stackable: 0
   type: 0
-  description: 
+  description: Crafted by a perfectionist who believed beauty lies in the details,
+    this Makeup Brush glides like a whisper across the skin. Its bristles shimmer
+    faintly, infused with the magic of self-expression. Legends say it enhances not
+    only appearances but also confidence, as though unveiling the radiant spirit
+    of its wielder with every stroke.
   data:
     Name: 
     Id: 38

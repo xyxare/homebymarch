@@ -16,7 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: be473deb84d50f74c8fe12dfbff6ffba, type: 3}
   stackable: 0
   type: 2
-  description: 
+  description: Molded by a confectioner who believed sweetness could heal the soul,
+    this Lollipop gleams like a gem catching the light. Its swirling colors are said
+    to entrance those who gaze upon it, offering a moment of blissful escape. Some
+    say the first lick unveils a taste of nostalgia, bringing a smile even in the
+    stormiest of days.
   data:
     Name: Lollipop
     Id: 35

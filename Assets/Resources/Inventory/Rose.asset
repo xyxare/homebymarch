@@ -16,8 +16,10 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: 32a2bd10f11dfb74f8f2531d1d53a442, type: 3}
   stackable: 0
   type: 2
-  description: A rose given by a lover. The face and voice may be forgotten, but
-    the memories remain.
+  description: Plucked from a garden said to bloom in eternal twilight, this Rose
+    carries the scent of fleeting memories and unspoken promises. Its petals glow
+    softly, as if holding onto the light of a sunset. Tales speak of it inspiring
+    courage in the face of loss, its thorns a reminder that even beauty has its defenses.
   data:
     Name: Rose
     Id: 21

@@ -16,7 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: e333d24fa3ee6944d8658968d3dd1805, type: 3}
   stackable: 0
   type: 3
-  description: 
+  description: Born from the dream of a baker who wished to sweeten even the sourest
+    of days, this Donut radiates a warmth that soothes the soul. Its glaze sparkles
+    like dew in the morning sun, hinting at an enchantment that lifts spirits. Some
+    say the first bite fills the heart with memories of laughter and joy, no matter
+    how dark the day.
   data:
     Name: Donut
     Id: 49

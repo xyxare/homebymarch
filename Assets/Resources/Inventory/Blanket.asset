@@ -16,7 +16,10 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: f03169d1adfcfed46be976d9c8f35d70, type: 3}
   stackable: 0
   type: 3
-  description: For a good night's sleep.
+  description: Woven from the softest threads of twilight, this Blanket holds the
+    warmth of countless starlit nights. Its touch is said to banish loneliness, wrapping
+    its wearer in a cocoon of comfort and quiet courage. Tales speak of it glowing
+    faintly in times of need, as though it whispers lullabies from a realm of peace.
   data:
     Name: 
     Id: 4

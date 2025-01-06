@@ -16,7 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: 2b6e99817768f914ab05d69868fd1e30, type: 3}
   stackable: 0
   type: 3
-  description: 
+  description: "Forged under a meteor shower, the Star Shield gleams with the brilliance
+    of countless wishes made upon falling stars. It\u2019s said to protect not just
+    the body, but also the dreams of its bearer, glowing brighter with each act of
+    bravery. Legends claim it resonates with a celestial hum, as though calling upon
+    the cosmos to guide its wielder."
   data:
     Name: Star Shield
     Id: 48

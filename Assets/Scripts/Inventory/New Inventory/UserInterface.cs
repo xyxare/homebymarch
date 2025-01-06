@@ -62,6 +62,17 @@ public abstract class UserInterface : MonoBehaviour
         trigger.triggers.Add(eventTrigger);
     }
 
+    public GameObject itemDetailPanel;
+    public TMP_Text itemDescriptionText;
+    public TMP_Text itemSkillDescriptionText;
+    public TMP_Text itemName;
+    public TMP_Text itemSkillName;
+    public TMP_Text itemStats;
+    public TMP_Text itemPriceText;
+    public Image itemImage;
+    public Image itemSkillImage;
+    public GameObject skillInfo;
+
     // Handle clicking on a slot
     public void OnSlotClick(GameObject obj)
     {
@@ -73,9 +84,32 @@ public abstract class UserInterface : MonoBehaviour
 
             if (inventorySlot?.ItemObject != null)
             {
-                Debug.Log("Item Name: " + inventorySlot.ItemObject.name);
-                Debug.Log("Item Type: " + inventorySlot.ItemObject.type);
-                Debug.Log("Is Stackable: " + inventorySlot.ItemObject.stackable);
+                itemDetailPanel.SetActive(true);
+
+                itemName.text = inventorySlot.ItemObject.name;
+                itemDescriptionText.text = inventorySlot.ItemObject.description;
+                itemImage.sprite = inventorySlot.ItemObject.uiDisplay;
+                if (inventorySlot.ItemObject.data.buffs != null && inventorySlot.ItemObject.data.buffs.Length > 0)
+                {
+                    foreach (var buff in inventorySlot.ItemObject.data.buffs)
+                    {
+                        if (itemStats != null)
+                            itemStats.text = $"Attribute: {buff.attribute} Value: {buff.value}";
+                        else
+                            Debug.LogError("itemStats is not assigned!");
+                    }
+                }
+                if (inventorySlot.ItemObject.skillData == null)
+                {
+                    skillInfo.SetActive(false);
+                }
+                else if (inventorySlot.ItemObject.skillData is SpellStrategy spell)
+                {
+                    skillInfo.SetActive(true);
+                    itemSkillDescriptionText.text = $"{spell.description}";
+                    itemSkillImage.sprite = spell.uiDisplay;
+                    itemSkillName.text = spell.spellName;
+                }
 
                 if (inventorySlot.ItemObject.data != null)
                 {

@@ -16,7 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 4458640462768414565, guid: 782b8038b7af9b647a2d79994749a8f6, type: 3}
   stackable: 0
   type: 1
-  description: 
+  description: Crafted by a roguish tailor with an eye for mystery, the Fedora exudes
+    an aura of effortless charm and cunning. Its brim seems to shadow more than just
+    the sun, as though concealing secrets yet untold. Travelers swear it grants its
+    wearer an uncanny knack for finding hidden paths and lost treasures, whispering
+    softly of adventures yet to come.
   data:
     Name: Phedora
     Id: 42

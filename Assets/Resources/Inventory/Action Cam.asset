@@ -16,7 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: 2952b981bd8f7a741af2990a56958061, type: 3}
   stackable: 0
   type: 2
-  description: 
+  description: "Engineered by a wanderer obsessed with capturing fleeting moments,
+    this Action Camera gleams with boundless curiosity. Its lens seems to glint with
+    its own light, as though preserving not just images but the emotions tied to
+    them. It\u2019s said to inspire daring adventures, whispering that every moment
+    holds a story waiting to be told."
   data:
     Name: Action Camera
     Id: 33

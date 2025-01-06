@@ -16,10 +16,14 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: ea319be08c932ad4298baae1d1173263, type: 3}
   stackable: 0
   type: 3
-  description: 
+  description: "Crafted by a reclusive artist who believed colors held the power
+    to heal hearts, this Paint Palette shimmers with hues that seem to shift and
+    dance under the light. It\u2019s said that each dab of paint evokes emotions
+    long forgotten, turning every brushstroke into a fragment of a story. Some claim
+    the palette hums softly, urging its bearer to create beauty even amidst despair."
   data:
     Name: Paint Pallete
-    Id: -1
+    Id: 45
     buffs:
     - attribute: 2
       value: 3

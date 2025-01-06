@@ -16,7 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: b8f91ac91907ae5479fc941750cfefbe, type: 3}
   stackable: 0
   type: 3
-  description: 
+  description: "Filled with feathers said to come from the wings of dreams, this
+    Pillow cradles its user into the deepest of rests. Legends claim that laying
+    one\u2019s head upon it invites not just sleep, but journeys into realms of inspiration.
+    Its soft surface seems to whisper promises of new beginnings, every dawn brighter
+    than the last."
   data:
     Name: pillow
     Id: -1

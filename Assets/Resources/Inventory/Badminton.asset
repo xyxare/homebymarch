@@ -16,7 +16,11 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: ce0c097dda5e99f43b11e6073c7f06a4, type: 3}
   stackable: 0
   type: 2
-  description: 
+  description: Forged by a craftsman who marveled at the grace of a shuttle in flight,
+    this Badminton Racket feels weightless in the hand yet carries the strength of
+    a gale. Its strings hum softly when struck, as though channeling the energy of
+    the wind. Legends tell of it granting unmatched precision and speed, turning
+    every match into a dance of skill and spirit.
   data:
     Name: Badminton
     Id: 36
