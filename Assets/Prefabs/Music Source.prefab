@@ -48,7 +48,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -147,7 +147,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSounds:
   - {fileID: 8300000, guid: ade19ec00abd46841bafac226d573c73, type: 3}
-  - {fileID: 8300000, guid: 5b7be138a40b69649a4dee387be2ad75, type: 3}
+  - {fileID: 8300000, guid: 26a054c8c49bedd4282a3695cf58ec87, type: 3}
+  - {fileID: 8300000, guid: 8b9abde20bca37c439e213b8b6feb581, type: 3}
+  - {fileID: 8300000, guid: 47d8f2e5bd768c548aed1de95dffe318, type: 3}
   musicSource: {fileID: 2734728730681373092}
   sceneMusicMappings:
   - sceneName: Main Tutorial
@@ -157,6 +159,10 @@ MonoBehaviour:
   - sceneName: Story Screen
     musicClip: {fileID: 8300000, guid: ade19ec00abd46841bafac226d573c73, type: 3}
   - sceneName: Story1-1
-    musicClip: {fileID: 8300000, guid: 5b7be138a40b69649a4dee387be2ad75, type: 3}
+    musicClip: {fileID: 8300000, guid: 26a054c8c49bedd4282a3695cf58ec87, type: 3}
+  - sceneName: Story1-2 Main
+    musicClip: {fileID: 8300000, guid: 8b9abde20bca37c439e213b8b6feb581, type: 3}
+  - sceneName: Story1-3 Main
+    musicClip: {fileID: 8300000, guid: 47d8f2e5bd768c548aed1de95dffe318, type: 3}
   - sceneName: Maze
     musicClip: {fileID: 8300000, guid: ade19ec00abd46841bafac226d573c73, type: 3}
