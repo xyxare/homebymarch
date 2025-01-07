@@ -15144,11 +15144,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -393.53622
+      value: -393.40985
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -287.25046
+      value: -287.42932
       objectReference: {fileID: 0}
     - target: {fileID: 2620096471243066825, guid: 13a5de6a55f09d744976956bfee10b17, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15924,8 +15924,8 @@ MonoBehaviour:
   - {fileID: 671680702}
   - {fileID: 147381887}
   - {fileID: 1547466767}
-  timeLimit: 120
-  totalEnemiesToDefeat: 15
+  timeLimit: 80
+  totalEnemiesToDefeat: 8
   timerText: {fileID: 525903445}
   enemiesDefeatedText: {fileID: 450888955}
   enemiesRemainingText: {fileID: 1538875641}
