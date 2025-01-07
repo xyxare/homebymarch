@@ -16965,7 +16965,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userLevel: {fileID: 1751126725}
-  requiredLevel: 100
+  requiredLevel: 1
   targetPane: {fileID: 486448144}
   unlockInfoPanel: {fileID: 1556198394}
   showInfoButton: {fileID: 1670036638}

@@ -44,6 +44,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Dungeon Exploration/Story1-3.unity
     guid: c77b8e722881d924494f87db443c9157
+  - enabled: 1
+    path: Assets/Scenes/Dungeon Exploration/Maze 2.unity
+    guid: ee8b738c5431405409eba3bd9ae624bc
   - enabled: 0
     path: Assets/Scenes/TestGame.unity
     guid: c10b9152bef74ac4bbd8bc0bdddc3b9b
