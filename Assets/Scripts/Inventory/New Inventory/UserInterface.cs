@@ -189,16 +189,17 @@ public abstract class UserInterface : MonoBehaviour
     public void OnDragEnd(GameObject obj)
     {
         Destroy(MouseData.tempItemBeingDragged);
-        if (MouseData.interfaceMouseIsOver == null)
+
+        // If no interface is hovered over, return the item to its original slot
+        if (MouseData.interfaceMouseIsOver == null || MouseData.slotHoveredOver == null)
         {
-            slotsOnInterface[obj].RemoveItem();
+            Debug.Log("Drag ended outside inventory or equipment. Returning item to original slot.");
             return;
         }
-        if (MouseData.slotHoveredOver)
-        {
-            InventorySlot mouseHoverSlotData = MouseData.interfaceMouseIsOver.slotsOnInterface[MouseData.slotHoveredOver];
-            inventory.SwapItems(slotsOnInterface[obj], mouseHoverSlotData);
-        }
+
+        // Handle item swapping
+        InventorySlot mouseHoverSlotData = MouseData.interfaceMouseIsOver.slotsOnInterface[MouseData.slotHoveredOver];
+        inventory.SwapItems(slotsOnInterface[obj], mouseHoverSlotData);
     }
 
     public void OnDrag(GameObject obj)
