@@ -157,7 +157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -65, y: 187}
+  m_AnchoredPosition: {x: -65, y: 87}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &531430
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -526.49, y: 0, z: -852.03375, w: 0}
+  m_margin: {x: -1007.90356, y: 0, z: -1115.6978, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1595,12 +1595,8 @@ MonoBehaviour:
   timerText: {fileID: 373830453}
   winTimeText: {fileID: 531431}
   startTimerButton: {fileID: 876299183}
-  detectionRadius: 3
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 128
   countdownDuration: 300
-  detectionCenter: {fileID: 790883730}
+  requiredPlayerPairs: 2
 --- !u!65 &790883733
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1681,8 +1677,8 @@ Transform:
   m_GameObject: {fileID: 790883730}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.007948582, z: -0, w: 0.9999684}
-  m_LocalPosition: {x: 17.97, y: 7.23, z: 57.51}
-  m_LocalScale: {x: 2.1342976, y: 2.1342976, z: 2.1342976}
+  m_LocalPosition: {x: 18.32, y: 9.88, z: 54.53}
+  m_LocalScale: {x: 3.5303416, y: 3.5303416, z: 3.5303416}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -6889,7 +6885,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3650638188812647480, guid: a2a060732547fe64581bb0cb3c2bdf1d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.87
+      value: 8.19
       objectReference: {fileID: 0}
     - target: {fileID: 3650638188812647480, guid: a2a060732547fe64581bb0cb3c2bdf1d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7079,7 +7075,7 @@ PrefabInstance:
     - target: {fileID: 4988860951524696347, guid: 22aad0f099e2c574fb8c91e8b23c4df6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 790883732}
     - target: {fileID: 4988860951524696347, guid: 22aad0f099e2c574fb8c91e8b23c4df6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -7090,11 +7086,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4988860951524696347, guid: 22aad0f099e2c574fb8c91e8b23c4df6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Pause
+      value: OnExitButtonClick
       objectReference: {fileID: 0}
     - target: {fileID: 4988860951524696347, guid: 22aad0f099e2c574fb8c91e8b23c4df6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: click
+      objectReference: {fileID: 0}
+    - target: {fileID: 4988860951524696347, guid: 22aad0f099e2c574fb8c91e8b23c4df6, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: WinTrigger, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 4988860951524696347, guid: 22aad0f099e2c574fb8c91e8b23c4df6, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName

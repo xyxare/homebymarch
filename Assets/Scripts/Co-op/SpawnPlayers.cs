@@ -20,6 +20,7 @@ public class SpawnPlayers : MonoBehaviour
     void Start()
     {
         Vector3 spawnPosition;
+        
 
         // Determine which spawn point to use based on the player's actor number
         int playerIndex = PhotonNetwork.LocalPlayer.ActorNumber - 1; // ActorNumber starts at 1
@@ -35,6 +36,7 @@ public class SpawnPlayers : MonoBehaviour
 
         // Instantiate the player using PhotonNetwork
         GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, spawnPosition, Quaternion.identity);
+        player.GetComponent<PlayerMark>().Mark.SetActive(true);
 
         // Ensure the PlayerController is found
         PlayerController playerController = player.GetComponent<PlayerController>();

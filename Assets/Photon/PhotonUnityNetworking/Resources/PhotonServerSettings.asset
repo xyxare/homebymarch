@@ -50,6 +50,11 @@ MonoBehaviour:
   - UpdatePlayerCountDisplay
   - UpdateTimerDisplay
   - StartTimerForAll
+  - CloseGamePanelForAll
+  - LogTimeEnded
+  - UpdatePlayerCountForAll
+  - UpdatePlayerCount
+  - UpdateDungeonDetailsRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0

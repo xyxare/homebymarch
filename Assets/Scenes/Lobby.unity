@@ -459,9 +459,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1489911449}
-        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: ChangeScene
+      - m_Target: {fileID: 1489911450}
+        m_TargetAssemblyTypeName: ExitLobby, Assembly-CSharp
+        m_MethodName: OnExitLobby
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3330,6 +3330,7 @@ GameObject:
   - component: {fileID: 1489911446}
   - component: {fileID: 1489911445}
   - component: {fileID: 1489911449}
+  - component: {fileID: 1489911450}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -3436,6 +3437,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59b4fd652f7b2404a9041dc66dc27282, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1489911450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489911444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a4d3403c3ef71b4d92cc0e984d4b295, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1552400954
