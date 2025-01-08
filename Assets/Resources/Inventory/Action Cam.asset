@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Action Cam
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 21300000, guid: 96e35d9d576265742b76ffceff9eabed, type: 3}
-  characterDisplay: {fileID: 919132149155446097, guid: 2952b981bd8f7a741af2990a56958061, type: 3}
+  characterDisplay: {fileID: 4430346391445410563, guid: 269b214bc34aa624ca0e40793d456586, type: 3}
   stackable: 0
   type: 2
   description: "Engineered by a wanderer obsessed with capturing fleeting moments,
