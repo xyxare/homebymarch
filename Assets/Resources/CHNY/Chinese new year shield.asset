@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Chinese new year shield
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 0}
-  characterDisplay: {fileID: 0}
+  characterDisplay: {fileID: 919132149155446097, guid: 0b8a85148751c1e4480dbd1a2ea65380, type: 3}
   stackable: 0
   type: 0
-  description: 
+  description: 'Chinese new year shield '
   data:
-    Name: 
+    Name: Serpent Shield
     Id: -1
     buffs: []
   skillData: {fileID: 0}

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Chinese new year hat
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 0}
-  characterDisplay: {fileID: 0}
+  characterDisplay: {fileID: 919132149155446097, guid: cf28d948b4423dd4ca8df8476869ef07, type: 3}
   stackable: 0
   type: 0
-  description: 
+  description: Chinese new year hat
   data:
     Name: 
     Id: -1
