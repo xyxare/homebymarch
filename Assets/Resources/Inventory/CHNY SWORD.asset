@@ -16,9 +16,9 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: 7404ff7cf78b9f848876ec131b9e07b5, type: 3}
   stackable: 0
   type: 2
-  description: Not everything needs a reaction. Sometimes you just have to be silent
-    and observe, then wait for the perfect opportunity to strike. Such is the healthy
-    option.
+  description: '[CHINESE NEW YEAR EVENT REWARD] Not everything needs a reaction.
+    Sometimes you just have to be silent and observe, then wait for the perfect opportunity
+    to strike. Such is the healthy option.'
   data:
     Name: Mo Long Ren
     Id: -1
