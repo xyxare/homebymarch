@@ -15,7 +15,7 @@ public class MeteorSpellStrategy : SpellStrategy
     public float spawnHeight = 5f; // Height above the player
     public float duration = 5f; // Duration of the meteor spell
     public float damageInterval = 1f; // Interval between damage applications
-
+    public int soundref = 0;
     public override void CastSpell(Transform origin)
     {
         Debug.Log("Meteor is casted");
@@ -24,6 +24,7 @@ public class MeteorSpellStrategy : SpellStrategy
         Vector3 spawnPosition = origin.position + origin.forward * spawnDistance + Vector3.up * spawnHeight;
 
         var meteor = Instantiate(meteorPrefab, spawnPosition, Quaternion.identity);
+        SFXManager.PlaySFX(SoundTypes.Skills, soundref);
         Destroy(meteor, duration); // Destroy the meteor after the duration
 
         // Start the coroutine to apply damage over time

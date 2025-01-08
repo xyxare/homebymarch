@@ -6,5 +6,6 @@ public enum SoundTypes
     SwordSwing,
     Damage,
     Death,
-    Rerwards
+    Rerwards,
+    Skills
 }
