@@ -42,6 +42,10 @@ namespace HomeByMarch
         // Reference to the BloodParticle effect
         [SerializeField] private BloodParticle bloodParticle;
 
+        // New fields for BlueSlash and Boss functionality
+        [SerializeField] private bool isBoss = false; // Determines if the enemy is a boss
+        [SerializeField] private ChnyBossSkill[] blueSlashSpells;
+
         void Awake()
         {
             Player = GameObject.FindGameObjectWithTag("Player")?.transform;
@@ -91,7 +95,7 @@ namespace HomeByMarch
         {
             if (currentHealth <= 0)
             {
-                stateMachine.SetState(new EnemyDeathState(this, animator, agent));  // Enforce death state if health is zero
+                stateMachine.SetState(new EnemyDeathState(this, animator, agent)); // Enforce death state if health is zero
             }
             else
             {
@@ -130,7 +134,15 @@ namespace HomeByMarch
             if (playerDetector.CanAttackPlayer())
             {
                 Debug.Log("Player in range. Executing attack.");
-                AttackRayCast();
+                
+                if (isBoss)
+                {
+                    ActivateBlueSlash();
+                }
+                else
+                {
+                    AttackRayCast();
+                }
             }
             else
             {
@@ -166,18 +178,17 @@ namespace HomeByMarch
                 ActivateBloodParticle();
                 Destroy(healthBar);
                 gameController?.OnEnemyDefeated(); // Trigger defeat only once
-                stateMachine.SetState(new EnemyDeathState(this, animator, agent));  // Transition to death state
+                stateMachine.SetState(new EnemyDeathState(this, animator, agent)); // Transition to death state
             }
             else
             {
                 SFXManager.PlaySFX(SoundTypes.Damage, 1);
-                ActivateBloodParticle(); 
+                ActivateBloodParticle();
                 OnHit();
-                // Trigger blood particle effect when damage is taken
             }
         }
 
-        void AttackRayCast()
+        private void AttackRayCast()
         {
             Vector3 rayOrigin = transform.position + Vector3.up * 1f;
 
@@ -217,7 +228,17 @@ namespace HomeByMarch
             }
         }
 
-        // Method to activate the BloodParticle effect
+        private void ActivateBlueSlash()
+        {
+            foreach (var slash in blueSlashSpells)
+            {
+                if (slash != null)
+                {
+                    slash.CastSpell(transform); // Use the enemy's transform as the origin
+                }
+            }
+        }
+
         private void ActivateBloodParticle()
         {
             if (bloodParticle != null)

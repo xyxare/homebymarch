@@ -43,8 +43,12 @@ namespace HomeByMarch
             if (IsDead) return;
 
             // Reduce damage based on player's defense percentage
-            float reducedDamage = damage * Mathf.RoundToInt(1 - playerData.defense / 100f);
-            currentHealth = Mathf.Clamp(currentHealth - reducedDamage, 0, MaxHealth);
+            float reducedDamage = damage * (1 - Mathf.Clamp(playerData.defense / 100f, 0f, 0.99f));
+
+            // Round the reduced damage to a whole number
+            int finalDamage = Mathf.RoundToInt(reducedDamage);
+
+            currentHealth = Mathf.Clamp(currentHealth - finalDamage, 0, MaxHealth);
             PublishHealthPercentage();
             UpdateHealthText(); // Update health display
             OnDamageTaken?.Invoke();
@@ -59,6 +63,7 @@ namespace HomeByMarch
                 ShowDeathPanel(); // Show the death panel when the player dies
             }
         }
+
 
         public void Heal(int amount)
         {
