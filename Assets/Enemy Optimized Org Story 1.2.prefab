@@ -199,11 +199,11 @@ PrefabInstance:
       objectReference: {fileID: 6925569433709606311}
     - target: {fileID: 7292251493735157273, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
       propertyPath: maxHealth
-      value: 120
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 7292251493735157273, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
       propertyPath: attackDamage
-      value: 15
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7710292249566864328, guid: 1203b23744bab0a4ea94cc07b42216e0, type: 3}
       propertyPath: skinnedMeshRenderer

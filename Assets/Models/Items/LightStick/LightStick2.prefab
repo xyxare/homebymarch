@@ -50,7 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7dc864fae0778cb46a0a342113c49071, type: 3}
       propertyPath: m_Name
-      value: BiniLightStick2
+      value: LightStick2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7dc864fae0778cb46a0a342113c49071, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

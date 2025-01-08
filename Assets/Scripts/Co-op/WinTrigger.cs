@@ -37,7 +37,7 @@ public class WinTrigger : MonoBehaviourPunCallbacks
 
         if (gamePanel != null)
         {
-            gamePanel.SetActive(false); // Hide the game panel at the start
+            gamePanel.SetActive(true); // Hide the game panel at the start
         }
         else
         {
@@ -197,7 +197,7 @@ public class WinTrigger : MonoBehaviourPunCallbacks
     public void OnExitButtonClick()
     {
         PhotonNetwork.LeaveRoom(); // Leave the current room
-        SceneManager.LoadScene("Main Screen"); // Load the lobby scene
+        SceneManager.LoadScene("Lobby"); // Load the lobby scene
     }
 
     private void OnDrawGizmosSelected()

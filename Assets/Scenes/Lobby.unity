@@ -882,7 +882,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -268, y: -417.47763}
+  m_AnchoredPosition: {x: -255, y: -417.47763}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &207982409
@@ -994,12 +994,12 @@ MonoBehaviour:
   titleTextMeshPro: {fileID: 561121937}
   descriptionTextMeshPro: {fileID: 1349118832}
   targetImage: {fileID: 1803907913}
-  title: The Riftkeeper's Rapids
-  description: An ancient dungeon ruled by the cunning Riftkeeper, a spectral being
-    who tests intruders' unity and trust. The navigator and boat operator must outsmart
-    traps, navigate waterfalls, and evade magical obstacles. Only by defeating the
-    Riftkeeper can they claim the treasures hidden within the dungeon's currents.
-  imageSprite: {fileID: 21300000, guid: 61d940c894fe3b74f9f9fa29dea3f20d, type: 3}
+  title: The Labyrinth of Silent Resolve
+  description: A pacifist dungeon ruled by the Keeper of Peace, who disarms intruders
+    to test their intellect and teamwork. Players must solve puzzles and navigate
+    shifting walls without violence, relying on clever thinking and resourcefulness
+    to escape and earn the Keeper's favor.
+  imageSprite: {fileID: 21300000, guid: 4e57f59d668b65f4488f85d8a7bff077, type: 3}
 --- !u!1 &283644815
 GameObject:
   m_ObjectHideFlags: 0
@@ -3181,7 +3181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1368657857
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3570,7 +3570,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: THe rift
+  m_text: The Labyrinth
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3597,8 +3597,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 45.33
-  m_fontSizeBase: 45.33
+  m_fontSize: 39.31
+  m_fontSizeBase: 39.31
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3960,7 +3960,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1025, y: -62}
+  m_AnchoredPosition: {x: 508, y: -429}
   m_SizeDelta: {x: 598.6367, y: 185.95831}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1694510591
@@ -4209,7 +4209,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1728496081
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5073,7 +5073,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 349}
+  m_AnchoredPosition: {x: 70, y: 379}
   m_SizeDelta: {x: 1180.8599, y: 281.3596}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2134414669
@@ -5384,7 +5384,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1019, y: 401}
+  m_AnchoredPosition: {x: 736, y: 401}
   m_SizeDelta: {x: 188, y: 188}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1922463699570242391
