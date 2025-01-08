@@ -16,13 +16,15 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: 7404ff7cf78b9f848876ec131b9e07b5, type: 3}
   stackable: 0
   type: 2
-  description: 
+  description: Not everything needs a reaction. Sometimes you just have to be silent
+    and observe, then wait for the perfect opportunity to strike. Such is the healthy
+    option.
   data:
     Name: Mo Long Ren
     Id: 51
     buffs:
-    - attribute: 3
-      value: 15
+    - attribute: 0
+      value: 20
       min: 0
       max: 0
   skillData: {fileID: 0}
