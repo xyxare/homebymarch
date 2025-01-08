@@ -22,7 +22,7 @@ MonoBehaviour:
     to be sure.'
   data:
     Name: Xiao Long Bao
-    Id: 52
+    Id: -1
     buffs:
     - attribute: 2
       value: 7

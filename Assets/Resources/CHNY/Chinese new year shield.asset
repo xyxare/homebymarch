@@ -21,7 +21,7 @@ MonoBehaviour:
     contradiction.'
   data:
     Name: She Mao Dun
-    Id: 53
+    Id: -1
     buffs:
     - attribute: 3
       value: 10

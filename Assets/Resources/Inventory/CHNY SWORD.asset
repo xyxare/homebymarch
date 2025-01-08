@@ -21,7 +21,7 @@ MonoBehaviour:
     option.
   data:
     Name: Mo Long Ren
-    Id: 51
+    Id: -1
     buffs:
     - attribute: 0
       value: 20
