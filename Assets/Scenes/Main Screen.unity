@@ -17120,7 +17120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   userLevel: {fileID: 1751126725}
-  requiredLevel: 1
+  requiredLevel: 5
   targetPane: {fileID: 486448144}
   unlockInfoPanel: {fileID: 1556198394}
   showInfoButton: {fileID: 1670036638}
@@ -23514,6 +23514,10 @@ PrefabInstance:
     - target: {fileID: 9021122190215925688, guid: 407c6abe17a91a44ba164bb1daacc9a7, type: 3}
       propertyPath: m_Name
       value: Izenik
+      objectReference: {fileID: 0}
+    - target: {fileID: 9021122190215925688, guid: 407c6abe17a91a44ba164bb1daacc9a7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
