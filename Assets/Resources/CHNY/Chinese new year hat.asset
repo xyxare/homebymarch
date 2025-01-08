@@ -16,10 +16,17 @@ MonoBehaviour:
   characterDisplay: {fileID: 919132149155446097, guid: cf28d948b4423dd4ca8df8476869ef07, type: 3}
   stackable: 0
   type: 0
-  description: Chinese new year hat
+  description: '[CHINESE NEW YEAR EVENT REWARD] A comfy and fashionable hat made
+    for festivities! You feel like the name sounds less like that of a hat and more
+    like a food item, but you don''t know these strange people''s language enough
+    to be sure.'
   data:
-    Name: 
-    Id: -1
-    buffs: []
+    Name: Xiao Long Bao
+    Id: 52
+    buffs:
+    - attribute: 2
+      value: 7
+      min: 0
+      max: 0
   skillData: {fileID: 0}
   boneNames: []
