@@ -43,7 +43,7 @@ public class ChnyBossSkill : SpellStrategy
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage((int)damage);
-            }
+            }   
         }
     }
 
