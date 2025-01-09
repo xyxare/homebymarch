@@ -17,9 +17,9 @@ MonoBehaviour:
   description: 
   meteorPrefab: {fileID: 4580325160271238322, guid: fd12974912a08a245a1df8ef9940be42, type: 3}
   damage: 20
-  radius: 5
-  spawnDistance: 5
-  spawnHeight: 1
+  radius: 2
+  spawnDistance: 0
+  spawnHeight: 3
   duration: 5
   detectionDelay: 1
   soundref: 0
