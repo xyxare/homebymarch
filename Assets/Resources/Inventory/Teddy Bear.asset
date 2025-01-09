@@ -29,5 +29,5 @@ MonoBehaviour:
       value: 15
       min: 0
       max: 0
-  skillData: {fileID: 0}
+  skillData: {fileID: 11400000, guid: 8aeef96ec785fbf4cb6bf316903d6318, type: 2}
   boneNames: []
