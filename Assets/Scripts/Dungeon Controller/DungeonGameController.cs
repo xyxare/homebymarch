@@ -1,67 +1,72 @@
-using System.Collections;
-using TMPro;  // Add the TextMesh Pro namespace
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;  // Add the UI namespace for Button
-using HomeByMarch;
+using TMPro;
+using UnityEngine.UI;
+using System.Collections;
 
+using HomeByMarch;
 public class DungeonGameController : MonoBehaviour
 {
-    public GameObject enemyPrefab;      // Reference to the enemy prefab
-    public Transform[] spawnPoints;     // Array of spawn points for enemies
-    public float timeLimit = 60f;       // Time limit to defeat enemies
-    public int totalEnemiesToDefeat = 10; // Total number of enemies to defeat
+    public GameObject enemyPrefab;
+    public Transform[] spawnPoints;
+    public float timeLimit = 60f;
+    public int totalEnemiesToDefeat = 10;
+    public GameObject exitDungeon;
+    private int enemiesDefeated = 0;
+    private int enemiesSpawned = 0;
+    private float timeRemaining;
+    private bool gameActive = false;
 
-    private int enemiesDefeated = 0;    // Track the number of defeated enemies
-    private int enemiesSpawned = 0;     // Track the number of enemies spawned
-    private float timeRemaining;        // Time remaining in the dungeon
-    private bool gameActive = false;    // Flag to track if the game is active
-
-    // References to TextMeshProUGUI components
-    public TMP_Text timerText;          // TMP Text for displaying the timer
-    public TMP_Text enemiesDefeatedText; // TMP Text for displaying defeated enemies
-    public TMP_Text enemiesRemainingText; // TMP Text for displaying remaining enemies
-    public Button startButton;          // Reference to the start button
-    public GameObject winPanel;         // Reference to the Win Panel (UI)
-    public GameObject challengePanel;   // Reference to the Dungeon Challenge Panel (UI)
-    public GameObject goldRewardPanel;  // Reference to the Gold Reward Panel (UI)
-
+    public TMP_Text timerText;
+    public TMP_Text enemiesDefeatedText;
+    public TMP_Text enemiesRemainingText;
+    public Button startButton;
+    public GameObject challengePanel;
+    public GameObject goldRewardPanel;
     public GameObject StoryPanelEnd;
 
-    public GameObject congratulationsPanel; // Reference to the Congratulations Panel (UI)
-    public Button continueButton;        // Reference to the Continue Button (UI)
-    public GameObject dungeonfinisher;
+    public bool useTimeLimit = true;
+    public bool isStoryDungeon = true;
 
-    // New boolean to choose between time limit or defeating enemies
-    public bool useTimeLimit = true;    // Toggle for time limit or not (set in Editor)
+    public List<GameObject> winPanels; // List of win panels
+    public float firstPanelBias = 0.6f; // Chance of showing the first panel
 
     public StoryLockController storyLockController;
 
-    public int dungeonIndex; // Dungeon identifier for story completion 
+    public int dungeonIndex;
+    public string itemClaimedKey = "RewardClaimed";
 
-    public string itemClaimedKey = "RewardClaimed"; // Key for PlayerPrefs
+    public float spawnInterval = 2f;
 
-    public float spawnInterval = 2f;    // Interval between enemy spawns
+    public SFXManager sfxManager;
 
-    public SFXManager sfxManager;  // Reference to the SFXManager
     void Start()
     {
-        // Add listener to the start button to start the game
         startButton.onClick.AddListener(StartGame);
-        winPanel.SetActive(false);        // Make sure the win panel is hidden at the start
-        challengePanel.SetActive(true); // Make sure the challenge panel is hidden at the start
-        goldRewardPanel.SetActive(false); // Make sure the gold reward panel is hidden at the start
+        goldRewardPanel.SetActive(false);
+
+        // Hide challengePanel only if it is a story dungeon
+        if (isStoryDungeon)
+        {
+            challengePanel.SetActive(false);
+        }
+
+        // Ensure all win panels are hidden initially
+        foreach (var panel in winPanels)
+        {
+            panel.SetActive(false);
+        }
     }
 
-    // This method is called when the Start button is clicked
     void StartGame()
     {
         challengePanel.SetActive(false);
-        gameActive = true;        // Set the game to active
-        enemiesDefeated = 0;      // Reset the defeated enemies count
-        enemiesSpawned = 0;       // Reset the spawned enemies count
-        timeRemaining = timeLimit; // Reset the timer only if time limit is enabled
-        UpdateUI();               // Update the UI to reflect the initial state
-        StartCoroutine(SpawnEnemies()); // Start spawning enemies
+        gameActive = true;
+        enemiesDefeated = 0;
+        enemiesSpawned = 0;
+        timeRemaining = timeLimit;
+        UpdateUI();
+        StartCoroutine(SpawnEnemies());
     }
 
     void Update()
@@ -70,12 +75,11 @@ public class DungeonGameController : MonoBehaviour
         {
             if (useTimeLimit)
             {
-                // Update the timer if time limit is enabled
                 timeRemaining -= Time.deltaTime;
                 if (timeRemaining <= 0)
                 {
                     timeRemaining = 0;
-                    EndGame(false);  // Time is up, game over
+                    EndGame(false);
                 }
             }
 
@@ -83,75 +87,66 @@ public class DungeonGameController : MonoBehaviour
         }
     }
 
-    // Update UI texts
     void UpdateUI()
     {
         if (useTimeLimit)
         {
-            // Display the timer if time limit is enabled
             timerText.text = Mathf.Ceil(timeRemaining).ToString();
         }
         else
         {
-            timerText.text = "";  // Hide the timer if no time limit
+            timerText.text = "";
         }
 
-        // Display the number of defeated enemies
-        enemiesDefeatedText.text = enemiesDefeated.ToString() + "/" + totalEnemiesToDefeat;
-
-        // Display the number of remaining enemies
+        enemiesDefeatedText.text = enemiesDefeated + "/" + totalEnemiesToDefeat;
         int remainingEnemies = totalEnemiesToDefeat - enemiesDefeated;
-        enemiesRemainingText.text = "Remaining: " + remainingEnemies.ToString();
+        enemiesRemainingText.text = "Remaining: " + remainingEnemies;
     }
 
-    // This method is called when an enemy is defeated
     public void OnEnemyDefeated()
     {
         enemiesDefeated++;
-        UpdateUI();  
+        UpdateUI();
 
         if (enemiesDefeated >= totalEnemiesToDefeat)
         {
-            StartCoroutine(ShowCongratulationsPanelAfterDelay());
+            EndGame(true);
         }
     }
 
-    private IEnumerator ShowCongratulationsPanelAfterDelay()
-    {
-        yield return new WaitForSeconds(2f); 
-        congratulationsPanel.SetActive(true);
-        continueButton.onClick.AddListener(() =>
-        {
-            congratulationsPanel.SetActive(false);
-            EndGame(true);  
-        });
-    }
-
-    // Ends the game, either win or lose
     void EndGame(bool won)
     {
         gameActive = false;
 
-
         if (won)
         {
+            storyLockController.SetStoryCompletionStatus(dungeonIndex, true);
 
-            // Mark the dungeon story as completed
-            storyLockController.SetStoryCompletionStatus(dungeonIndex, true); // Replace 'dungeonIndex' with the appropriate dungeon identifier.
-
-            // Check PlayerPrefs for the itemClaimedKey
             int claimedStatus = PlayerPrefs.GetInt(itemClaimedKey, 0);
             if (claimedStatus == 1)
             {
                 Debug.Log("Opening Gold Reward Panel");
-                StoryPanelEnd.SetActive(true);
-                goldRewardPanel.SetActive(true); // Show the Gold Reward Panel
+                if (isStoryDungeon)
+                {
+
+                    StoryPanelEnd.SetActive(true);
+                }
+                goldRewardPanel.SetActive(true);
+                exitDungeon.SetActive(true);
             }
             else
             {
-                Debug.Log("Opening Win Panel");
-                StoryPanelEnd.SetActive(true);
-                winPanel.SetActive(true); // Show the Win Panel
+                Debug.Log("Randomizing and opening a Win Panel");
+                if (isStoryDungeon)
+                {
+
+                    StoryPanelEnd.SetActive(true);
+                }
+                exitDungeon.SetActive(true);
+
+                // Randomize the win panel with bias
+                GameObject selectedPanel = SelectRandomWinPanel();
+                selectedPanel.SetActive(true);
             }
         }
         else
@@ -160,33 +155,47 @@ public class DungeonGameController : MonoBehaviour
         }
     }
 
-    // Coroutine to spawn enemies at random spawn points
+    GameObject SelectRandomWinPanel()
+    {
+        if (winPanels.Count == 0) return null;
+
+        // Randomize with bias towards the first panel
+        float randomValue = Random.value; // Value between 0 and 1
+        if (randomValue < firstPanelBias)
+        {
+            return winPanels[0]; // Higher chance of selecting the first panel
+        }
+        else
+        {
+            // Select a random panel from the rest of the list
+            int randomIndex = Random.Range(1, winPanels.Count);
+            return winPanels[randomIndex];
+        }
+    }
+
     IEnumerator SpawnEnemies()
     {
         while (gameActive && enemiesSpawned < totalEnemiesToDefeat)
         {
-            int spawnIndex = Random.Range(0, spawnPoints.Length);  // Random spawn point
-            GameObject enemy = Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);  // Spawn enemy
+            int spawnIndex = Random.Range(0, spawnPoints.Length);
+            GameObject enemy = Instantiate(enemyPrefab, spawnPoints[spawnIndex].position, Quaternion.identity);
 
-            // Assign the SFXManager to the enemy's Enemy script
             Enemy enemyScript = enemy.GetComponent<Enemy>();
             if (enemyScript != null && sfxManager != null)
             {
-                enemyScript.SFXManager = sfxManager;  // Assign the SFXManager to the enemy script
+                enemyScript.SFXManager = sfxManager;
             }
 
-            enemiesSpawned++;  // Increment the spawn count
-            yield return new WaitForSeconds(spawnInterval);  // Wait before spawning the next enemy (adjust as needed)
+            enemiesSpawned++;
+            yield return new WaitForSeconds(spawnInterval);
         }
     }
 
-    // This method is called when the player collides with the Dungeon Trigger
     private void OnTriggerEnter(Collider other)
     {
-        // Check if the player (tagged as "Player") collided with the trigger
         if (other.CompareTag("Player"))
         {
-            challengePanel.SetActive(true); // Show the Dungeon Challenge Panel
+            challengePanel.SetActive(true);
         }
     }
 }

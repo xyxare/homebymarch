@@ -15,7 +15,7 @@ MonoBehaviour:
   uiDisplay: {fileID: 21300000, guid: 4f22e2f5d56409047a70f018a2394aee, type: 3}
   characterDisplay: {fileID: 919132149155446097, guid: 0b8a85148751c1e4480dbd1a2ea65380, type: 3}
   stackable: 0
-  type: 0
+  type: 3
   description: '[CHINESE NEW YEAR EVENT REWARD] Despite being a shield, with it equipped,
     you feel that you attack with more positive emotion than before.  What an interesting
     contradiction.'
