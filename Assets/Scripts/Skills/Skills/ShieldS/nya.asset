@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: nya
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 0}
-  spellName: 
-  description: 
-  shieldPrefab: {fileID: 0}
+  spellName: Shield-nya~
+  description: Nyan~ The power of catpeople will give you a shocking amount of defense
+    (+4 :3) but in exchange, you get some psychic damage ^_^. Psychic damage may
+    vary uwu
+  shieldPrefab: {fileID: 871324411638548333, guid: 5fae79d5c764c3b44b9a080a80a0b852, type: 3}
   duration: 5
-  defense: 0
+  defense: 4

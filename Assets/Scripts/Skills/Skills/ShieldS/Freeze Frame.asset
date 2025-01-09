@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c3ced775e126c04f85a9f1cceae9f1d, type: 3}
   m_Name: Freeze Frame
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 0}
-  spellName: 
-  description: 
-  shieldPrefab: {fileID: 0}
+  uiDisplay: {fileID: 21300000, guid: f04585ba61fbf764daf6fd648b48f761, type: 3}
+  spellName: Freeze Frame
+  description: "Keep yourself as you are at the moment. Gain a temporary +10DEF\t"
+  shieldPrefab: {fileID: 1015278120664845694, guid: dc785478ce3668142814c25b983b74c0, type: 3}
   duration: 5
-  defense: 0
+  defense: 10
