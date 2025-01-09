@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a359555bfc745164d8d91359f66cae2d, type: 3}
   m_Name: Chinese new year shield
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 0}
+  uiDisplay: {fileID: 21300000, guid: 4f22e2f5d56409047a70f018a2394aee, type: 3}
   characterDisplay: {fileID: 919132149155446097, guid: 0b8a85148751c1e4480dbd1a2ea65380, type: 3}
   stackable: 0
   type: 0
@@ -21,7 +21,7 @@ MonoBehaviour:
     contradiction.'
   data:
     Name: She Mao Dun
-    Id: -1
+    Id: 53
     buffs:
     - attribute: 3
       value: 10

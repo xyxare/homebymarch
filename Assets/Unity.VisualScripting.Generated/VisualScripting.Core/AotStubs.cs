@@ -956,6 +956,9 @@ namespace Unity.VisualScripting.Generated.Aot
 	// SeasonalCountDown.op_Implicit
 	// SeasonalCountDown.op_Equality
 	// SeasonalCountDown.op_Inequality
+	// SeasonalDaysCountDown.op_Implicit
+	// SeasonalDaysCountDown.op_Equality
+	// SeasonalDaysCountDown.op_Inequality
 	// SFX.op_Implicit
 	// SFX.op_Equality
 	// SFX.op_Inequality
@@ -1685,6 +1688,7 @@ namespace Unity.VisualScripting.Generated.Aot
 	// Cinemachine.PostFX.CinemachineVolumeSettings.op_Inequality
 	// --------------- Plugin Stubs
 	// --------------- Asset Stubs
+	// --------------- Scene Stubs
 	// --------------- Scene Stubs
 	// --------------- Scene Stubs
 	// --------------- Scene Stubs
@@ -12694,6 +12698,41 @@ namespace Unity.VisualScripting.Generated.Aot
 		// SeasonalCountDown.op_Inequality
 		[global::UnityEngine.Scripting.PreserveAttribute()]
 		public static void SeasonalCountDown_op_Inequality()
+		{
+			global::UnityEngine.Object arg0 = default(global::UnityEngine.Object);
+			global::UnityEngine.Object arg1 = default(global::UnityEngine.Object);
+			bool @operator = (arg0 != arg1);
+			global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool> optimized = new global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool>(default(global::System.Reflection.MethodInfo));
+			optimized.Invoke(null, arg0, arg1);
+			optimized.Invoke(default(object[]));
+		}
+		
+		// SeasonalDaysCountDown.op_Implicit
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void SeasonalDaysCountDown_op_Implicit()
+		{
+			global::UnityEngine.Object arg0 = default(global::UnityEngine.Object);
+			bool conversion = ((bool)(arg0));
+			global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, bool> optimized = new global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, bool>(default(global::System.Reflection.MethodInfo));
+			optimized.Invoke(null, arg0);
+			optimized.Invoke(default(object[]));
+		}
+		
+		// SeasonalDaysCountDown.op_Equality
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void SeasonalDaysCountDown_op_Equality()
+		{
+			global::UnityEngine.Object arg0 = default(global::UnityEngine.Object);
+			global::UnityEngine.Object arg1 = default(global::UnityEngine.Object);
+			bool @operator = (arg0 == arg1);
+			global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool> optimized = new global::Unity.VisualScripting.StaticFunctionInvoker<UnityEngine.Object, UnityEngine.Object, bool>(default(global::System.Reflection.MethodInfo));
+			optimized.Invoke(null, arg0, arg1);
+			optimized.Invoke(default(object[]));
+		}
+		
+		// SeasonalDaysCountDown.op_Inequality
+		[global::UnityEngine.Scripting.PreserveAttribute()]
+		public static void SeasonalDaysCountDown_op_Inequality()
 		{
 			global::UnityEngine.Object arg0 = default(global::UnityEngine.Object);
 			global::UnityEngine.Object arg1 = default(global::UnityEngine.Object);
