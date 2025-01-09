@@ -18,3 +18,4 @@ MonoBehaviour:
   shieldPrefab: {fileID: 1015278120664845694, guid: dc785478ce3668142814c25b983b74c0, type: 3}
   duration: 5
   defense: 10
+  soundref: 2

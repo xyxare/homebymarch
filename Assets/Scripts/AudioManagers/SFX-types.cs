@@ -7,5 +7,7 @@ public enum SoundTypes
     Damage,
     Death,
     Rerwards,
-    Skills
+    Skill_Spell,
+    Skill_Shield,
+    Skill_Heal
 }

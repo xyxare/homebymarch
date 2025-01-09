@@ -12,10 +12,14 @@ public class HealSpellStrategy : SpellStrategy
     public float duration = 5f;  // Duration of the healing effect
     public float healPercentage = 0.2f; // 20% healing
 
+    public int soundref;
+
     public override void CastSpell(Transform origin)
     {
         Debug.Log("Heal spell is casted");
         var healEffect = Instantiate(HealPrefab, origin.position, Quaternion.identity, origin); // Visual effect
+        SFXManager.PlaySFX(SoundTypes.Skill_Heal, soundref);
+
         Destroy(healEffect, duration); // Automatically destroy visual effect after duration
 
         var playerHealth = origin.GetComponent<Health>(); // Get the Health component on the origin

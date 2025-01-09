@@ -22,4 +22,4 @@ MonoBehaviour:
   spawnHeight: 3
   duration: 5
   detectionDelay: 1
-  soundref: 0
+  soundref: 1
