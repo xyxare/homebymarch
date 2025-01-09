@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a359555bfc745164d8d91359f66cae2d, type: 3}
   m_Name: CHNY SWORD
   m_EditorClassIdentifier: 
-  uiDisplay: {fileID: 0}
-  characterDisplay: {fileID: 919132149155446097, guid: 7404ff7cf78b9f848876ec131b9e07b5, type: 3}
+  uiDisplay: {fileID: 21300000, guid: 3092c2b32eb28fd44b99d5b642974c08, type: 3}
+  characterDisplay: {fileID: 3950995163835837004, guid: 669657b18e7ddc348b5bf45ea8d24251, type: 3}
   stackable: 0
   type: 2
   description: '[CHINESE NEW YEAR EVENT REWARD] Not everything needs a reaction.
@@ -21,9 +21,13 @@ MonoBehaviour:
     to strike. Such is the healthy option.'
   data:
     Name: Mo Long Ren
-    Id: -1
+    Id: 51
     buffs:
     - attribute: 0
+      value: 20
+      min: 0
+      max: 0
+    - attribute: 3
       value: 20
       min: 0
       max: 0

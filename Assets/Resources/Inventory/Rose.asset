@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiDisplay: {fileID: 21300000, guid: ec37b3322f788b647bd6f4fac91d66d8, type: 3}
   characterDisplay: {fileID: 919132149155446097, guid: 32a2bd10f11dfb74f8f2531d1d53a442, type: 3}
-  stackable: 0
+  stackable: 1
   type: 2
   description: Plucked from a garden said to bloom in eternal twilight, this Rose
     carries the scent of fleeting memories and unspoken promises. Its petals glow
@@ -24,7 +24,7 @@ MonoBehaviour:
     Name: Rose
     Id: 21
     buffs:
-    - attribute: 2
+    - attribute: 3
       value: 6
       min: 0
       max: 0

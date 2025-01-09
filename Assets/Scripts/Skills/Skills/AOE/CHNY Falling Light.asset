@@ -18,7 +18,7 @@ MonoBehaviour:
     second for 5 seconds.
   meteorPrefab: {fileID: 4580325160271238322, guid: fd12974912a08a245a1df8ef9940be42, type: 3}
   damage: 3
-  radius: 5
+  radius: 1.5
   spawnDistance: 2
   spawnHeight: 0.5
   duration: 5

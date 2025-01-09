@@ -16,12 +16,25 @@ public class ChnyBossSkill : SpellStrategy
     public float detectionDelay = 1f; // Delay before starting detection
     public int soundref = 0;
 
+    private GameObject player; // Reference to the player object
+
     public override void CastSpell(Transform origin)
     {
         Debug.Log("Meteor is casted");
 
-        // Calculate the spawn position in front of and above the player
-        Vector3 spawnPosition = origin.position + origin.forward * spawnDistance + Vector3.up * spawnHeight;
+        // Find the player object (assuming there's only one player in the scene)
+        if (player == null)
+        {
+            player = GameObject.FindWithTag("Player");
+            if (player == null)
+            {
+                Debug.LogError("Player not found!");
+                return;
+            }
+        }
+
+        // Use the player's position as the spawn position
+        Vector3 spawnPosition = player.transform.position;
 
         var meteor = Instantiate(meteorPrefab, spawnPosition, Quaternion.identity);
         // SFXManager.PlaySFX(SoundTypes.Skills, soundref);

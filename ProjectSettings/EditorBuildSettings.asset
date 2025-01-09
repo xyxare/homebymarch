@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Story Screen.unity
     guid: 4e75040bc43b9e3498115dbd636cf341
   - enabled: 1
+    path: Assets/Scenes/Dungeon Exploration/Seasonal CHNY.unity
+    guid: ff7daa9ad06ad6546b0f0f534fe42ac6
+  - enabled: 1
     path: Assets/Scenes/Loading Screen.unity
     guid: 2f11686c856768641b51ec364ec4b9f3
   - enabled: 1
