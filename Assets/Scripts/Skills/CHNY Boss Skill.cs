@@ -14,7 +14,7 @@ public class ChnyBossSkill : SpellStrategy
     public float spawnHeight = 5f; // Height above the player
     public float duration = 5f; // Duration of the meteor spell
     public float detectionDelay = 1f; // Delay before starting detection
-    public int soundref = 0;
+    public int soundref;
 
     private GameObject player; // Reference to the player object
 
@@ -37,7 +37,7 @@ public class ChnyBossSkill : SpellStrategy
         Vector3 spawnPosition = player.transform.position;
 
         var meteor = Instantiate(meteorPrefab, spawnPosition, Quaternion.identity);
-        // SFXManager.PlaySFX(SoundTypes.Skills, soundref);
+        SFXManager.PlaySFX(SoundTypes.Skill_Spell, soundref);
         Destroy(meteor, duration); // Destroy the meteor after the duration
 
         // Start detection after a delay

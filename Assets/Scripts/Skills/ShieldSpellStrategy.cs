@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +10,14 @@ public class ShieldSpellStrategy : SpellStrategy {
     public GameObject shieldPrefab;
     public float duration = 5f;
     public int defense; // New field to add to defenseBuff
+    public int soundref;
+    
 
     public override void CastSpell(Transform origin) {
         Debug.Log("Shield is casted");
         var shield = Instantiate(shieldPrefab, origin.position, Quaternion.identity, origin);
+
+        SFXManager.PlaySFX(SoundTypes.Skill_Shield, soundref);
         Destroy(shield, duration);
 
         // Find the PlayerData component and add the defense value to defenseBuff
