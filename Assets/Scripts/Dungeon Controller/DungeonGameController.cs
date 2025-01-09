@@ -27,6 +27,10 @@ public class DungeonGameController : MonoBehaviour
 
     public GameObject StoryPanelEnd;
 
+    public GameObject congratulationsPanel; // Reference to the Congratulations Panel (UI)
+    public Button continueButton;        // Reference to the Continue Button (UI)
+    public GameObject dungeonfinisher;
+
     // New boolean to choose between time limit or defeating enemies
     public bool useTimeLimit = true;    // Toggle for time limit or not (set in Editor)
 
@@ -44,7 +48,7 @@ public class DungeonGameController : MonoBehaviour
         // Add listener to the start button to start the game
         startButton.onClick.AddListener(StartGame);
         winPanel.SetActive(false);        // Make sure the win panel is hidden at the start
-        challengePanel.SetActive(false); // Make sure the challenge panel is hidden at the start
+        challengePanel.SetActive(true); // Make sure the challenge panel is hidden at the start
         goldRewardPanel.SetActive(false); // Make sure the gold reward panel is hidden at the start
     }
 
@@ -104,12 +108,23 @@ public class DungeonGameController : MonoBehaviour
     public void OnEnemyDefeated()
     {
         enemiesDefeated++;
-        UpdateUI();  // Update the UI immediately after incrementing the count
+        UpdateUI();  
 
         if (enemiesDefeated >= totalEnemiesToDefeat)
         {
-            EndGame(true);  // Player has defeated all enemies, game won
+            StartCoroutine(ShowCongratulationsPanelAfterDelay());
         }
+    }
+
+    private IEnumerator ShowCongratulationsPanelAfterDelay()
+    {
+        yield return new WaitForSeconds(2f); 
+        congratulationsPanel.SetActive(true);
+        continueButton.onClick.AddListener(() =>
+        {
+            congratulationsPanel.SetActive(false);
+            EndGame(true);  
+        });
     }
 
     // Ends the game, either win or lose
@@ -117,12 +132,12 @@ public class DungeonGameController : MonoBehaviour
     {
         gameActive = false;
 
+
         if (won)
         {
-         
 
             // Mark the dungeon story as completed
-            storyLockController.SetStoryCompletionStatus(dungeonIndex,true); // Replace 'dungeonIndex' with the appropriate dungeon identifier.
+            storyLockController.SetStoryCompletionStatus(dungeonIndex, true); // Replace 'dungeonIndex' with the appropriate dungeon identifier.
 
             // Check PlayerPrefs for the itemClaimedKey
             int claimedStatus = PlayerPrefs.GetInt(itemClaimedKey, 0);
