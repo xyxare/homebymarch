@@ -16,6 +16,7 @@ namespace HomeByMarch
         public string lastSavedDate; // Store the last saved date to check if a new day has started
 
         public int lastSavedStepCount; // Store the last saved step count to check if a new day has started
+        public int lastSaveOverallSteps;
     }
 
     public class StepCountDemo : MonoBehaviour
