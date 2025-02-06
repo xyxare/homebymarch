@@ -24,6 +24,7 @@ public class DungeonGameController : MonoBehaviour
     public GameObject winPanel;         // Reference to the Win Panel (UI)
     public GameObject challengePanel;   // Reference to the Dungeon Challenge Panel (UI)
     public GameObject goldRewardPanel;  // Reference to the Gold Reward Panel (UI)
+    public GameObject gameOverPanel; // Reference to the Game Over Panel
 
     public GameObject StoryPanelEnd;
 
@@ -157,6 +158,7 @@ public class DungeonGameController : MonoBehaviour
         else
         {
             Debug.Log("Game over! Time's up or enemies not defeated.");
+            gameOverPanel.SetActive(true);
         }
     }
 
