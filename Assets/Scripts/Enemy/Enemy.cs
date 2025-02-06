@@ -210,6 +210,7 @@ namespace HomeByMarch
             {
                 Vector3 rayEnd = rayOrigin + direction * attackDistance;
                 Debug.DrawLine(rayOrigin, rayEnd, Color.red, 0.1f);
+                Debug.Log($"{rayEnd.x}, {rayEnd.y}, {rayEnd.z}");
 
                 if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, attackDistance))
                 {

@@ -17363,7 +17363,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 3792211553574827304, guid: 2670fc41b8eb4be43a991b3aa88abdf3, type: 3}
   spawnPoints:
   - {fileID: 671680702}
-  timeLimit: 10
+  timeLimit: 80
   totalEnemiesToDefeat: 8
   timerText: {fileID: 525903445}
   enemiesDefeatedText: {fileID: 450888955}
