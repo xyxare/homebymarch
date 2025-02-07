@@ -24,6 +24,7 @@ public class DungeonGameController : MonoBehaviour
     public GameObject winPanel;         // Reference to the Win Panel (UI)
     public GameObject challengePanel;   // Reference to the Dungeon Challenge Panel (UI)
     public GameObject goldRewardPanel;  // Reference to the Gold Reward Panel (UI)
+    public GameObject gameOverPanel; // Reference to the Game Over Panel
 
     public GameObject StoryPanelEnd;
 
@@ -157,6 +158,8 @@ public class DungeonGameController : MonoBehaviour
         else
         {
             Debug.Log("Game over! Time's up or enemies not defeated.");
+            gameOverPanel.SetActive(true); // shows game over screen
+            StartCoroutine(FreezeAllEnemies());
         }
     }
 
@@ -179,6 +182,31 @@ public class DungeonGameController : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval);  // Wait before spawning the next enemy (adjust as needed)
         }
     }
+
+    IEnumerator FreezeAllEnemies(){
+        {
+            
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy"); // searches for all enemies
+            
+            if (enemies.Length > 0){
+                foreach (GameObject enemy in enemies)
+                {
+                    Debug.Log("you accidentally froze");
+                    UnityEngine.AI.NavMeshAgent enemyNavMesh = enemy.GetComponent<UnityEngine.AI.NavMeshAgent>(); // getting the navmesh. if it doesnt, this returns null and the freeze thing wont bug out (hopefully)
+                    Enemy enemyScript = enemy.GetComponent<Enemy>(); // gets the enemy script to be disabled on game over
+                    Animator animator = enemy.GetComponentInChildren<Animator>(); // the part that makes the enemy move in place. remove that too.
+                    enemyNavMesh.isStopped = true; // this should freeze all the enemies in place
+                    enemyScript.enabled = false; // stop registering attacks and playing all those sound effects
+                    animator.enabled = false; // stop moving. THE WORLD
+                }
+            } else{
+                Debug.Log("no enemies lol");
+            }
+        }
+
+        yield return 0;
+    }
+
 
     // This method is called when the player collides with the Dungeon Trigger
     private void OnTriggerEnter(Collider other)

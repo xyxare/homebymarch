@@ -17363,7 +17363,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 3792211553574827304, guid: 2670fc41b8eb4be43a991b3aa88abdf3, type: 3}
   spawnPoints:
   - {fileID: 671680702}
-  timeLimit: 120
+  timeLimit: 80
   totalEnemiesToDefeat: 8
   timerText: {fileID: 525903445}
   enemiesDefeatedText: {fileID: 450888955}
@@ -17372,6 +17372,7 @@ MonoBehaviour:
   winPanel: {fileID: 1972924473}
   challengePanel: {fileID: 1718431583}
   goldRewardPanel: {fileID: 2073638236}
+  gameOverPanel: {fileID: 538420370}
   StoryPanelEnd: {fileID: 2057181058}
   congratulationsPanel: {fileID: 1930445722}
   continueButton: {fileID: 508395970}
